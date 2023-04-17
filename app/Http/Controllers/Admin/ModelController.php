@@ -4,82 +4,189 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Model;
+use App\Models\Make;
 
 class ModelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index()
     {
-        //
+        $title = "Models";
+         
+        return view('admin.models.index',compact('title'));
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getmodels(Request $request){
+        $columns = array(
+			0 => 'id',
+			1 => 'title',
+            2 => 'slug',
+            3 => 'make_id',
+			4 => 'created_at',
+			5 => 'action'
+		);
+		
+		$totalData = Model::count();
+		$limit = $request->input('length');
+		$start = $request->input('start');
+		$order = $columns[$request->input('order.0.column')];
+		$dir = $request->input('order.0.dir');
+		
+		if(empty($request->input('search.value'))){
+			$models = Model::offset($start)
+				->limit($limit)
+				->orderBy($order,$dir)
+				->get();
+			$totalFiltered = Model::count();
+		}else{
+			$search = $request->input('search.value');
+			$models = Model::where([
+				
+				['title', 'like', "%{$search}%"],
+			])
+				
+				->orWhere('created_at','like',"%{$search}%")
+				->offset($start)
+				->limit($limit)
+				->orderBy($order, $dir)
+				->get();
+			$totalFiltered = Model::where([
+				
+				['title', 'like', "%{$search}%"],
+			])
+				->orWhere('created_at','like',"%{$search}%")
+				->count();
+		}
+		
+		
+		$data = array();
+		
+		if($models){
+			foreach($makes as $r){
+				$edit_url = route('models.edit',$r->id);
+				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="models[]" value="'.$r->id.'"><span></span></label></td>';
+				$nestedData['title'] = $r->title;
+                $nestedData['slug'] = $r->slug;
+                $nestedData['make'] = $r->make_id;
+				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
+				$nestedData['action'] = '
+                                <div>
+                                <td>
+                                   
+                                    <a title="Edit Model" class="btn btn-sm btn-clean btn-icon"
+                                       href="'.$edit_url.'">
+                                       <i class="icon-1x text-dark-50 flaticon-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Model" href="javascript:void(0)">
+                                        <i class="icon-1x text-dark-50 flaticon-delete"></i>
+                                    </a>
+                                </td>
+                                </div>
+                            ';
+				$data[] = $nestedData;
+			}
+		}
+		
+		$json_data = array(
+			"draw"			=> intval($request->input('draw')),
+			"recordsTotal"	=> intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"			=> $data
+		);
+		
+		echo json_encode($json_data);
+    }
+    
+    public function modelDetail(Request $request){
+        
+    }
+
     public function create()
     {
-        //
+        $title = "Create Model";
+        $makes = Make::all();
+        
+        return view('admin.models.create',compact('title','makes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+		    'title' => 'required|max:255',
+            'make'  => 'required',
+	    ]);
+        $make = Make::create([
+            'title' => $request->title,
+            'make_id' => $request->make
+        ]);
+        Session::flash('success_message', 'Great! Model has been saved successfully!');
+	  
+	    return redirect()->route('models.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
+       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+        $title = "Create Model";
+        $makes = Make::all();
+        $model = Model::find($id);
+        
+        return view('admin.models.create',compact('title','makes','model'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+		    'title' => 'required|max:255',
+            'make'  => 'required',
+	    ]);
+        $make = Make::where('id',$id)->update([
+            'title' => $request->title,
+            'make_id' => $request->make
+        ]);
+        Session::flash('success_message', 'Great! Model has been saved successfully!');
+	  
+	    return redirect()->route('models.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+	    $model = Model::find($id);
+	    if($model){
+		    $model->delete();
+		    Session::flash('success_message', 'Model successfully deleted!');
+	    }
+	    return redirect()->route('makes.index');
+	   
     }
+	public function deleteSelectedClients(Request $request)
+	{
+		$input = $request->all();
+		$this->validate($request, [
+			'models' => 'required',
+		
+		]);
+		foreach ($input['models'] as $index => $id) {
+			
+			$model = Model::find($id);
+			if($model){
+				$model->delete();
+			}
+			
+		}
+		Session::flash('success_message', 'Model Categories successfully deleted!');
+		return redirect()->back();
+		
+	}
 }

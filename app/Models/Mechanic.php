@@ -9,4 +9,5 @@ class Mechanic extends Model
 {
     use HasFactory;
     protected $guarded = [];
+ 
 }

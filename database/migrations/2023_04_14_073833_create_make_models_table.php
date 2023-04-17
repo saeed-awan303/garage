@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFuelTypesTable extends Migration
+class CreateMakeModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,20 @@ class CreateFuelTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fuel_types', function (Blueprint $table) {
+        Schema::create('make_models', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->text('slug')->nullable();
-            $table->unsignedBigInteger('madel_id');
-            $table->foreign('madel_id')
-                ->references('id')->on('make_models')->onDelete('cascade');
+            $table->unsignedBigInteger('make_id');
+            $table->foreign('make_id')
+            ->references('id')->on('makes')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+   
     public function down()
     {
-        Schema::dropIfExists('fuel_types');
+        Schema::dropIfExists('make_models');
     }
 }

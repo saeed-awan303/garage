@@ -19,7 +19,7 @@ class CreateEngineCapacitiesTable extends Migration
             $table->text('slug')->nullable();
             $table->unsignedBigInteger('madel_id');
             $table->foreign('madel_id')
-                ->references('id')->on('models')->onDelete('cascade');
+                ->references('id')->on('make_models')->onDelete('cascade');
             $table->timestamps();
         });
     }

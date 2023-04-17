@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModelsTable extends Migration
+class CreateServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,24 @@ class CreateModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('models', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->text('slug')->nullable();
-            $table->unsignedBigInteger('make_id');
-            $table->foreign('make_id')
-            ->references('id')->on('makes')->onDelete('cascade');
+            $table->boolean('status')->nullable();
+            $table->string('image')->nullable();
+          
             $table->timestamps();
         });
     }
 
-   
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('models');
+        Schema::dropIfExists('services');
     }
 }

@@ -108,12 +108,31 @@ Route::group([
 	Route::post('delete-selected-faqs', 'FaqController@deleteSelectedClients')->name('admin.delete-selected-faqs');
 
 	 //makes Routes
-	 Route::resource('faqs','FaqController');
-	 Route::post('get-faqs', 'FaqController@getfaqs')->name('admin.getfaqs');
-	 Route::post('get-faq', 'FaqController@faqDetail')->name('admin.getfaq');
-	 Route::get('faq/delete/{id}', 'FaqController@destroy');
-	 Route::post('delete-selected-faqs', 'FaqController@deleteSelectedClients')->name('admin.delete-selected-faqs');
+	 Route::resource('makes','MakesController');
+	 Route::post('get-makes', 'MakesController@getmakes')->name('admin.getmakes');
+	 Route::post('get-make', 'MakesController@makeDetail')->name('admin.getmake');
+	 Route::get('make/delete/{id}', 'MakesController@destroy');
+	 Route::post('delete-selected-makes', 'MakesController@deleteSelectedClients')->name('admin.delete-selected-makes');
 
-	 
+	 //model Routes
+	 Route::resource('models','ModelController');
+	 Route::post('get-models', 'ModelController@getmodels')->name('admin.getmodels');
+	 Route::post('get-model', 'ModelController@modelDetail')->name('admin.getmodel');
+	 Route::get('model/delete/{id}', 'ModelController@destroy');
+	 Route::post('delete-selected-models', 'ModelController@deleteSelectedClients')->name('admin.delete-selected-models');
+
+	 //Fuel_type Routes
+	 Route::resource('fuels','FuelTypeController');
+	 Route::post('get-fuels', 'FuelTypeController@getfuels')->name('admin.getfuels');
+	 Route::post('get-fuel', 'FuelTypeController@fuelDetail')->name('admin.getfuel');
+	 Route::get('fuel/delete/{id}', 'FuelTypeController@destroy');
+	 Route::post('delete-selected-fuels', 'FuelTypeController@deleteSelectedClients')->name('admin.delete-selected-fuels');
+
+	//Fuel_type Routes
+	Route::resource('engines','EngineCapacityController');
+	Route::post('get-engines', 'EngineCapacityController@getengines')->name('admin.getengines');
+	Route::post('get-engine', 'EngineCapacityController@engineDetail')->name('admin.getengine');
+	Route::get('engine/delete/{id}', 'EngineCapacityController@destroy');
+	Route::post('delete-selected-engines', 'EngineCapacityController@deleteSelectedClients')->name('admin.delete-selected-engines');
 });
 
