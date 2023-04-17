@@ -48,6 +48,10 @@ Route::group([
     'namespace'     => 'Admin'
 ], function ()
 {
+    
+
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
     Route::get('/profile', 'AdminController@edit')->name('admin-profile');
     Route::post('/admin-update', 'AdminController@update')->name('admin-update');
@@ -61,7 +65,47 @@ Route::group([
 	Route::get('client/delete/{id}', 'ClientController@destroy');
 	Route::post('delete-selected-clients', 'ClientController@deleteSelectedClients')->name('admin.delete-selected-clients');
 
+    //Roles
+    Route::resource('roles','RoleController');
+	Route::post('get-roles', 'RoleController@getRoles')->name('admin.getRoles');
+	Route::post('get-role', 'RoleController@roleDetail')->name('admin.getRole');
+	Route::get('role/delete/{id}', 'RoleController@destroy');
+	Route::post('delete-selected-role', 'RoleController@deleteSelectedRoles')->name('admin.delete-selected-roles');
 
+    //Permissions
+    Route::resource('permissions','PermissionController');
+	Route::post('get-permissions', 'PermissionController@getPermissions')->name('admin.getPermissions');
+	Route::post('get-permission', 'PermissionController@permissionDetail')->name('admin.getPermission');
+	Route::get('permission/delete/{id}', 'PermissionController@destroy');
+	Route::post('delete-selected-permissions', 'PermissionController@deleteSelectedPermission')->name('admin.delete-selected-permissions');
+
+    //categories Routes
+	Route::resource('categories','CategoryController');
+	Route::post('get-categories', 'CategoryController@getCategories')->name('admin.getCategories');
+	Route::post('get-category', 'CategoryController@categoryDetail')->name('admin.getCategory');
+	Route::get('category/delete/{id}', 'CategoryController@destroy');
+	Route::post('delete-selected-categories', 'CategoryController@deleteSelectedClients')->name('admin.delete-selected-categories');
+
+    //CUSTOME Routes
+	Route::resource('customs','CustomQouteController');
+	Route::post('get-customs', 'CustomQouteController@getCustoms')->name('admin.getCustoms');
+	Route::post('get-custom', 'CustomQouteController@customDetail')->name('admin.getCustom');
+	Route::get('custom/delete/{id}', 'CustomQouteController@destroy');
+	Route::post('delete-selected-customs', 'CustomQouteController@deleteSelectedClients')->name('admin.delete-selected-customs');
+
+    //faq_cats Routes
+	Route::resource('faq_cats','FaqCategoryController');
+	Route::post('get-faq_cats', 'FaqCategoryController@getFaq_cats')->name('admin.getFaq_cats');
+	Route::post('get-faq_cat', 'FaqCategoryController@faq_catDetail')->name('admin.getFaq_cat');
+	Route::get('faq_cats/delete/{id}', 'FaqCategoryController@destroy');
+	Route::post('delete-selected-faq_cats', 'FaqCategoryController@deleteSelectedClients')->name('admin.delete-selected-faq_cats');
+
+    //faqs Routes
+	Route::resource('faqs','FaqController');
+	Route::post('get-faqs', 'FaqController@getfaqs')->name('admin.getfaqs');
+	Route::post('get-faq', 'FaqController@faqDetail')->name('admin.getfaq');
+	Route::get('faq/delete/{id}', 'FaqController@destroy');
+	Route::post('delete-selected-faqs', 'FaqController@deleteSelectedClients')->name('admin.delete-selected-faqs');
 
 });
 

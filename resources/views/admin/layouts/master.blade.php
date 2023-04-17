@@ -25,9 +25,6 @@ License: You must have a valid license purchased only from themeforest(the above
 	@include('admin.partials._head')
 </head>
 
-<!--end::Head-->
-
-<!--begin::Body-->
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 
 @include('admin.partials._page-loader')
@@ -37,17 +34,7 @@ License: You must have a valid license purchased only from themeforest(the above
 @include('admin.partials._extras.toolbar')
 @include('admin.partials._extras.offcanvas.demo-panel')
 
-<!--[html-partial:include:{"file":"partials/_page-loader.html"}]/-->
 
-<!--[html-partial:include:{"file":"layout.html"}]/-->
-
-<!--[html-partial:include:{"file":"partials/_extras/offcanvas/quick-user.html"}]/-->
-
-<!--[html-partial:include:{"file":"partials/_extras/scrolltop.html"}]/-->
-
-<!--[html-partial:include:{"file":"partials/_extras/toolbar.html"}]/-->
-
-<!--[html-partial:include:{"file":"partials/_extras/offcanvas/demo-panel.html"}]/-->
 <script>
     var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";
 </script>

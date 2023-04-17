@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use DB;
+use Hash;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
@@ -20,12 +24,7 @@ class ClientController extends Controller
 	    return view('admin.clients.index',compact('title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-	
+   
 	public function getClients(Request $request){
 		$columns = array(
 			0 => 'id',
@@ -116,57 +115,6 @@ class ClientController extends Controller
 		echo json_encode($json_data);
 		
 	}
-    public function create()
-    {
-	    $title = 'Add New Client';
-	    return view('admin.clients.create',compact('title'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-	    $this->validate($request, [
-		    'name' => 'required|max:255',
-		    'email' => 'required|unique:users,email',
-		    'password' => 'required|min:6',
-	    ]);
-	
-	    $input = $request->all();
-	    $user = new User();
-	    $user->name = $input['name'];
-	    $user->email = $input['email'];
-	    // $res = array_key_exists('active', $input);
-	    // if ($res == false) {
-		//     $user->active = 0;
-	    // } else {
-		//     $user->active = 1;
-		
-	    // }
-	    $user->password = bcrypt($input['password']);
-	    $user->save();
-	
-	    Session::flash('success_message', 'Great! Client has been saved successfully!');
-	    $user->save();
-	    return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-	    $user = User::find($id);
-	    return view('admin.clients.single', ['title' => 'Client detail', 'user' => $user]);
-    }
-    
 	public function clientDetail(Request $request)
 	{
 		
@@ -175,38 +123,95 @@ class ClientController extends Controller
 		
 		return view('admin.clients.detail', ['title' => 'Client Detail', 'user' => $user]);
 	}
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function create()
     {
-	    $user = User::find($id);
-	    return view('admin.clients.edit', ['title' => 'Edit client details'])->withUser($user);
+		$roles = Role::pluck('name','name')->all();
+	    $title = 'Add New Client';
+	    return view('admin.clients.create',compact('title','roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
+    public function store(Request $request)
+    {
+	    $this->validate($request, [
+		    'name' => 'required|max:255',
+		    'email' => 'required|unique:users,email',
+		    'password' => 'required|min:6',
+			'roles' => 'required',
+	    ]);
+	
+	    $input = $request->all();
+	    $user = new User();
+	    $user->name = $input['name'];
+	    $user->email = $input['email'];
+		if ($request->user_type == 'company') {
+
+			$user->is_admin = '0';
+			$user->assign_role = '2';
+			$user->user_type = $request->user_type;
+		}
+		else{
+			$user->is_admin = '0';
+			$user->assign_role = '3';
+			$user->user_type = $request->user_type;
+		}
+	    // $res = array_key_exists('active', $input);
+	    // if ($res == false) {
+		//     $user->active = 0;
+	    // } else {
+		//     $user->active = 1;
+		
+	    // }
+	    $user->password = bcrypt($input['password']);
+		$user->assignRole($request->input('roles'));
+		$user->save();
+	    Session::flash('success_message', 'Great! Client has been saved successfully!');
+	  
+	    return redirect()->back();
+    }
+
+ 
+    public function show($id)
+    {
+	    $user = User::find($id);
+	    return view('admin.clients.single', ['title' => 'Client detail', 'user' => $user]);
+    }
+    
+
+
+  
+    public function edit($id)
+    {
+		$roles = Role::pluck('name','name')->all();
+	    $user = User::find($id);
+	    return view('admin.clients.edit', ['title' => 'Edit client details','roles' => $roles])->withUser($user);
+    }
+
     public function update(Request $request, $id)
     {
 	    $user = User::find($id);
 	    $this->validate($request, [
 		    'name' => 'required|max:255',
 		    'email' => 'required|unique:users,email,'.$user->id,
+			'roles' => 'required',
 	    ]);
 	    $input = $request->all();
 	
 	    $user->name = $input['name'];
 	    $user->email = $input['email'];
+		if ($request->user_type == 'company') {
+
+			$user->is_admin = '0';
+			$user->assign_role = '2';
+			$user->user_type = $request->user_type;
+		}
+		else{
+			$user->is_admin = '0';
+			$user->assign_role = '3';
+			$user->user_type = $request->user_type;
+		}
 	    $res = array_key_exists('active', $input);
+
 	    if ($res == false) {
 		    $user->active = 0;
 	    } else {
@@ -218,17 +223,15 @@ class ClientController extends Controller
 	    }
 	
 	    $user->save();
+		DB::table('model_has_roles')->where('model_id',$id)->delete();
+    
+        $user->assignRole($request->input('roles'));
 	
 	    Session::flash('success_message', 'Great! Client successfully updated!');
 	    return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function destroy($id)
     {
 	    $user = User::find($id);

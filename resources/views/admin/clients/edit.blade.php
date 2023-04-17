@@ -84,6 +84,22 @@
                         <span class="text-danger">{{ $errors->first('email') }}</span>
                       </div>
                     </div>
+                    <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
+                        <label class="col-3">Roles</label>
+                         <div class="col-9">
+                     
+                        {!! Form::select('roles[]', $roles,$user->role, array('class' => 'form-control','multiple')) !!}
+                        </div>
+                    </div>
+                     <div class="form-group row {{ $errors->has('user_type') ? 'has-error' : '' }}">
+                        <label class="col-3">Type</label>
+                         <div class="col-9">
+                          <select class="form-control form-control-solid" name="user_type">
+                            <option class="form-control form-control-solid" name="company"> Company</option>
+                            <option class="form-control form-control-solid" name="user"> User</option>
+                          </select>
+                        </div>
+                    </div>
                     <div class="form-group row {{ $errors->has('password') ? 'has-error' : '' }}">
                       <label class="col-3">Password</label>
                       <div class="col-9">

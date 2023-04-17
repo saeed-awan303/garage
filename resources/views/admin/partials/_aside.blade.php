@@ -6,9 +6,10 @@
 
         <!--begin::Logo-->
         <a href="{{ route('admin.dashboard') }}" class="brand-logo">
-            <img alt="Logo" src="{{ asset($logo) }}" />
+            {{-- <img alt="Logo" src="{{ asset($logo) }}" /> --}}
+           
         </a>
-
+         <h3 class="text-white">Garage</h3>
         <!--end::Logo-->
 
         <!--begin::Toggle-->
@@ -51,7 +52,7 @@
             <ul class="menu-nav">
                 <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'dashboard') {
                     echo 'menu-item-active';
-                } ?>" aria-haspopup="true">
+                    } ?>" aria-haspopup="true">
                     <a href="{{ route('admin.dashboard') }}" class="menu-link">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -74,59 +75,6 @@
                     </a>
                 </li>
 
-
-
-                {{-- <li class="menu-section"> --}}
-                {{-- <h4 class="menu-text">Clients</h4> --}}
-                {{-- <i class="menu-icon ki ki-bold-more-hor icon-md"></i> --}}
-                {{-- </li> --}}
-
-                {{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-									<a href="javascript:;" class="menu-link menu-toggle">
-										<span class="svg-icon menu-icon">
-
-											<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Bucket.svg-->
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-									        <rect x="0" y="0" width="24" height="24"/>
-									        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
-									        <path d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 L7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z" fill="#000000" opacity="0.3"/>
-									    </g>
-											</svg>
-
-											<!--end::Svg Icon-->
-										</span>
-										<span class="menu-text">Manage Cilents</span>
-										<i class="menu-arrow"></i>
-									</a>
-									<div class="menu-submenu">
-										<i class="menu-arrow"></i>
-										<ul class="menu-subnav">
-											<li class="menu-item menu-item-parent" aria-haspopup="true">
-												<span class="menu-link">
-													<span class="menu-text">Themes</span>
-												</span>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="layout/themes/aside-light.html" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Light Aside</span>
-												</a>
-											</li>
-											<li class="menu-item" aria-haspopup="true">
-												<a href="layout/themes/header-dark.html" class="menu-link">
-													<i class="menu-bullet menu-bullet-dot">
-														<span></span>
-													</i>
-													<span class="menu-text">Dark Header</span>
-												</a>
-											</li>
-										</ul>
-									</div>
-								</li> --}}
-
                 <li class="menu-section">
                     <h4 class="menu-text">CMS</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
@@ -134,7 +82,7 @@
 
                 <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'clients') {
                     echo 'menu-item-active';
-                } ?>" aria-haspopup="true">
+                    } ?>" aria-haspopup="true">
                     <a href="{{ route('clients.index') }}" class="menu-link">
                         <span class="svg-icon menu-icon">
 
@@ -153,17 +101,135 @@
 
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Manage Users</span>
+                        <span class="menu-text"> Users</span>
                     </a>
                 </li>
 
-             
+                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'categories') {
+                    echo 'menu-item-active';
+                    } ?>" aria-haspopup="true">
+                    <a href="{{ route('categories.index') }}" class="menu-link">
+                        <span class="svg-icon menu-icon">
 
-				
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
+                            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Layout/Layout-top-panel-1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <rect fill="#000000" x="2" y="4" width="19" height="4" rx="1"/>
+                                    <path d="M3,10 L6,10 C6.55228475,10 7,10.4477153 7,11 L7,19 C7,19.5522847 6.55228475,20 6,20 L3,20 C2.44771525,20 2,19.5522847 2,19 L2,11 C2,10.4477153 2.44771525,10 3,10 Z M10,10 L13,10 C13.5522847,10 14,10.4477153 14,11 L14,19 C14,19.5522847 13.5522847,20 13,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M17,10 L20,10 C20.5522847,10 21,10.4477153 21,11 L21,19 C21,19.5522847 20.5522847,20 20,20 L17,20 C16.4477153,20 16,19.5522847 16,19 L16,11 C16,10.4477153 16.4477153,10 17,10 Z" fill="#000000" opacity="0.3"/>
+                                </g>
+                            </svg><!--end::Svg Icon--></span>
+
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-text">Categories</span>
+                    </a>
+                </li>
+
+                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'customs') {
+                    echo 'menu-item-active';
+                    } ?>" aria-haspopup="true">
+                    <a href="{{ route('customs.index') }}" class="menu-link">
+                        <span class="svg-icon menu-icon">
+                            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Code/Git2.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <rect fill="#000000" opacity="0.3" x="5" y="8" width="1" height="6" rx="1"/>
+                                    <path d="M6,21 C7.1045695,21 8,20.1045695 8,19 C8,17.8954305 7.1045695,17 6,17 C4.8954305,17 4,17.8954305 4,19 C4,20.1045695 4.8954305,21 6,21 Z M6,23 C3.790861,23 2,21.209139 2,19 C2,16.790861 3.790861,15 6,15 C8.209139,15 10,16.790861 10,19 C10,21.209139 8.209139,23 6,23 Z" fill="#000000" fill-rule="nonzero"/>
+                                    <rect fill="#000000" opacity="0.3" x="17" y="8" width="2" height="8" rx="1"/>
+                                    <path d="M18,21 C19.1045695,21 20,20.1045695 20,19 C20,17.8954305 19.1045695,17 18,17 C16.8954305,17 16,17.8954305 16,19 C16,20.1045695 16.8954305,21 18,21 Z M18,23 C15.790861,23 14,21.209139 14,19 C14,16.790861 15.790861,15 18,15 C20.209139,15 22,16.790861 22,19 C22,21.209139 20.209139,23 18,23 Z" fill="#000000" fill-rule="nonzero"/>
+                                    <path d="M6,7 C7.1045695,7 8,6.1045695 8,5 C8,3.8954305 7.1045695,3 6,3 C4.8954305,3 4,3.8954305 4,5 C4,6.1045695 4.8954305,7 6,7 Z M6,9 C3.790861,9 2,7.209139 2,5 C2,2.790861 3.790861,1 6,1 C8.209139,1 10,2.790861 10,5 C10,7.209139 8.209139,9 6,9 Z" fill="#000000" fill-rule="nonzero"/>
+                                    <path d="M18,7 C19.1045695,7 20,6.1045695 20,5 C20,3.8954305 19.1045695,3 18,3 C16.8954305,3 16,3.8954305 16,5 C16,6.1045695 16.8954305,7 18,7 Z M18,9 C15.790861,9 14,7.209139 14,5 C14,2.790861 15.790861,1 18,1 C20.209139,1 22,2.790861 22,5 C22,7.209139 20.209139,9 18,9 Z" fill="#000000" fill-rule="nonzero"/>
+                                </g>
+                            </svg><!--end::Svg Icon--></span>
+                        </span>
+                        <span class="menu-text">Custom Requests</span>
+                    </a>
+                </li>
+
                 
+                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'faq_cats') {
+                    echo 'menu-item-active';
+                    } ?>" aria-haspopup="true">
+                    <a href="{{ route('faq_cats.index') }}" class="menu-link">
+                        <span class="svg-icon menu-icon">
+                           <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Code/Puzzle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <path d="M19,11 L20,11 C21.6568542,11 23,12.3431458 23,14 C23,15.6568542 21.6568542,17 20,17 L19,17 L19,20 C19,21.1045695 18.1045695,22 17,22 L5,22 C3.8954305,22 3,21.1045695 3,20 L3,17 L5,17 C6.65685425,17 8,15.6568542 8,14 C8,12.3431458 6.65685425,11 5,11 L3,11 L3,8 C3,6.8954305 3.8954305,6 5,6 L8,6 L8,5 C8,3.34314575 9.34314575,2 11,2 C12.6568542,2 14,3.34314575 14,5 L14,6 L17,6 C18.1045695,6 19,6.8954305 19,8 L19,11 Z" fill="#000000" opacity="0.3"/>
+                                </g>
+                            </svg><!--end::Svg Icon--></span>
+                        </span>
+                        <span class="menu-text">Faq Categories</span>
+                    </a>
+                </li>
 
+                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'faqs') {
+                    echo 'menu-item-active';
+                    } ?>" aria-haspopup="true">
+                    <a href="{{ route('faqs.index') }}" class="menu-link">
+                        <span class="svg-icon menu-icon">
+                          <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Code/Lock-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                                    <path d="M14.5,11 C15.0522847,11 15.5,11.4477153 15.5,12 L15.5,15 C15.5,15.5522847 15.0522847,16 14.5,16 L9.5,16 C8.94771525,16 8.5,15.5522847 8.5,15 L8.5,12 C8.5,11.4477153 8.94771525,11 9.5,11 L9.5,10.5 C9.5,9.11928813 10.6192881,8 12,8 C13.3807119,8 14.5,9.11928813 14.5,10.5 L14.5,11 Z M12,9 C11.1715729,9 10.5,9.67157288 10.5,10.5 L10.5,11 L13.5,11 L13.5,10.5 C13.5,9.67157288 12.8284271,9 12,9 Z" fill="#000000"/>
+                                </g>
+                            </svg><!--end::Svg Icon--></span>
+                        </span>
+                        <span class="menu-text">Faq's</span>
+                    </a>
+                </li>
 
+                {{-- <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'roles') {
+                    echo 'menu-item-active';
+                    } ?>" aria-haspopup="true">
+                    <a href="{{ route('roles.index') }}" class="menu-link">
+                        <span class="svg-icon menu-icon">
 
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12"
+                                        r="10" />
+                                    <path
+                                        d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 L7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z"
+                                        fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-text">Manage Roles</span>
+                    </a>
+                </li>
+
+                <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'permissions') {
+                    echo 'menu-item-active';
+                    } ?>" aria-haspopup="true">
+                    <a href="{{ route('permissions.index') }}" class="menu-link">
+                        <span class="svg-icon menu-icon">
+
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12"
+                                        r="10" />
+                                    <path
+                                        d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 L7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z"
+                                        fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-text">Manage Permissions</span>
+                    </a>
+                </li> --}}
                 <li class="menu-item <?php if (Request::segment(1) == 'admin' && Request::segment(2) == 'setting') {
                     echo 'menu-item-active';
                 } ?>" aria-haspopup="true">
