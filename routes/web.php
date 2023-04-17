@@ -107,5 +107,13 @@ Route::group([
 	Route::get('faq/delete/{id}', 'FaqController@destroy');
 	Route::post('delete-selected-faqs', 'FaqController@deleteSelectedClients')->name('admin.delete-selected-faqs');
 
+	 //makes Routes
+	 Route::resource('faqs','FaqController');
+	 Route::post('get-faqs', 'FaqController@getfaqs')->name('admin.getfaqs');
+	 Route::post('get-faq', 'FaqController@faqDetail')->name('admin.getfaq');
+	 Route::get('faq/delete/{id}', 'FaqController@destroy');
+	 Route::post('delete-selected-faqs', 'FaqController@deleteSelectedClients')->name('admin.delete-selected-faqs');
+
+	 
 });
 

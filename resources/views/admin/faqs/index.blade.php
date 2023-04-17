@@ -59,7 +59,7 @@
             </div>
         </div>
         <!-- Modal-->
-        <div class="modal fade" id="faq_catModel" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="faqsModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -141,7 +141,7 @@
                 id: id
             }).done(function(response) {
                 $('.modal-body').html(response);
-                $('#faqModel').modal('show');
+                $('#faqsModel').modal('show');
 
             });
         }

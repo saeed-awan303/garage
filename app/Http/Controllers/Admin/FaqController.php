@@ -70,7 +70,9 @@ class FaqController extends Controller
 				$nestedData['action'] = '
                                 <div>
                                 <td>
-                                   
+									<a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View FAQ" href="javascript:void(0)">
+									<i class="icon-1x text-dark-50 flaticon-eye"></i>
+									</a>
                                     <a title="Edit Faqs" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
@@ -95,7 +97,11 @@ class FaqController extends Controller
 		echo json_encode($json_data);
     }
     public function faqDetail(Request $request){
-        
+        	
+		$faq = Faq::findOrFail($request->id);
+		
+		
+		return view('admin.faqs.detail', ['title' => 'FAQs Detail', 'faq' => $faq]);
     }
 
     public function create()
