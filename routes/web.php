@@ -134,5 +134,12 @@ Route::group([
 	Route::post('get-engine', 'EngineCapacityController@engineDetail')->name('admin.getengine');
 	Route::get('engine/delete/{id}', 'EngineCapacityController@destroy');
 	Route::post('delete-selected-engines', 'EngineCapacityController@deleteSelectedClients')->name('admin.delete-selected-engines');
+
+	//Fuel_type Routes
+	Route::resource('services','ServiceController');
+	Route::post('get-services', 'ServiceController@getservices')->name('admin.getservices');
+	Route::post('get-service', 'ServiceController@serviceDetail')->name('admin.getservice');
+	Route::get('service/delete/{id}', 'ServiceController@destroy');
+	Route::post('delete-selected-services', 'ServiceController@deleteSelectedClients')->name('admin.delete-selected-services');
 });
 

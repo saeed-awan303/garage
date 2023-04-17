@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Model;
+use App\Models\MakeModel;
 use App\Models\Make;
+use Illuminate\Support\Facades\Session;
 
 class ModelController extends Controller
 {
@@ -28,21 +29,21 @@ class ModelController extends Controller
 			5 => 'action'
 		);
 		
-		$totalData = Model::count();
+		$totalData = MakeModel::count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
 		
 		if(empty($request->input('search.value'))){
-			$models = Model::offset($start)
+			$models = MakeModel::offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
-			$totalFiltered = Model::count();
+			$totalFiltered = MakeModel::count();
 		}else{
 			$search = $request->input('search.value');
-			$models = Model::where([
+			$models = MakeModel::where([
 				
 				['title', 'like', "%{$search}%"],
 			])
@@ -52,7 +53,7 @@ class ModelController extends Controller
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
-			$totalFiltered = Model::where([
+			$totalFiltered = MakeModel::where([
 				
 				['title', 'like', "%{$search}%"],
 			])
@@ -64,7 +65,7 @@ class ModelController extends Controller
 		$data = array();
 		
 		if($models){
-			foreach($makes as $r){
+			foreach($models as $r){
 				$edit_url = route('models.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="models[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['title'] = $r->title;
@@ -118,7 +119,7 @@ class ModelController extends Controller
 		    'title' => 'required|max:255',
             'make'  => 'required',
 	    ]);
-        $make = Make::create([
+        $model = MakeModel::create([
             'title' => $request->title,
             'make_id' => $request->make
         ]);
@@ -138,9 +139,9 @@ class ModelController extends Controller
     {
         $title = "Create Model";
         $makes = Make::all();
-        $model = Model::find($id);
+        $model = MakeModel::find($id);
         
-        return view('admin.models.create',compact('title','makes','model'));
+        return view('admin.models.edit',compact('title','makes','model'));
     }
 
 
@@ -150,7 +151,7 @@ class ModelController extends Controller
 		    'title' => 'required|max:255',
             'make'  => 'required',
 	    ]);
-        $make = Make::where('id',$id)->update([
+        $make = MakeModel::where('id',$id)->update([
             'title' => $request->title,
             'make_id' => $request->make
         ]);
@@ -162,7 +163,7 @@ class ModelController extends Controller
 
     public function destroy($id)
     {
-	    $model = Model::find($id);
+	    $model = MakeModel::find($id);
 	    if($model){
 		    $model->delete();
 		    Session::flash('success_message', 'Model successfully deleted!');
@@ -179,7 +180,7 @@ class ModelController extends Controller
 		]);
 		foreach ($input['models'] as $index => $id) {
 			
-			$model = Model::find($id);
+			$model = MakeModel::find($id);
 			if($model){
 				$model->delete();
 			}

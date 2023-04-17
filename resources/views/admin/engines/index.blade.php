@@ -8,16 +8,16 @@
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">Models List</h3>
+                <h3 class="card-label">Engines Capacity List</h3>
                 <div class="d-flex align-items-center ">
-                    <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
-                            class="la la-trash-o"></i>Delete All</a>
+                 
                 </div>
             </div>
             <div class="card-toolbar">
-
+                <a class="btn btn-danger font-weight-bolder mx-3" onclick="del_selected()" href="javascript:void(0)"> <i
+                        class="la la-trash-o"></i>Delete All</a>
                 <!--begin::Button-->
-                <a href="{{ route('models.create') }}" class="btn btn-primary font-weight-bolder">
+                <a href="{{ route('engines.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -38,10 +38,10 @@
         <div class="card-body">
             @include('admin.partials._messages')
             <div class="table-responsive">
-                <form action="{{ route('admin.delete-selected-models') }}" method="post" id="model_form">
+                <form action="{{ route('admin.delete-selected-engines') }}" method="post" id="engine_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable" id="models"
+                    <table class="table table-bordered table-hover table-checkable" id="engines"
                         style="margin-top: 13px !important">
                         <thead>
                             <tr>
@@ -52,8 +52,8 @@
                                 </th>
 
                                 <th>Title</th>
-                                <th>Make</th>
                                 <th>Slug</th>
+                                <th>Model</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -64,13 +64,13 @@
             </div>
         </div>
         <!-- Modal-->
-        <div class="modal fade" id="makeModel" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="engineModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Make Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">Engine Capacity Detail</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
@@ -102,7 +102,7 @@
                     $(this).closest('tr').toggleClass('selected');
                 });
         });
-        var clients = $('#models').DataTable({
+        var clients = $('#engines').DataTable({
             "order": [
                 [1, 'asc']
             ],
@@ -111,7 +111,7 @@
             "searchDelay": 500,
             "responsive": true,
             "ajax": {
-                "url": "{{ route('admin.getmodels') }}",
+                "url": "{{ route('admin.getengines') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -130,8 +130,8 @@
                 {
                     "data": "slug"
                 },
-                {
-                    "data": "make"
+                  {
+                    "data": "model"
                 },
                 {
                     "data": "created_at"
@@ -147,7 +147,7 @@
         function viewInfo(id) {
 
             var CSRF_TOKEN = '{{ csrf_token() }}';
-            $.post("{{ route('admin.getmodel') }}", {
+            $.post("{{ route('admin.getengine') }}", {
                 _token: CSRF_TOKEN,
                 id: id
             }).done(function(response) {
@@ -168,11 +168,11 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your Models has been deleted.",
+                        "Yourget Engine Capacity has been deleted.",
                         "success"
                     );
                     var APP_URL = {!! json_encode(url('/')) !!}
-                    window.location.href = APP_URL + "/admin/model/delete/" + id;
+                    window.location.href = APP_URL + "/admin/engine/delete/" + id;
                 }
             });
         }
@@ -188,10 +188,10 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your Models has been deleted.",
+                        "Your Engine Capacity has been deleted.",
                         "success"
                     );
-                    $("#make_form").submit();
+                    $("#engine_form").submit();
                 }
             });
         }

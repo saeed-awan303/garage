@@ -15,10 +15,10 @@
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Manage Model</a>
+                <a href="" class="text-muted">Service</a>
               </li>
               <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Add Model</a>
+                <a href="" class="text-muted">Add Service</a>
               </li>
             </ul>
             <!--end::Breadcrumb-->
@@ -37,37 +37,33 @@
         <div class="card card-custom card-sticky" id="kt_page_sticky_card">
           <div class="card-header" style="">
             <div class="card-title">
-              <h3 class="card-label">Model Add Form
+              <h3 class="card-label">Service Add Form
                 <i class="mr-2"></i>
                 <small class="">try to scroll the page</small></h3>
 
             </div>
             <div class="card-toolbar">
 
-              <a href="{{ route('makes.index') }}" class="btn btn-light-primary
+              <a href="{{ route('services.index') }}" class="btn btn-light-primary
               font-weight-bolder mr-2">
                 <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
 
               <div class="btn-group">
-                <a href="{{ route('models.store') }}"  onclick="event.preventDefault(); document.getElementById('model_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                <a href="{{ route('services.store') }}"  onclick="event.preventDefault(); document.getElementById('services_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
                   <i class="ki ki-check icon-sm"></i>Save</a>
-
-
-
               </div>
             </div>
           </div>
           <div class="card-body">
           @include('admin.partials._messages')
           <!--begin::Form-->
-            {{ Form::open([ 'route' => 'models.store','class'=>'form' ,"id"=>"model_add_form", 'enctype'=>'multipart/form-data']) }}
+            {{ Form::open([ 'route' => 'services.store','class'=>'form' ,"id"=>"services_add_form", 'enctype'=>'multipart/form-data']) }}
               @csrf
               <div class="row">
-            
                 <div class="col-xl-2"></div>
                 <div class="col-xl-8">
                   <div class="my-5">
-                    <h3 class="text-dark font-weight-bold mb-10">Model Info: </h3>
+                    <h3 class="text-dark font-weight-bold mb-10">Service Info: </h3>
                     <div class="form-group row {{ $errors->has('title') ? 'has-error' : '' }}">
                       <label class="col-3">Title</label>
                       <div class="col-9">
@@ -75,22 +71,27 @@
                         <span class="text-danger">{{ $errors->first('title') }}</span>
                       </div>
                     </div>
-                    <div class="form-group row {{ $errors->has('make') ? 'has-error' : '' }}">
-                       <label class="col-3">Make</label>
-                        <div class="col-9">
-                        <select class="form-control form-control-solid" name="make" required>
-                            <option value="">--! Select Make!--</option>
-                            @foreach ($makes as $make)
-                                    <option value="{{$make->id}}">{{$make->title}}</option>
-                            @endforeach  
-                        </select>
-                        <span class="text-danger">{{ $errors->first('make') }}</span>
-                        </div>
+                    <div class="form-group row {{ $errors->has('image') ? 'has-error' : '' }}">
+                      <label class="col-3">Image</label>
+                      <div class="col-9">
+                        {{ Form::file('image', null, ['class' => 'form-control form-control-solid','id'=>'image','placeholder'=>'Enter image','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                      </div>
                     </div>
+                    <div class="form-group row">
+                      <label class="col-3 col-form-label">Active</label>
+                      <div class="col-3">
+                         <span class="switch switch-outline switch-icon switch-success">
+                          <label><input type="checkbox" checked="checked" name="active" value="1">
+                            <span></span>
+                          </label>
+                        </span>
+                      </div>
+                    </div>
+
                   </div>
+
                 </div>
-                
-                
                 <div class="col-xl-2"></div>
               </div>
           {{Form::close()}}

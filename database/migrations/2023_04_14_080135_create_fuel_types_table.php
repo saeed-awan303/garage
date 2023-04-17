@@ -17,8 +17,8 @@ class CreateFuelTypesTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('slug')->nullable();
-            $table->unsignedBigInteger('madel_id');
-            $table->foreign('madel_id')
+            $table->unsignedBigInteger('model_id');
+            $table->foreign('model_id')
                 ->references('id')->on('make_models')->onDelete('cascade');
             $table->timestamps();
         });
