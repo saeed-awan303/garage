@@ -26,6 +26,11 @@ class Category extends Model
         return $this->hasMany('App\Models\Category', 'parent_id','id');
     }
 
+    public function services()
+    {
+        return $this->belongsTo(Service::class,'service_id','id');
+    }
+
     protected static function boot() {
         parent::boot();
 

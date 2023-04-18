@@ -78,7 +78,21 @@
                       </div>
                     </div>
                    
-                    <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
+                    <div class="form-group row {{ $errors->has('service') ? 'has-error' : '' }}">
+                        <label class="col-3">Service Category</label>
+                         <div class="col-9">
+                            <select class="form-control form-control-solid" name="service" required>
+
+                                <option value="">--! Select Service !--</option>
+                                @foreach ($services as $service)
+                                     <option value="{{$service->id}}"  {{ $service->id == $category->service_id ? 'selected' : '' }}>{{$service->title}}</option>
+                                @endforeach
+                                <span class="text-danger">{{ $errors->first('service') }}</span>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row {{ $errors->has('parent_id') ? 'has-error' : '' }}">
                         <label class="col-3">Parent Category</label>
                          <div class="col-9">
                             <select class="form-control form-control-solid" name="parent_id" required>

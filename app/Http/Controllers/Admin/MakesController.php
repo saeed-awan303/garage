@@ -70,7 +70,9 @@ class MakesController extends Controller
 				$nestedData['action'] = '
                                 <div>
                                 <td>
-                                   
+									<a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Make" href="javascript:void(0)">
+									<i class="icon-1x text-dark-50 flaticon-eye"></i>
+									</a>
                                     <a title="Edit Make" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
@@ -95,7 +97,10 @@ class MakesController extends Controller
 		echo json_encode($json_data);
     }
     public function makeDetail(Request $request){
-        
+
+        $make = Make::with('models')->findOrFail($request->id);
+		return view('admin.makes.detail', ['title' => 'Make Detail', 'make' => $make]);
+
     }
     public function create()
     {

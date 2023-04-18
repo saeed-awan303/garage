@@ -98,9 +98,8 @@ class FaqController extends Controller
     }
     public function faqDetail(Request $request){
         	
-		$faq = Faq::findOrFail($request->id);
-		
-		
+		$faq = Faq::with('faq_cat')->findOrFail($request->id);
+
 		return view('admin.faqs.detail', ['title' => 'FAQs Detail', 'faq' => $faq]);
     }
 

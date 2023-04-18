@@ -74,8 +74,22 @@
                         <span class="text-danger">{{ $errors->first('title') }}</span>
                       </div>
                     </div>
-                   
-                    <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
+
+                    <div class="form-group row {{ $errors->has('service') ? 'has-error' : '' }}">
+                        <label class="col-3">Service Category</label>
+                         <div class="col-9">
+                            <select class="form-control form-control-solid" name="service" required>
+
+                                <option value="">--! Select Service !--</option>
+                                @foreach ($services as $service)
+                                     <option value="{{$service->id}}">{{$service->title}}</option>
+                                @endforeach
+                                <span class="text-danger">{{ $errors->first('service') }}</span>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row {{ $errors->has('parent_id') ? 'has-error' : '' }}">
                         <label class="col-3">Parent Category</label>
                          <div class="col-9">
                             <select class="form-control form-control-solid" name="parent_id" required>
@@ -84,7 +98,7 @@
                                 @foreach ($categories as $category)
                                      <option value="{{$category->id}}">{{$category->title}}</option>
                                 @endforeach
-                                
+                                 <span class="text-danger">{{ $errors->first('parent_id') }}</span>
                             </select>
                         </div>
                     </div>

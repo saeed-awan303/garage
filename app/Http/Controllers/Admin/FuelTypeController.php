@@ -71,12 +71,14 @@ class FuelTypeController extends Controller
 				$nestedData['action'] = '
                                 <div>
                                 <td>
-                                   
-                                    <a title="Edit Model" class="btn btn-sm btn-clean btn-icon"
+									<a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Fuel Type" href="javascript:void(0)">
+									<i class="icon-1x text-dark-50 flaticon-eye"></i>
+									</a>
+                                    <a title="Edit Fuel Type" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Model" href="javascript:void(0)">
+                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Fuel Type" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-delete"></i>
                                     </a>
                                 </td>
@@ -98,6 +100,9 @@ class FuelTypeController extends Controller
 
     public function fuelDetail(Request $request){
 
+		$fuel = FuelType::with('model')->findOrFail($request->id);
+
+		return view('admin.fuels.detail', ['title' => 'Fuel Type Detail', 'fuel' => $fuel]);
     }
 
     public function create()

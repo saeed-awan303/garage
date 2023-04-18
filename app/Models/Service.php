@@ -10,6 +10,14 @@ class Service extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function category()
+    {
+        return $this->hasMany(Category::class,'service_id','id');
+    }
+
+
+
     protected static function boot() {
         parent::boot();
 

@@ -75,7 +75,9 @@ class ModelController extends Controller
 				$nestedData['action'] = '
                                 <div>
                                 <td>
-                                   
+									<a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View Model" href="javascript:void(0)">
+									<i class="icon-1x text-dark-50 flaticon-eye"></i>
+									</a>
                                     <a title="Edit Model" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
@@ -101,7 +103,9 @@ class ModelController extends Controller
     }
     
     public function modelDetail(Request $request){
-        
+
+		$model = MakeModel::with('makes')->findOrFail($request->id);
+		return view('admin.models.detail', ['title' => 'Model Detail', 'model' => $model]);
     }
 
     public function create()

@@ -66,7 +66,7 @@
         <!-- Modal-->
         <div class="modal fade" id="fuelModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -152,7 +152,7 @@
                 id: id
             }).done(function(response) {
                 $('.modal-body').html(response);
-                $('#makeModel').modal('show');
+                $('#fuelModel').modal('show');
 
             });
         }

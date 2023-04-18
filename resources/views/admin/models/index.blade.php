@@ -10,12 +10,12 @@
                 </span>
                 <h3 class="card-label">Models List</h3>
                 <div class="d-flex align-items-center ">
-                    <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
-                            class="la la-trash-o"></i>Delete All</a>
+                    
                 </div>
             </div>
             <div class="card-toolbar">
-
+                    <a class="btn btn-danger font-weight-bolder mx-3" onclick="del_selected()" href="javascript:void(0)"> <i
+                            class="la la-trash-o"></i>Delete All</a>
                 <!--begin::Button-->
                 <a href="{{ route('models.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
@@ -66,7 +66,7 @@
         <!-- Modal-->
         <div class="modal fade" id="makeModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

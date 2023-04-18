@@ -120,7 +120,6 @@ class ClientController extends Controller
 		
 		$user = User::findOrFail($request->id);
 		
-		
 		return view('admin.clients.detail', ['title' => 'Client Detail', 'user' => $user]);
 	}
     public function create()

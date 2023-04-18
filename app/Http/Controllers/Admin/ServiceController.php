@@ -108,6 +108,9 @@ class ServiceController extends Controller
 
     public function serviceDetail(Request $request){
 
+		$service = Service::with('category')->findOrFail($request->id);
+		
+		return view('admin.services.detail', ['title' => 'Service Detail', 'service' => $service]);
     }
 
     public function create()

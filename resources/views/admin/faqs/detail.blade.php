@@ -9,16 +9,11 @@
 			<td>Answer</td>
 			<td>{{$faq->answer}}</td>
 		</tr>
-		{{-- <tr>
-			<td>Roles</td>
-			<td>
-				@if(!empty($user->getRoleNames()))
-					@foreach($user->getRoleNames() as $v)
-					<label class="badge badge-success">{{ $v }}</label>
-					@endforeach
-				@endif
-			</td>
-		</tr> --}}
+		<tr>
+			<td>FAQ's Category</td>
+			<td>{{$faq->faq_cat->title}}</td>
+		</tr>
+		
 		
 
 		<tr>

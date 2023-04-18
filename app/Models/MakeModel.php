@@ -10,6 +10,22 @@ class MakeModel extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function makes()
+    {
+        return $this->belongsTo(Make::class,'make_id','id');
+    }
+
+    public function fuels()
+    {
+        return $this->hasMany(fuelType::class,'model_id','id');
+    }
+
+    public function engines()
+    {
+        return $this->hasMany(EngineCapacity::class,'model_id','id');
+    }
+
     protected static function boot() {
         parent::boot();
 

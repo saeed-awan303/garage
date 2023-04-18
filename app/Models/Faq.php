@@ -9,4 +9,9 @@ class Faq extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function faq_cat()
+    {
+        return $this->belongsTo(FaqCategory::class,'faq_category_id','id');
+    }
 }

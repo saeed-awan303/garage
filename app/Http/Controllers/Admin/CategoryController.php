@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 
@@ -103,8 +104,9 @@ class CategoryController extends Controller
 		
 		echo json_encode($json_data);
     }
+
     public function categoryDetail(Request $request){
-        $category = CAtegory::with('parent')->findOrFail($request->id);
+        $category = Category::with('parent','services')->findOrFail($request->id);
 		
 		
 		return view('admin.categories.detail', ['title' => 'Category Detail', 'category' => $category]);
@@ -113,7 +115,8 @@ class CategoryController extends Controller
     {
         $title = "Create Category";
         $categories = Category::status()->get();
-        return view('admin.categories.create',compact('title','categories'));
+		$services = Service::where('status',1)->get();
+        return view('admin.categories.create',compact('title','categories','services'));
     }
 
   
@@ -121,6 +124,7 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
 		    'title' => 'required|max:255',
+			'service' => 'required',
 	    ]);
         $input = $request->all();
         $res = array_key_exists('status', $input);
@@ -133,6 +137,7 @@ class CategoryController extends Controller
         $category = Category::create([
             'title' => $request->title,
             'parent_id' => $request->parent_id ?? '0',
+			'service_id' => $request->service ,
             'status' => $active,
 			'price'  => $request->price ?? '', 
         ]);
@@ -154,7 +159,8 @@ class CategoryController extends Controller
         $title = "Edit Category";
         $category = Category::status()->find($id);
         $categories = Category::status()->get();
-        return view('admin.categories.edit',compact('title','categories','category'));
+		$services = Service::where('status',1)->get();
+        return view('admin.categories.edit',compact('title','categories','category','services'));
     }
 
    
@@ -162,6 +168,7 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
 		    'title' => 'required|max:255',
+			'service' => 'required|max:255'
 	    ]);
         $input = $request->all();
         $res = array_key_exists('status', $input);
@@ -174,6 +181,7 @@ class CategoryController extends Controller
         $category = Category::where('id',$id)->update([
             'title' => $request->title,
             'parent_id' => $request->parent_id ?? '0',
+			'service_id' => $request->service ,
             'status' => $active,
 			'price'  => $request->price ?? '', 
         ]);

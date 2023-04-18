@@ -74,7 +74,9 @@ class EngineCapacityController extends Controller
 				$nestedData['action'] = '
                                 <div>
                                 <td>
-                                   
+									<a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View engine capcity" href="javascript:void(0)">
+										<i class="icon-1x text-dark-50 flaticon-eye"></i>
+									</a>
                                     <a title="Edit engine capacity" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
@@ -100,7 +102,9 @@ class EngineCapacityController extends Controller
     }
 
     public function engineDetail(Request $request){
-        
+        $engine = EngineCapacity::with('model')->findOrFail($request->id);
+		
+		return view('admin.engines.detail', ['title' => 'Engine Detail', 'engine' => $engine]);
     }
    
     public function create()

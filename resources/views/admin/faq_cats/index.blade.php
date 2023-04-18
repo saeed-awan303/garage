@@ -61,11 +61,11 @@
         <!-- Modal-->
         <div class="modal fade" id="faq_catModel" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="staticBackdrop" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">faq Category Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">FAQ's Category Detail</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">

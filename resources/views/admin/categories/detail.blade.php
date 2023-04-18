@@ -9,6 +9,10 @@
 			<td>Slug</td>
 			<td>{{$category->slug}}</td>
 		</tr>
+		<tr>
+			<td>Services</td>
+			<td>{{$category->services->title}}</td>
+		</tr>
 		@if($category->parent)
         <tr>
 			<td>Parent</td>

@@ -70,12 +70,14 @@ class FaqCategoryController extends Controller
 				$nestedData['action'] = '
                                 <div>
                                 <td>
-                                   
-                                    <a title="Edit Category" class="btn btn-sm btn-clean btn-icon"
+									<a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View FAQ Category" href="javascript:void(0)">
+										<i class="icon-1x text-dark-50 flaticon-eye"></i>
+									</a>
+                                    <a title="Edit FAQCategory" class="btn btn-sm btn-clean btn-icon"
                                        href="'.$edit_url.'">
                                        <i class="icon-1x text-dark-50 flaticon-edit"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete Category" href="javascript:void(0)">
+                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete FAQCategory" href="javascript:void(0)">
                                         <i class="icon-1x text-dark-50 flaticon-delete"></i>
                                     </a>
                                 </td>
@@ -96,6 +98,9 @@ class FaqCategoryController extends Controller
     }
     public function faq_catDetail(Request $request){
         
+		$faq = FaqCategory::with('faqs')->findOrFail($request->id);
+		
+		return view('admin.faq_cats.detail', ['title' => 'FaqCategory Detail', 'faq' => $faq]);
     }
     public function create()
     {

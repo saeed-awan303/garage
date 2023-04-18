@@ -77,7 +77,15 @@
                         <span class="text-danger">{{ $errors->first('title') }}</span>
                       </div>
                     </div>
-                   
+                    <div class="form-group row {{ $errors->has('image') ? 'has-error' : '' }}">
+                      <label class="col-3">Image</label>
+                      <div class="col-9">
+                        {{ Form::file('image', null, ['class' => 'form-control form-control-solid','id'=>'image','placeholder'=>'Enter image','required'=>'true']) }}
+                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                         <small class=" form-text text-muted  ">Image size is must less than 2MB</small>
+                        <img src="{{asset("uploads/$service->image")}}" width="150px" height="100px" alt="">
+                      </div>
+                    </div>
 
                     <div class="form-group row">
                       <label class="col-3 col-form-label">Status</label>

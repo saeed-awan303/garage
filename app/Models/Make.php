@@ -10,6 +10,13 @@ class Make extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function models()
+    {
+        return $this->hasMany(MakeModel::class,'make_id','id');
+    }
+
+
     protected static function boot() {
         parent::boot();
 
