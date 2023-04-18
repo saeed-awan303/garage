@@ -141,5 +141,41 @@ Route::group([
 	Route::post('get-service', 'ServiceController@serviceDetail')->name('admin.getservice');
 	Route::get('service/delete/{id}', 'ServiceController@destroy');
 	Route::post('delete-selected-services', 'ServiceController@deleteSelectedClients')->name('admin.delete-selected-services');
+
+	//Tyre Routes
+	Route::resource('tyres','TyreController');
+	Route::post('get-tyres', 'TyreController@gettyres')->name('admin.gettyres');
+	Route::post('get-tyre', 'TyreController@tyreDetail')->name('admin.gettyre');
+	Route::get('tyre/delete/{id}', 'TyreController@destroy');
+	Route::post('delete-selected-tyres', 'TyreController@deleteSelectedClients')->name('admin.delete-selected-tyres');
+
+	//Tyre Width Routes
+	Route::resource('tyre_widths','TyreWidthController');
+	Route::post('get-tyres-widths', 'TyreWidthController@gettyres_widths')->name('admin.gettyres_widths');
+	Route::post('get-tyre-width', 'TyreWidthController@tyreDetail')->name('admin.gettyre_width');
+	Route::get('tyre-widths/delete/{id}', 'TyreWidthController@destroy');
+	Route::post('delete-selected-tyres-widths', 'TyreWidthController@deleteSelectedClients')->name('admin.delete-selected-tyres-widths');
+
+	//Tyre Profile Routes
+	Route::resource('tyre_profiles','TyreWidthController');
+	Route::post('get-tyres-profiles', 'TyreWidthController@gettyres_profiles')->name('admin.gettyres_profiles');
+	Route::post('get-tyre-profile', 'TyreWidthController@tyreprofilesDetail')->name('admin.gettyre_profile');
+	Route::get('tyre-profiles/delete/{id}', 'TyreWidthController@destroy');
+	Route::post('delete-selected-tyres-profiles', 'TyreWidthController@deleteSelectedClients')->name('admin.delete-selected-tyres-profiles');
+
+	//Tyre Rims Routes
+	Route::resource('rims','TyreRimController');
+	Route::post('get-rims', 'TyreRimController@getRims')->name('admin.getrims');
+	Route::post('get-rim', 'TyreRimController@rimDetail')->name('admin.getrim');
+	Route::get('rim/delete/{id}', 'TyreRimController@destroy');
+	Route::post('delete-selected-rims', 'TyreRimController@deleteSelectedClients')->name('admin.delete-selected-rims');
+
+	//Tyre Speed Routes
+	Route::resource('tyre_speeds','TyreSpeedController');
+	Route::post('get-tyres-speeds', 'TyreSpeedController@gettyres_speed')->name('admin.gettyres_speed');
+	Route::post('get-tyre-speed', 'TyreSpeedController@tyrespeedDetail')->name('admin.gettyre_speed');
+	Route::get('tyre-speed/delete/{id}', 'TyreSpeedController@destroy');
+	Route::post('delete-selected-tyres-speed', 'TyreSpeedController@deleteSelectedClients')->name('admin.delete-selected-tyres-speed');
+
 });
 
