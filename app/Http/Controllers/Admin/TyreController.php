@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tyre;
+use Illuminate\Support\Facades\Session;
 
 class TyreController extends Controller
 {
@@ -21,6 +22,7 @@ class TyreController extends Controller
         $columns = array(
 			0 => 'id',
 			1 => 'title',
+			2 => 'type',
 			4 => 'created_at',
 			5 => 'action'
 		);
@@ -43,7 +45,7 @@ class TyreController extends Controller
 				
 				['title', 'like', "%{$search}%"],
 			])
-				
+				->orWhere('type','like',"%{$search}%")
 				->orWhere('created_at','like',"%{$search}%")
 				->offset($start)
 				->limit($limit)
@@ -53,6 +55,7 @@ class TyreController extends Controller
 				
 				['title', 'like', "%{$search}%"],
 			])
+				->orWhere('type','like',"%{$search}%")
 				->orWhere('created_at','like',"%{$search}%")
 				->count();
 		}
@@ -65,6 +68,7 @@ class TyreController extends Controller
 				$edit_url = route('tyres.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="tyres[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['title'] = $r->title;
+				$nestedData['type'] = $r->type;
 				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
 				$nestedData['action'] = '
                                 <div>
@@ -114,11 +118,13 @@ class TyreController extends Controller
     {
         $this->validate($request, [
 		    'title' => 'required|max:255',
+			'type' => 'required'
 	    ]);
         $faqs = Tyre::create([
-            'title' => $request->title
+            'title' => $request->title,
+			'type' => $request->type
         ]);
-        Session::flash('success_message', 'Great! Tyre category has been saved successfully!');
+        Session::flash('success_message', 'Great! Tyre has been saved successfully!');
 	  
 	    return redirect()->route('tyres.index');
     }
@@ -142,9 +148,11 @@ class TyreController extends Controller
     {
         $this->validate($request, [
 		    'title' => 'required|max:255',
+			'type' => 'required'
 	    ]);
         $faqs = Tyre::where('id',$id)->update([
-            'title' => $request->title
+            'title' => $request->title,
+			'type' => $request->type
         ]);
         Session::flash('success_message', 'Great! Tyre category has been update successfully!');
 	  

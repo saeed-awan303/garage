@@ -157,11 +157,11 @@ Route::group([
 	Route::post('delete-selected-tyres-widths', 'TyreWidthController@deleteSelectedClients')->name('admin.delete-selected-tyres-widths');
 
 	//Tyre Profile Routes
-	Route::resource('tyre_profiles','TyreWidthController');
-	Route::post('get-tyres-profiles', 'TyreWidthController@gettyres_profiles')->name('admin.gettyres_profiles');
-	Route::post('get-tyre-profile', 'TyreWidthController@tyreprofilesDetail')->name('admin.gettyre_profile');
-	Route::get('tyre-profiles/delete/{id}', 'TyreWidthController@destroy');
-	Route::post('delete-selected-tyres-profiles', 'TyreWidthController@deleteSelectedClients')->name('admin.delete-selected-tyres-profiles');
+	Route::resource('tyre_profiles','TyreProfileController');
+	Route::post('get-tyres-profiles', 'TyreProfileController@gettyres_profiles')->name('admin.gettyres_profiles');
+	Route::post('get-tyre-profile', 'TyreProfileController@tyreprofilesDetail')->name('admin.gettyre_profile');
+	Route::get('tyre-profiles/delete/{id}', 'TyreProfileController@destroy');
+	Route::post('delete-selected-tyres-profiles', 'TyreProfileController@deleteSelectedClients')->name('admin.delete-selected-tyres-profiles');
 
 	//Tyre Rims Routes
 	Route::resource('rims','TyreRimController');

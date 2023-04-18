@@ -342,7 +342,7 @@
                                 </g>
                             </svg><!--end::Svg Icon--></span>
                         </span>
-                        <span class="menu-text">Tyre Spped</span>
+                        <span class="menu-text">Tyre Speed</span>
                     </a>
                 </li>
 

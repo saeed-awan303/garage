@@ -8,14 +8,14 @@
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">Tyre List</h3>
+                <h3 class="card-label">Tyre Width List</h3>
                
             </div>
             <div class="card-toolbar">
                  <a class="btn btn-danger font-weight-bolder mx-2" onclick="del_selected()" href="javascript:void(0)"> <i
                             class="la la-trash-o"></i>Delete All</a>
                 <!--begin::Button-->
-                <a href="{{ route('tyres.create') }}" class="btn btn-primary font-weight-bolder">
+                <a href="{{ route('tyre_widths.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -36,7 +36,7 @@
         <div class="card-body">
             @include('admin.partials._messages')
             <div class="table-responsive">
-                <form action="{{ route('admin.delete-selected-tyres') }}" method="post" id="tyre_form">
+                <form action="{{ route('admin.delete-selected-tyres-widths') }}" method="post" id="tyre_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
                     <table class="table table-bordered table-hover table-checkable" id="tyres"
@@ -49,7 +49,6 @@
 
                                 </th>
                                 <th>Title</th>
-                                <th>Type</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -66,7 +65,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Tyre Detail</h4>
+                        <h4 class="modal-title" id="myModalLabel">Tyre Width Detail</h4>
                     </div>
                     <div class="modal-body"></div>
                     <div class="modal-footer">
@@ -107,7 +106,7 @@
             "searchDelay": 500,
             "responsive": true,
             "ajax": {
-                "url": "{{ route('admin.gettyres') }}",
+                "url": "{{ route('admin.gettyres_widths') }}",
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -122,9 +121,7 @@
                 {
                     "data": "title"
                 },
-                {
-                    "data": "type"
-                },
+              
                 {
                     "data": "created_at"
                 },
@@ -139,7 +136,7 @@
         function viewInfo(id) {
 
             var CSRF_TOKEN = '{{ csrf_token() }}';
-            $.post("{{ route('admin.gettyre') }}", {
+            $.post("{{ route('admin.gettyre_width') }}", {
                 _token: CSRF_TOKEN,
                 id: id
             }).done(function(response) {
@@ -160,11 +157,11 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your Tyre has been deleted.",
+                        "Your tyre widths has been deleted.",
                         "success"
                     );
                     var APP_URL = {!! json_encode(url('/')) !!}
-                    window.location.href = APP_URL + "/admin/tyre/delete/" + id;
+                    window.location.href = APP_URL + "/admin/tyre-widths/delete/" + id;
                 }
             });
         }
@@ -180,7 +177,7 @@
                 if (result.value) {
                     Swal.fire(
                         "Deleted!",
-                        "Your Tyre has been deleted.",
+                        "Your tyre widths has been deleted.",
                         "success"
                     );
                     $("#tyre_form").submit();
