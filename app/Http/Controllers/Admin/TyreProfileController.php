@@ -98,7 +98,7 @@ class TyreProfileController extends Controller
     }
 
     public function tyreprofilesDetail(Request $request){
-        $tyre = TyreProfile::findOrFail($request->id);
+        $tyre = TyreProfile::with('tyre_width')->findOrFail($request->id);
 
 		return view('admin.tyre_profiles.detail', ['title' => 'Tyre Profile Detail', 'tyre' => $tyre]);
     }

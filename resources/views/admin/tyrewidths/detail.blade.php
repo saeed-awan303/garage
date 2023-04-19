@@ -6,8 +6,11 @@
 			<td>{{$tyre->title}}</td>
 		</tr>
        
-		
-		
+		<tr>
+			<td>Tyre</td>
+			<td>{{$tyre->tyre->title}}</td>
+		</tr>
+       		
 		<tr>
 			<td>Created at</td>
 			<td>{{$tyre->created_at}}</td>

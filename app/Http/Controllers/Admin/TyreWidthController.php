@@ -98,7 +98,7 @@ class TyreWidthController extends Controller
     }
     
     public function tyreDetail(Request $request){
-        $tyre = TyreWidth::findOrFail($request->id);
+        $tyre = TyreWidth::with('tyre')->findOrFail($request->id);
 
 		return view('admin.tyrewidths.detail', ['title' => 'Tyre Widths Detail', 'tyre' => $tyre]);
     }
@@ -108,7 +108,7 @@ class TyreWidthController extends Controller
         $title = "Create Tyre Width";
 
         $tyres = Tyre::latest()->get();
-
+		
         return view('admin.tyrewidths.create',compact('tyres','title'));
     }
 
@@ -151,7 +151,7 @@ class TyreWidthController extends Controller
 		    'title' => 'required|max:255',
 			'tyre' => 'required'
 	    ]);
-        $faqs = TyreWidth::create([
+        $faqs = TyreWidth::where('id',$id)->update([
             'title' => $request->title,
 			'tyre_id' => $request->tyre
         ]);

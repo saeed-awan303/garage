@@ -98,7 +98,7 @@ class TyreRimController extends Controller
     }
 
     public function rimDetail(Request $request){
-        $tyre = TyreRim::findOrFail($request->id);
+        $tyre = TyreRim::with('tyre_profile')->findOrFail($request->id);
 
 		return view('admin.tyre_rim.detail', ['title' => 'Tyre Rims Detail', 'tyre' => $tyre]);
     }

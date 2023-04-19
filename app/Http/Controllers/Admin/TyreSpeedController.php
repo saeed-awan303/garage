@@ -98,7 +98,7 @@ class TyreSpeedController extends Controller
     }
 
     public function tyrespeedDetail(Request $request){
-        $tyre = TyreSpeed::findOrFail($request->id);
+        $tyre = TyreSpeed::with('tyre_rim')->findOrFail($request->id);
 
 		return view('admin.tyre_speed.detail', ['title' => 'Tyre Speed Detail', 'tyre' => $tyre]);
     }
