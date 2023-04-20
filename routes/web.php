@@ -20,7 +20,7 @@ Route::get('/clear',function(){
 });
 // Frontend routes
 Route::get('/', 'frontend\Homecontroller@index')->name('fronthome');
-
+Route::post('/form/next-2', 'frontend\Homecontroller@create_next2')->name('form.next2');
 Route::post('api/fetch-models', 'frontend\Homecontroller@fetchModel');
 Route::post('api/fetch-fuel', 'frontend\Homecontroller@fetchFuel');
 Auth::routes();
