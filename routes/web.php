@@ -4,18 +4,10 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
+
+
+Route::get('/login', function () {
     return view('auth.login');
 });
 Route::get('/user', function () {
@@ -26,7 +18,11 @@ Route::get('/clear',function(){
     Artisan::call('cache:clear');
     Artisan::call('config:cache');
 });
+// Frontend routes
+Route::get('/', 'frontend\Homecontroller@index')->name('fronthome');
 
+Route::post('api/fetch-models', 'frontend\Homecontroller@fetchModel');
+Route::post('api/fetch-fuel', 'frontend\Homecontroller@fetchFuel');
 Auth::routes();
 
 Route::group([
