@@ -124,7 +124,7 @@ class ServiceController extends Controller
     {
         $this->validate($request, [
 		    'title' 	=> 'required',
-            'image' => 'max:300000',
+            'image' => 'required|max:300000',
 	    ]);
         $input = $request->all();
         $res = array_key_exists('status', $input);

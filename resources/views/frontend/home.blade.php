@@ -3,14 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap Vertical Form Layout</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Garage</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="m-4">
     <div class="container">
-        <form action="/examples/actions/confirmation.php" method="post">
+        <div class="row">
+            <div class="col-md-12 bg-light text-right">
+                <a href="{{route('addmechanic')}}">
+                    <button type="button" class="btn btn-warning ml-2">Register Mechanic</button>
+                </a>
+            </div>
+        </div>
+        <form action="{{route('form.next2')}}" method="post">
+            @csrf
             <div class="mb-3">
                 <label class="form-label" for="inputEmail">Makes</label>
                 <select class="form-control" name="make" id="make_id">
@@ -22,20 +31,20 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="inputPassword">Model</label>
-                <select class="form-control" name="make" id="model-id">
+                <select class="form-control" name="model" id="model-id">
                 
                 </select>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="inputPassword">Model</label>
-                <select class="form-control" name="make" id="fuel-id">
+                <label class="form-label" for="inputPassword">Fuel Types</label>
+                <select class="form-control" name="fuel" id="fuel-id">
                    
                     
                 </select>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="inputPassword">Engine Types</label>
-                <select class="form-control" name="make" id="engine-id">
+                <select class="form-control" name="engine" id="engine-id">
                    
                     
                 </select>
@@ -50,8 +59,6 @@
     <script>
         $(document).ready(function () {
   
-          
-           
             $('#make_id').on('change', function () {
                 var idmake = this.value;
                

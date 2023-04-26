@@ -116,6 +116,7 @@ class CategoryController extends Controller
         $title = "Create Category";
         $categories = Category::status()->get();
 		$services = Service::where('status',1)->get();
+	
         return view('admin.categories.create',compact('title','categories','services'));
     }
 

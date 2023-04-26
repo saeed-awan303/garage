@@ -23,6 +23,13 @@ Route::get('/', 'frontend\Homecontroller@index')->name('fronthome');
 Route::post('/form/next-2', 'frontend\Homecontroller@create_next2')->name('form.next2');
 Route::post('api/fetch-models', 'frontend\Homecontroller@fetchModel');
 Route::post('api/fetch-fuel', 'frontend\Homecontroller@fetchFuel');
+
+Route::post('api/fetch-profile', 'frontend\Homecontroller@fetchProfile');
+Route::post('api/fetch-rim', 'frontend\Homecontroller@fetchRim');
+Route::post('api/fetch-speed', 'frontend\Homecontroller@fetchSpeed');
+
+Route::get('/addmechanic', 'frontend\Homecontroller@addmechanic')->name('addmechanic');
+Route::post('store-mechanic', 'frontend\Homecontroller@storeMechanic')->name('store.mechanic');
 Auth::routes();
 
 Route::group([
@@ -60,6 +67,13 @@ Route::group([
 	Route::post('get-client', 'ClientController@clientDetail')->name('admin.getClient');
 	Route::get('client/delete/{id}', 'ClientController@destroy');
 	Route::post('delete-selected-clients', 'ClientController@deleteSelectedClients')->name('admin.delete-selected-clients');
+
+	//MEchanic Routes
+	Route::resource('mechanics','MechanicController');
+	Route::post('get-mechanics', 'MechanicController@getMechanics')->name('admin.getmechanics');
+	Route::post('get-mechanic', 'MechanicController@mechanicDetail')->name('admin.getmechanic');
+	Route::get('mechanic/delete/{id}', 'MechanicController@destroy');
+	Route::post('delete-selected-mechanics', 'MechanicController@deleteSelectedClients')->name('admin.delete-selected-mechanics');
 
     //Roles
     Route::resource('roles','RoleController');
