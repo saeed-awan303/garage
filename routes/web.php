@@ -20,16 +20,26 @@ Route::get('/clear',function(){
 });
 // Frontend routes
 Route::get('/', 'frontend\Homecontroller@index')->name('fronthome');
-Route::post('/form/next-2', 'frontend\Homecontroller@create_next2')->name('form.next2');
-Route::post('api/fetch-models', 'frontend\Homecontroller@fetchModel');
-Route::post('api/fetch-fuel', 'frontend\Homecontroller@fetchFuel');
+Route::get('/old','frontend\Homecontrollerold@index')->name('fronthomeold');
+Route::get('/how-it-works', 'frontend\Homecontroller@howItWork')->name('howitworks');
+Route::get('/about', 'frontend\Homecontroller@about')->name('aboutus');
+Route::get('/bookingcar', 'frontend\Homecontroller@bookingCar')->name('bookingcar');
+Route::post('/bookingcar','frontend\Homecontroller@postBookingCar')->name('bookingcar');
+Route::get('/work-details', 'frontend\Homecontroller@workDetails')->name('workdetails');
+Route::post('/work-details', 'frontend\Homecontroller@postworkDetails')->name('workdetails');
+Route::get('/booking-details', 'frontend\Homecontroller@bookingDetails')->name('bookingdetails');
+Route::post('/booking-details', 'frontend\Homecontroller@postBookingDetails')->name('bookingdetails');
+Route::get('/payment-details', 'frontend\Homecontroller@paymentDetails')->name('paymentdetails');
+Route::post('/payment-details', 'frontend\Homecontroller@postPaymentDetails')->name('paymentdetails');
+Route::post('/form/next-2', 'frontend\Homecontrollerold@create_next2')->name('form.next2');
+Route::post('old/api/fetch-models', 'frontend\Homecontrollerold@fetchModel');
+Route::post('old/api/fetch-fuel', 'frontend\Homecontrollerold@fetchFuel');
+Route::post('old/api/fetch-profile', 'frontend\Homecontrollerold@fetchProfile');
+Route::post('old/api/fetch-rim', 'frontend\Homecontrollerold@fetchRim');
+Route::post('old/api/fetch-speed', 'frontend\Homecontrollerold@fetchSpeed');
 
-Route::post('api/fetch-profile', 'frontend\Homecontroller@fetchProfile');
-Route::post('api/fetch-rim', 'frontend\Homecontroller@fetchRim');
-Route::post('api/fetch-speed', 'frontend\Homecontroller@fetchSpeed');
-
-Route::get('/addmechanic', 'frontend\Homecontroller@addmechanic')->name('addmechanic');
-Route::post('store-mechanic', 'frontend\Homecontroller@storeMechanic')->name('store.mechanic');
+Route::get('/addmechanic', 'frontend\Homecontrollerold@addmechanic')->name('addmechanic');
+Route::post('store-mechanic', 'frontend\Homecontrollerold@storeMechanic')->name('store.mechanic');
 Auth::routes();
 
 Route::group([
@@ -51,7 +61,7 @@ Route::group([
     'namespace'     => 'Admin'
 ], function ()
 {
-    
+
 
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);

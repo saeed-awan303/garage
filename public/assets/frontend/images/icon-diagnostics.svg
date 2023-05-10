@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="70px" height="54px" viewBox="0 0 70 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>diagnostics_icon@2x</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Current-design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="CR-LP-Help" transform="translate(-421.000000, -408.000000)">
+            <g id="Group-3" transform="translate(197.000000, 378.000000)">
+                <g id="Group-5" transform="translate(176.000000, 0.000000)">
+                    <g id="Services/Diagnostic-icon">
+                        <g id="Group-51-Copy">
+                            <g id="diagnostics_icon" transform="translate(49.000000, 31.000000)">
+                                <rect id="Rectangle-2" fill="#FFFFFF" x="7.78184202" y="2.8418853" width="51.6431334" height="44.7596935"></rect>
+                                <polyline id="Stroke-3" stroke="#455864" stroke-width="1.56" points="8.4892822 25.5769677 26.5290069 25.5769677 29.3587676 19.8931971 36.4331695 31.2607383 39.2629302 25.5769677 58.7175352 25.5769677"></polyline>
+                                <g id="Page-1" stroke="#455864" stroke-width="1.3" fill="#FFEADA">
+                                    <path d="M58.0557364,40.8294266 L58.0557364,6.6209881 C58.0557364,5.40382979 57.0731704,4.41399207 55.8649538,4.41399207 L12.0493038,4.41399207 C10.8410872,4.41399207 9.85852127,5.40382979 9.85852127,6.6209881 L9.85852127,40.8294266 L25.1939988,40.8294266 L25.1939988,44.1399207 L42.7202588,44.1399207 L42.7202588,40.8294266 L58.0557364,40.8294266 Z M5.47695626,40.8294266 L5.47695626,6.6209881 C5.47695626,2.96951316 8.42465412,0 12.0493038,0 L55.8649538,0 C59.4896035,0 62.4373014,2.96951316 62.4373014,6.6209881 L62.4373014,40.8294266 L66.8188664,40.8294266 C67.4246177,40.8294266 67.9142576,41.3237937 67.9142576,41.9329246 C67.9142576,47.4084818 63.4921631,51.8644068 58.0557364,51.8644068 L9.85852127,51.8644068 C4.42209448,51.8644068 0,47.4084818 0,41.9329246 C0,41.3237937 0.48963989,40.8294266 1.09539125,40.8294266 L5.47695626,40.8294266 Z" id="Combined-Shape"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

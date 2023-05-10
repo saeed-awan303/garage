@@ -4,7 +4,7 @@
   <title>Garage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+
   <!-- Font Awesome -->
 <link
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -64,16 +64,16 @@
     @if(!empty($service->category ))
   <div class="tab-pane fade {{ $loop->first == 1 ? 'active show  ' : '' }}"  id="ex{{$service->id}}-pills-{{$service->id}}" role="tabpanel"  aria-labelledby="ex{{$service->id}}-tab-{{$service->id}}">
     {{$service->title}}
-     
+
        @foreach($service->category as $cat)
 					{{$cat->title}} <br>
 				@endforeach
-    
+
   </div>
   @endif
 @endforeach
  <div class="tab-pane fade"  id="ex-pills-tyre" role="tabpanel"  aria-labelledby="ex-pills-tyre">
-    
+
        <div class=d-flex>
             @csrf
             <div class="mb-3  mx-4">
@@ -88,27 +88,27 @@
             <div class="mb-3 mx-4">
                 <label class="form-label" for="inputPassword">Model</label>
                 <select class="form-control" name="model" id="model-id">
-                
+
                 </select>
             </div>
             <div class="mb-3  mx-4">
                 <label class="form-label" for="inputPassword">Fuel Types</label>
                 <select class="form-control" name="fuel" id="fuel-id">
-                   
-                    
+
+
                 </select>
             </div>
             <div class="mb-3  mx-4">
                 <label class="form-label" for="inputPassword">Engine Types</label>
                 <select class="form-control" name="engine" id="engine-id">
-                   
-                    
+
+
                 </select>
             </div>
-          
+
             <button type="submit" class="btn btn-primary btn-sm">Continue</button>
         </div>
-      
+
   </div>
 </div>
 <!-- Pills content -->
@@ -117,10 +117,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-  
+
             $('#make_id').on('change', function () {
+
                 var idmake = this.value;
-               
+
                 $.ajax({
                     url: "{{url('api/fetch-profile')}}",
                     type: "POST",
@@ -135,15 +136,15 @@
                             $("#model-id").append('<option value="' + value
                                 .id + '">' + value.title + '</option>');
                         });
-                    
+
                     }
                 });
             });
-  
-         
+
+
             $('#model-id').on('change', function () {
                 var idmodel = this.value;
-              
+
                 $.ajax({
                     url: "{{url('api/fetch-rim')}}",
                     type: "POST",
@@ -159,14 +160,14 @@
                             $("#fuel-id").append('<option value="' + value
                                 .id + '">' + value.title + '</option>');
                         });
-                    
+
                     }
                 });
             });
-            
+
              $('#fuel-id').on('change', function () {
                 var idrim = this.value;
-              
+
                 $.ajax({
                     url: "{{url('api/fetch-speed')}}",
                     type: "POST",
@@ -176,17 +177,17 @@
                     },
                     dataType: 'json',
                     success: function (res) {
-                       
+
                         $('#engine-id').html('<option value="">-- Select Speed Capacity --</option>');
                         $.each(res.speeds, function (key, value) {
                             $("#engine-id").append('<option value="' + value
                                 .id + '">' + value.title + '</option>');
                         });
-                    
+
                     }
                 });
             });
-            
+
         });
     </script>
 </body>

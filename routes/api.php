@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('fetch-models', 'frontend\Homecontroller@fetchModel');
+Route::post('fetch-fuel', 'frontend\Homecontroller@fetchFuel');
+Route::post('fetch-profile', 'frontend\Homecontroller@fetchProfile');
+Route::post('fetch-rim', 'frontend\Homecontroller@fetchRim');
+Route::post('fetch-speed', 'frontend\Homecontroller@fetchSpeed');

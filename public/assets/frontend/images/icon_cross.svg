@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="15px" viewBox="0 0 32 32" width="15px"
+     fill="#7D838A">
+  <g>
+    <path fill="none" stroke="#f76b51" stroke-width="6.4" stroke-miterlimit="4" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--color1, #f76b51)" d="M3.468 3.468l25.064 25.064"></path>
+	<path fill="none" stroke="#f76b51" stroke-width="6.4" stroke-miterlimit="4" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--color1, #f76b51)" d="M28.532 3.468l-25.064 25.064"></path>
+  </g>
+</svg>
