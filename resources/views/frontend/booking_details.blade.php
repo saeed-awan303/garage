@@ -5,11 +5,11 @@
         <div class="booking-flow-progress-inner">
             <ul class="booking-flow-progress-steps">
                 <li class="is-complete">
-                    <a href="booking_car.html">1</a>
+                    <a href="{{route('bookingcar')}}">1</a>
                     <p class="progress-step-context">Car</p>
                 </li>
                 <li class="is-complete">
-                    <a href="booking_work.html">2</a>
+                    <a href="{{route('workdetails')}}">2</a>
                     <p class="progress-step-context">Select work</p>
                 </li>
                 <li class="is-current">
@@ -87,7 +87,7 @@
 
                         <form id="booking_details_form" action="{{route('bookingdetails')}}" method="post">
                             @csrf
-                            {{-- <input type="hidden" name="details" value="{{$details}}"> --}}
+                            <input type="hidden" name="booking_details" value="1">
                             <div class="booking-details-section">
                                 <div class="booking-details-section-heading">
                                     <span class="booking-details-section-heading-number">1</span>
@@ -96,17 +96,17 @@
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-6">
                                         <label for="first_name" class="form-label">First name</label>
-                                        <input class="form-control" placeholder="First name" type="text" name="first_name" id="booking_user_attributes_first_name">
+                                        <input class="form-control" placeholder="First name" type="text" name="first_name" id="booking_user_attributes_first_name" value="@if(isset($details['first_name'])){{$details['first_name']}}@endif ">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="last_name" class="form-label">Last name</label>
-                                        <input class="form-control" placeholder="Last name" type="text" name="last_name" id="booking_user_attributes_last_name">
+                                        <input class="form-control" placeholder="Last name" type="text" name="last_name" id="booking_user_attributes_last_name" value="@if(isset($details['last_name'])){{$details['last_name']}}@endif">
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input class="form-control"  placeholder="Email" type="email" value="" name="email" id="booking_user_attributes_email">
+                                    <input class="form-control"  placeholder="Email" type="email" name="email" id="booking_user_attributes_email" value="@if(isset($details['email'])){{$details['email']}}@endif">
                                 </div>
 
                                 <div class="row mb-3 g-3">
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="booking_notes_1">Details</label>
-                                    <textarea class="form-control" rows="4" id="booking_notes_1" placeholder="write as much details as possible" name="work_details"></textarea>
+                                    <textarea class="form-control" rows="4" id="booking_notes_1" placeholder="write as much details as possible" name="work_details">@if(isset($details['work_details'])){{$details['work_details']}}@endif</textarea>
                                 </div>
                                 <div class="info-panel">
                                     <p id="inspection-service-info-title" class="show-repair-info d-flex justify-content-between mb-0">
@@ -162,27 +162,27 @@
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-6">
                                         <label for="booking_customer_street_address" class="form-label">Street address 1</label>
-                                        <input class="form-control" placeholder="Street address" type="text" name="street_address_1" id="booking_customer_street_address">
+                                        <input class="form-control" placeholder="Street address" type="text" name="street_address_1" id="booking_customer_street_address" value="@if(isset($details['street_address_1'])){{$details['street_address_1']}}@endif">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="booking_customer_street_address_2" class="form-label">Street address 2 (optional)</label>
-                                        <input class="form-control" placeholder="Street address" type="text" name="street_address_2" id="booking_customer_street_address_2">
+                                        <input class="form-control" placeholder="Street address" type="text" name="street_address_2" id="booking_customer_street_address_2" value="@if(isset($details['street_address_2'])){{$details['street_address_2']}}@endif">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-6">
                                         <label for="booking_customer_city" class="form-label">City</label>
-                                        <input class="form-control" placeholder="City" type="text" name="city" id="booking_customer_city">
+                                        <input class="form-control" placeholder="City" type="text" name="city" id="booking_customer_city" value="@if(isset($details['city'])){{$details['city']}}@endif">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Postcode</label>
-                                        <input type="text" value="W12 7SB" disabled="" class="form-control">
+                                        <input type="text" value="W12 7SB" disabled="" class="form-control" >
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-6">
                                         <label for="booking_customer_phone" class="form-label">Phone number</label>
-                                        <input class="form-control" placeholder="Phone number" type="tel" name="phone_number" id="booking_customer_phone">
+                                        <input class="form-control" placeholder="Phone number" type="tel" name="phone_number" id="booking_customer_phone" value="@if(isset($details['phone_number'])){{$details['phone_number']}}@endif">
                                     </div>
                                 </div>
 
@@ -192,11 +192,11 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label for="booking_seller_name" class="form-label">Seller's name, or point of contact name</label>
-                                        <input class="form-control" placeholder="Name" type="text" name="seller_name" id="booking_seller_name">
+                                        <input class="form-control" placeholder="Name" type="text" name="seller_name" id="booking_seller_name" value="@if(isset($details['seller_name'])){{$details['seller_name']}}@endif">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="booking_seller_phone" class="form-label">Seller's phone number</label>
-                                        <input class="form-control" placeholder="Phone number" type="tel" name="seller_phone_number" id="booking_seller_phone">
+                                        <input class="form-control" placeholder="Phone number" type="tel" name="seller_phone_number" id="booking_seller_phone" value="@if(isset($details['seller_phone_number'])){{$details['seller_phone_number']}}@endif">
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +219,7 @@
                                 </div>
                                 <div class="">
                                     <label for="booking_vehicle_vrm" class="form-label">Please provide your vehicle's registration number.</label>
-                                    <input class="form-control string required" placeholder="Registration number" type="text" name="car_registration_number" id="booking_vehicle_vrm">
+                                    <input class="form-control string required" placeholder="Registration number" type="text" name="car_registration_number" id="booking_vehicle_vrm" value="@if(isset($details['car_registration_number'])){{$details['car_registration_number']}}@endif">
                                 </div>
                             </div>
 

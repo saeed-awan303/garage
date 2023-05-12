@@ -15,5 +15,10 @@
     <link href="{{asset('assets/frontend/css/main.css')}}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <title>Book Car Repairs by Mobile Mechanics & Garages | ClickMechanic</title>
-
+    <style>
+        .searched-item:hover{
+             background-color: grey;
+             cursor:pointer;
+        }
+    </style>
 </head>

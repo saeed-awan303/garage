@@ -4,16 +4,16 @@
 <div class="booking-flow-progress">
     <div class="booking-flow-progress-inner">
         <ul class="booking-flow-progress-steps">
-            <li class="is-current">
+            <li class="@if(isset($details['make'])){{"is-complete"}} @else {{"is-current"}} @endif">
                 <a href="#">1</a>
                 <p class="progress-step-context">Car</p>
             </li>
-            <li>
-                <a href="#">2</a>
+            <li class="@if(isset($details['categories'])){{"is-complete"}} @endif">
+                <a href="@if(isset($details['categories'])) {{route('workdetails')}} @else {{"#"}} @endif">2</a>
                 <p class="progress-step-context">Select work</p>
             </li>
-            <li>
-                <a href="#">3</a>
+            <li class="@if(isset($details['booking_details'])){{"is-complete"}} @endif">
+                <a href="@if(isset($details['booking_details'])) {{route('bookingdetails')}} @else {{"#"}} @endif">3</a>
                 <p class="progress-step-context">Details</p>
             </li>
             <li>
@@ -58,7 +58,7 @@
                         <form id="booking_car_form" method="post" action="{{route('bookingcar')}}">
                             @csrf
                             <div class="form-wrap mb-3">
-                                <select class="form-select"  name="make" id="make_id">
+                                <select class="form-select"  name="make" id="make_id" required>
                                     <option value="">Select make</option>
                                     @foreach($makes as $make)
                                         <option value="{{$make->id}}" @if(isset($details['make']) && $details['make']==$make->id){{"selected"}}@endif>{{$make->title}}</option>
@@ -66,27 +66,23 @@
                                 </select>
                             </div>
                             <div class="form-wrap mb-3">
-                                <select class="form-control" name="model" id="model-id">
+                                <select class="form-control" name="model" id="model-id" required>
                                     <option value="">select model</option>
                                 </select>
                             </div>
                             <div class="form-wrap mb-3">
-                                <select class="form-control" name="fuel" id="fuel-id">
+                                <select class="form-control" name="fuel" id="fuel-id" required>
                                     <option value="">select fuel</option>
 
                                 </select>
                             </div>
                             <div class="form-wrap mb-3">
-                                <select class="form-select" name="year" id="booking_car_attributes_year">
+                                <select class="form-select" name="year" id="booking_car_attributes_year" required>
                                     <option value="">Select year</option>
-                                    <option value="1995">1995</option>
-                                    <option value="1996">1996</option>
-                                    <option value="1997">1997</option>
-                                    <option value="1998">1998</option>
-                                    <option value="1999">1999</option>
-                                    <option value="2000">2000</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2002">2002</option>
+
+                                    @for($i=date('Y');$i>=1990;$i--)
+                                        <option value="{{$i}}" @if(isset($details['year'])&&$details['year']==$i){{"selected"}}@endif>{{$i}}</option>
+                                    @endfor
                                 </select>
                             </div>
                             {{-- <div class="form-wrap mb-3">
@@ -96,7 +92,7 @@
                                 </select>
                             </div> --}}
                             <div class="form_wrap has-icon location-pin mb-3">
-                                <input type="text" class="form-control" placeholder="Your postcode" name="postcode" required="required" value="@if(isset($details['postcode'])){{$details['postcode']}}@endif">
+                                <input type="text" class="form-control" placeholder="Your postcode" name="postcode" required="required" value="@if(isset($details['postcode'])){{$details['postcode']}}@endif" required>
                             </div>
 
                             <input type="submit" name="commit" value="Next step" class="btn btn-secondary w-100 btn_md">

@@ -12,8 +12,8 @@
                 <a href="#">2</a>
                 <p class="progress-step-context">Select work</p>
             </li>
-            <li>
-                <a href="#">3</a>
+            <li class="@if(isset($details['booking_details'])){{"is-complete"}} @endif">
+                <a href="@if(isset($details['booking_details'])) {{route('bookingdetails')}} @else {{"#"}} @endif">3</a>
                 <p class="progress-step-context">Details</p>
             </li>
             <li>
@@ -37,7 +37,7 @@
                                     {{$service->title}}
                                 </li>
                             @endforeach
-                                <li class="nav-item @if($service->slug=='tyres'){{"active"}}@endif" data-bs-toggle="pill" data-bs-target="#tab_tyres">
+                                <li class="nav-item @if($service->slug=='tyres'){{"active"}}@endif" data-bs-toggle="pill" data-bs-target="#tab_tyre">
                                     tyres
                                 </li>
                             {{-- <li class="nav-item" data-bs-toggle="pill" data-bs-target="#tab_diagnostic">
@@ -64,9 +64,17 @@
                                         <div class="search_form_wrapper">
                                             <form class="booking-work-search" action="#">
                                                 <div class="form_wrap has-icon icon_search">
-                                                    <input type="text" class="form-control" placeholder="Search available repairs" name="search" maxlength="100">
+                                                    <input type="text" class="form-control" placeholder="Search available repairs" name="search" maxlength="100" id="repair_search">
+
+
+                                                </div>
+                                                <div style="background-color:white;">
+                                                    <ul class="search-repairs" style="width:100%;padding-left:0px">
+
+                                                    </ul>
                                                 </div>
                                             </form>
+
                                         </div>
 
                                     </div>
@@ -85,7 +93,7 @@
                                                 <div class="d-table w-100">
                                                     <div class="d-table-cell align-top" style="width: 40px">
                                                         @if (isset($details['categories']) && in_array($category->id,json_decode($details['categories'])))
-                                                            <button class="btn_add_item remove_category" data-id='{{$category->id}}' data-slug='{{$category->title}}' data-price='{{$category->price}}' data-title='{{$category->title}}'>
+                                                            <button class="btn_add_item remove_category" data-id='{{$category->id}}' data-slug='{{$category->slug}}' data-price='{{$category->price}}' data-title='{{$category->title}}'>
                                                                 <img alt="" src="{{asset('assets/frontend/images/icon_remove.svg')}}"/>
                                                             </button>
                                                         @else
@@ -358,7 +366,7 @@
                                                 <a href="#" class="btn-more-info d-none d-lg-inline-block" data-bs-toggle="modal" data-bs-target="#modal_diagnostic_1">More info</a>
                                                 <a href="#" class="btn btn-more-info d-lg-none d-inline-block" data-bs-toggle="modal" data-bs-target="#modal_diagnostic_1">More info</a>
                                                 @if (isset($details['categories']) && in_array($category->id,json_decode($details['categories'])))
-                                                    <button class="btn btn-danger ms-lg-3 remove_category" data-id='{{$category->id}}' data-slug='{{$category->title}}' data-price='{{$category->price}}' data-title='{{$category->title}}'>
+                                                    <button class="btn btn-danger ms-lg-3 remove_category" data-id='{{$category->id}}' data-slug='{{$category->slug}}' data-price='{{$category->price}}' data-title='{{$category->title}}'>
                                                         <span style="color:white">Remove</span>
                                                     </button>
                                                 @else
@@ -589,7 +597,38 @@
                                 @endif
                             </div>
                             @endforeach
-
+                            <div class="tab-pane fade" id="tab_tyre">
+                                <div class="tab-pane-block">
+                                    <h4 class="text-uppercase mb-2 text_primary">How many tyres do you need?</h4>
+                                    <p>Please select the number of tyres you want fitted, you can change this later.</p>
+                                </div>
+                                <div class="tyres-select">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="text-center fw-bold mb-3">Front</p>
+                                            <label class="form-check-btn" for="tyres_quantity_front_1">
+                                                <input type="radio" value="1" name="tyres_quantity_front" id="tyres_quantity_front_1">
+                                                <span class="form-check-btn-text">1</span>
+                                            </label>
+                                            <label class="form-check-btn" for="tyres_quantity_front_2">
+                                                <input type="radio" value="2" name="tyres_quantity_front" id="tyres_quantity_front_2">
+                                                <span class="form-check-btn-text">2</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="text-center fw-bold mb-3">Rear</p>
+                                            <label class="form-check-btn" for="tyres_quantity_rear_1">
+                                                <input type="radio" value="1" name="tyres_quantity_rear" id="tyres_quantity_rear_1">
+                                                <span class="form-check-btn-text">1</span>
+                                            </label>
+                                            <label class="form-check-btn" for="tyres_quantity_rear_2">
+                                                <input type="radio" value="2" name="tyres_quantity_rear" id="tyres_quantity_rear_2">
+                                                <span class="form-check-btn-text">2</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             {{-- <div class="tab-pane fade" id="tab_diagnostic">
                                 <div class="tab-pane-block">
                                     <h4 class="text-uppercase mb-2 text_primary">Free diagnostic service</h4>
@@ -2409,9 +2448,12 @@
                             <form action="{{route('workdetails')}}" method="post">
                                 @csrf
                                 <input type="hidden" name="categories" id="categories" value="">
-                                <input type="hidden" name="total_price" id="total_price" value="">
+                                <input type="hidden" name="total_price" id="total_price" value="@if(isset($details['total_price'])){{$details['total_price']}}@endif">
                                 {{-- <input type="hidden" name="car_details" value="{{$cardetails}}"> --}}
                                 <button type="submit" class="btn btn-secondary w-100">Next step</button>
+                                @error('categories')
+                                    <div class="alert alert-danger">{{ str_replace(':input', old('categories'), $message) }}</div>
+                                @enderror
                             </form>
                             {{-- <a href="{{route('bookingdetails')}}" class="btn btn-secondary w-100">Next step</a> --}}
                         </div>
@@ -2476,7 +2518,7 @@
                         <div class="summary-footer-links small">
                             <ul>
                                 <li class="how-it-works-link">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#how-it-works-modal">How does ClickMechanic work?</a>
+                                    <a href="{{route('howitworks')}}" data-bs-toggle="modal" data-bs-target="#how-it-works-modal">How does ClickMechanic work?</a>
                                     <!-- Modal start -->
                                     <div class="modal fade" id="how-it-works-modal" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -2593,15 +2635,26 @@
 @else
     var total_price=0;
 @endif
-console.log(total_price);
+
 const categories=[];
+
+@if (isset($details['categories']))
+    @foreach (json_decode($details['categories']) as $categ)
+        categories.push({{$categ}});
+    @endforeach
+    $("#categories").val(JSON.stringify(categories));
+@endif
+
+
 $(document).ready(function(){
+    @if (isset($details['categories']))
+        ajaxAppendSelectedWork({{$details['categories']}});
+    @endif
     $(document).on('click','.append_category',function(){
-            var slug=$(this).data('slug');
+        var slug=$(this).data('slug');
         var title=$(this).data('title');
         var price=Number($(this).data('price'));
         var id=Number($(this).data('id'));
-        calculatePrice(id,price,'add');
         if($(this).find('img').length!=0)
         {
             $(this).removeClass('append_category');
@@ -2616,7 +2669,9 @@ $(document).ready(function(){
             $(this).html('<span style="color:white">Remove</span>');
         }
         $(this).addClass('remove_category');
-            $(".selected-work").append('<li class="work-item" data-id="'+id+'" data-price="'+price+'" data-slug="'+slug+'"><div class="d-table w-100"><div class="d-table-cell align-top" style="width: 20px"><span  class="basket-remove-icon"><img alt="remove" src="{{asset("assets/frontend/images/icon_remove.svg")}}"></span></div><div class="d-table-cell -align-middle ps-2 fs-7 fw-500">'+title+'<!--<div class="label basket-pricing-message">MOT with Service discount: -£55</div>--><div class="basket-labour-times labour"><span>Up to 0.9 hours</span> labour time</div></div><div class="d-table-cell align-top text-end"><span class="price ps-4 fw-500">£<span>'+price+'</span></span></div></div><div class="parts"><div class="d-table width-100"><div class="d-table-cell" style="width: 20px"></div><div class="d-table-cell ps-2"><p class="text-muted fs-9 m-0">No parts included.</p></div></div></div></li>');
+            calculatePrice(id,price,'add');
+            appendSelectedWork(id,price,slug,title);
+
     })
     $(document).on('click', '.basket-remove-icon', function(){
         var price=$(this).closest('li').data('price');
@@ -2653,26 +2708,57 @@ $(document).ready(function(){
             $(this).removeClass("btn-danger");
             $(this).addClass("btn-primary");
         }
-        document.querySelector('li[data-slug="'+slug+'"]').remove();
+        $('li[data-slug="'+slug+'"]').remove();
         calculatePrice(Number($(this).data('id')),Number($(this).data('price')),'subtract');
         $(this).removeClass("remove_category");
         $(this).addClass("append_category");
 
     });
+    $(document).on('click','.searched-item',function(){
+        calculatePrice($(this).data('id'),Number($(this).data('price')),'add');
+        appendSelectedWork($(this).data('id'),Number($(this).data('price')),$(this).data('slug'),$(this).data('title')); //id,price,slug,title
+        $(".searched-item").remove();
 
 
+
+
+
+    })
+
+    $("#repair_search").keyup(function(){
+        var search=$(this).val();
+
+        if(search.length>=3)
+        {
+            searchRepairs(search);
+        }
+        else
+        {
+            $(".searched-item").remove();
+        }
+
+
+
+    });
 });
 
 function calculatePrice(id,price,method)
 {
+
     if(method=='add')
     {
-        total_price=total_price+price;
-        categories.push(id);
+
+        if($('.work-item[data-id="'+id+'"]').length==0)
+        {
+            total_price=total_price+price;
+            categories.push(id);
+        }
+
     }
     else
     {
         total_price=total_price-price;
+
         const index = categories.indexOf(id);
         if (index > -1) { // only splice array when item is found
         categories.splice(index, 1); // 2nd parameter means remove one item only
@@ -2684,27 +2770,52 @@ function calculatePrice(id,price,method)
     $("#total_price").val(total_price);
     $("#price_box").html('<div class="our-price">£<span>'+total_price+'</span></div>');
 }
-function appendSelectedWork(jsonCategories)
+function ajaxAppendSelectedWork(jsonCategories)
 {
     $.ajax({
-        url: "{{url('api/fetch-category')}}",
+        url: "{{url('api/fetch-categories')}}",
         type: "POST",
         data: {
-            category_id: category_id,
+            jsonCategories: jsonCategories,
             _token: '{{csrf_token()}}'
         },
         dataType: 'json',
         success: function (result) {
-
-            $('#model-id').html('<option value="">-- Select Models --</option>');
-            $.each(result.models, function (key, value) {
-                selected=(selected==value.id)?'selected':'';
-                $("#model-id").append('<option value="' + value
-                    .id + '"'+selected+'>' + value.title + '</option>');
+            $.each(result, function (key, value) {
+                appendSelectedWork(value.id,value.price,value.slug,value.title);
             });
 
         }
     });
+}
+function searchRepairs(searchItem)
+{
+        $.ajax({
+            url: "{{url('api/fetch-category')}}",
+            type: "POST",
+            data: {
+                search:searchItem,
+                _token: '{{csrf_token()}}'
+            },
+            success: function (result) {
+
+                $(".searched-item").remove();
+                $.each(result, function (key, value) {
+                    $(".search-repairs").append('<li data-title="'+value.title+'" data-id="'+value.id+'" data-price="'+value.price+'" data-slug="'+value.slug+'" class="searched-item" style="list-style: none;border-bottom: 1px solid grey;padding-left: 30px;height: 40px;display: flex;align-items: center;">'+value.title+'</li>');
+
+                });
+
+            }
+        });
+}
+function appendSelectedWork(id,price,slug,title)
+{
+
+    if($('.work-item[data-id="'+id+'"]').length==0)
+    {
+        $(".selected-work").append('<li class="work-item"  data-id="'+id+'" data-price="'+price+'" data-slug="'+slug+'"><div class="d-table w-100"><div class="d-table-cell align-top" style="width: 20px"><span  class="basket-remove-icon"><img alt="remove" src="{{asset("assets/frontend/images/icon_remove.svg")}}"></span></div><div class="d-table-cell -align-middle ps-2 fs-7 fw-500">'+title+'<!--<div class="label basket-pricing-message">MOT with Service discount: -£55</div>--><div class="basket-labour-times labour"><span>Up to 0.9 hours</span> labour time</div></div><div class="d-table-cell align-top text-end"><span class="price ps-4 fw-500">£<span>'+price+'</span></span></div></div><div class="parts"><div class="d-table width-100"><div class="d-table-cell" style="width: 20px"></div><div class="d-table-cell ps-2"><p class="text-muted fs-9 m-0">No parts included.</p></div></div></div></li>');
+    }
+
 }
 </script>
 @endsection

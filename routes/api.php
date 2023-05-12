@@ -22,3 +22,6 @@ Route::post('fetch-fuel', 'frontend\Homecontroller@fetchFuel');
 Route::post('fetch-profile', 'frontend\Homecontroller@fetchProfile');
 Route::post('fetch-rim', 'frontend\Homecontroller@fetchRim');
 Route::post('fetch-speed', 'frontend\Homecontroller@fetchSpeed');
+Route::post('fetch-categories','frontend\Homecontroller@fetchCategories');
+Route::post('fetch-category','frontend\Homecontroller@getCategory');
+
