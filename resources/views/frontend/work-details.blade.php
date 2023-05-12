@@ -97,7 +97,7 @@
                                                                 <img alt="" src="{{asset('assets/frontend/images/icon_remove.svg')}}"/>
                                                             </button>
                                                         @else
-                                                            <button class="btn_add_item append_category" data-id='{{$category->id}}' data-slug='{{$category->title}}' data-price='{{$category->price}}' data-title='{{$category->title}}'>
+                                                            <button class="btn_add_item append_category" data-id='{{$category->id}}' data-slug='{{$category->slug}}' data-price='{{$category->price}}' data-title='{{$category->title}}'>
                                                                 <img alt="" src="{{asset('assets/frontend/images/icon_plus.svg')}}"/>
                                                             </button>
                                                         @endif
@@ -2682,14 +2682,17 @@ $(document).ready(function(){
         $(this).closest('li').remove();
         var btn=$('button[data-slug="'+slug+'"]');
         // btn.innerHTML='<img alt="" src="{{asset('assets/frontend/images/icon_plus.svg')}}"/>';
+        console.log("outside");
         if(btn.find('img').length==0)
         {
+            console.log("if");
                 btn.html('<span style="color:white">Add</span>');
                 btn.addClass('btn-primary');
                 btn.removeClass("btn-danger");
                     //$(this).removeClass('append_category');
         }
         else{
+            console.log("else");
                 btn.html('<img alt="" src="{{asset('assets/frontend/images/icon_plus.svg')}}"/>');
         }
 
