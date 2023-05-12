@@ -124,7 +124,7 @@ class HomeController extends Controller
         $details=array_merge($details,$validateddata);
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
-                "amount" => $details['total_price'],
+                "amount" => round($details['total_price']),
                 "currency" => "USD",
                 "source" => $request->stripeToken,
                 "description" => "This payment is testing purpose of webexert",
