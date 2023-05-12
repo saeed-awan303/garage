@@ -55,7 +55,7 @@
                 </a>
             </li>
             <li>
-                <a class="nav-link nav-link-btn" href="booking_car.html">
+                <a class="nav-link nav-link-btn" href="{{route('bookingcar')}}">
                     Get started
                 </a>
             </li>
