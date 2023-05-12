@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('fetch-models', 'frontend\Homecontroller@fetchModel');
-Route::post('fetch-fuel', 'frontend\Homecontroller@fetchFuel');
-Route::post('fetch-profile', 'frontend\Homecontroller@fetchProfile');
-Route::post('fetch-rim', 'frontend\Homecontroller@fetchRim');
-Route::post('fetch-speed', 'frontend\Homecontroller@fetchSpeed');
-Route::post('fetch-categories','frontend\Homecontroller@fetchCategories');
-Route::post('fetch-category','frontend\Homecontroller@getCategory');
+Route::post('fetch-models', 'Frontend\HomeController@fetchModel');
+Route::post('fetch-fuel', 'Frontend\HomeController@fetchFuel');
+Route::post('fetch-profile', 'Frontend\HomeController@fetchProfile');
+Route::post('fetch-rim', 'Frontend\HomeController@fetchRim');
+Route::post('fetch-speed', 'Frontend\HomeController@fetchSpeed');
+Route::post('fetch-categories','Frontend\HomeController@fetchCategories');
+Route::post('fetch-category','Frontend\HomeController@getCategory');
 
