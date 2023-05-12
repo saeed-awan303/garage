@@ -155,8 +155,12 @@ class HomeController extends Controller
         }
 
         $request->session()->forget('details');
+        return view('frontend.thankyou');
 
-
+    }
+    public function paymentSuccess()
+    {
+        return view('frontend.thankyou');
     }
     public function fetchModel(Request $request)
     {
