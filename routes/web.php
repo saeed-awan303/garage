@@ -19,27 +19,27 @@ Route::get('/clear',function(){
     Artisan::call('config:cache');
 });
 // Frontend routes
-Route::get('/', 'frontend\Homecontroller@index')->name('fronthome');
-Route::get('/old','frontend\Homecontrollerold@index')->name('fronthomeold');
-Route::get('/how-it-works', 'frontend\Homecontroller@howItWork')->name('howitworks');
-Route::get('/about', 'frontend\Homecontroller@about')->name('aboutus');
-Route::get('/bookingcar', 'frontend\Homecontroller@bookingCar')->name('bookingcar');
-Route::post('/bookingcar','frontend\Homecontroller@postBookingCar')->name('bookingcar');
-Route::get('/work-details', 'frontend\Homecontroller@workDetails')->name('workdetails');
-Route::post('/work-details', 'frontend\Homecontroller@postworkDetails')->name('workdetails');
-Route::get('/booking-details', 'frontend\Homecontroller@bookingDetails')->name('bookingdetails');
-Route::post('/booking-details', 'frontend\Homecontroller@postBookingDetails')->name('bookingdetails');
-Route::get('/payment-details', 'frontend\Homecontroller@paymentDetails')->name('paymentdetails');
-Route::post('/payment-details', 'frontend\Homecontroller@postPaymentDetails')->name('paymentdetails');
-Route::post('/form/next-2', 'frontend\Homecontrollerold@create_next2')->name('form.next2');
-Route::post('old/api/fetch-models', 'frontend\Homecontrollerold@fetchModel');
-Route::post('old/api/fetch-fuel', 'frontend\Homecontrollerold@fetchFuel');
-Route::post('old/api/fetch-profile', 'frontend\Homecontrollerold@fetchProfile');
-Route::post('old/api/fetch-rim', 'frontend\Homecontrollerold@fetchRim');
-Route::post('old/api/fetch-speed', 'frontend\Homecontrollerold@fetchSpeed');
+Route::get('/', 'frontend\HomeController@index')->name('fronthome');
+Route::get('/old','frontend\HomeControllerold@index')->name('fronthomeold');
+Route::get('/how-it-works', 'frontend\HomeController@howItWork')->name('howitworks');
+Route::get('/about', 'frontend\HomeController@about')->name('aboutus');
+Route::get('/bookingcar', 'frontend\HomeController@bookingCar')->name('bookingcar');
+Route::post('/bookingcar','frontend\HomeController@postBookingCar')->name('bookingcar');
+Route::get('/work-details', 'frontend\HomeController@workDetails')->name('workdetails');
+Route::post('/work-details', 'frontend\HomeController@postworkDetails')->name('workdetails');
+Route::get('/booking-details', 'frontend\HomeController@bookingDetails')->name('bookingdetails');
+Route::post('/booking-details', 'frontend\HomeController@postBookingDetails')->name('bookingdetails');
+Route::get('/payment-details', 'frontend\HomeController@paymentDetails')->name('paymentdetails');
+Route::post('/payment-details', 'frontend\HomeController@postPaymentDetails')->name('paymentdetails');
+Route::post('/form/next-2', 'frontend\HomeControllerold@create_next2')->name('form.next2');
+Route::post('old/api/fetch-models', 'frontend\HomeControllerold@fetchModel');
+Route::post('old/api/fetch-fuel', 'frontend\HomeControllerold@fetchFuel');
+Route::post('old/api/fetch-profile', 'frontend\HomeControllerold@fetchProfile');
+Route::post('old/api/fetch-rim', 'frontend\HomeControllerold@fetchRim');
+Route::post('old/api/fetch-speed', 'frontend\HomeControllerold@fetchSpeed');
 
-Route::get('/addmechanic', 'frontend\Homecontrollerold@addmechanic')->name('addmechanic');
-Route::post('store-mechanic', 'frontend\Homecontrollerold@storeMechanic')->name('store.mechanic');
+Route::get('/addmechanic', 'frontend\HomeControllerold@addmechanic')->name('addmechanic');
+Route::post('store-mechanic', 'frontend\HomeControllerold@storeMechanic')->name('store.mechanic');
 Auth::routes();
 
 Route::group([
