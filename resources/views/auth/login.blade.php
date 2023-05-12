@@ -3,15 +3,15 @@
 	<?php
 	$setting = \App\Models\Setting::pluck('value','name')->toArray();
 	$auth_logo = isset($setting['auth_logo']) ? 'uploads/'.$setting['auth_logo'] : 'assets/media/logos/logo-light.png';
-	$auth_page_heading = isset($setting['auth_page_heading']) ? $setting['auth_page_heading'] : 'www.financialdashboard.com';
+	$auth_page_heading = isset($setting['auth_page_heading']) ? $setting['auth_page_heading'] : 'Garage Portal';
 	$auth_image = isset($setting['auth_image']) ? 'uploads/'.$setting['auth_image'] : 'assets/media/svg/illustrations/login-visual-1.svg';
-	$copy_right = isset($setting['copy_right']) ? $setting['copy_right'] : 'wwww.financialdashboard.com';
+	$copy_right = isset($setting['copy_right']) ? $setting['copy_right'] : 'Garage portal';
 	?>
 	<div class="d-flex flex-column flex-root">
 		<!--begin::Login-->
 		<div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
 			<!--begin::Aside-->
-			<div class="login-aside d-flex flex-column flex-row-auto" style="background-color: #F2C98A;">
+			<div class="login-aside d-flex flex-column flex-row-auto" style="background-color: #F2C98A;width:29%">
 				<!--begin::Aside Top-->
 				<div class="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
 					<!--begin::Aside header-->
