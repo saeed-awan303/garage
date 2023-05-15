@@ -87,7 +87,7 @@ class SettingController extends Controller
                 'place_holder'=>'',
                 'class'=>'form-control form-control-solid',
             ),
-	
+
 	        array(
 		        'name'=>'auth_logo',
 		        'id'=>'auth_logo',
@@ -100,7 +100,7 @@ class SettingController extends Controller
 		        'name'=>'auth_logo',
 		        'type'=>'hidden',
 		        'value'=>'',
-	
+
 	        ),
             array(
                 'name'=>'auth_image',
@@ -150,6 +150,7 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+
         $settings = Setting::pluck('value', 'name')->all();
 
         $data = array();
@@ -207,14 +208,19 @@ class SettingController extends Controller
         if(count($data)>0){
             $input = array_merge($input,$data);
         }
+
         foreach ($input as $key => $value) {
-            $setting = new Setting();
+            if($value!=NULL)
+            {
+                $setting = new Setting();
 
-            $setting->name = $key;
+                $setting->name = $key;
 
-            $setting->value = $value;
+                $setting->value = $value;
 
-            $setting->save();
+                $setting->save();
+
+            }
 
         }
         Session::flash('success_message', 'Settings saved successfully!');
