@@ -24,4 +24,7 @@ Route::post('fetch-rim', 'Frontend\HomeController@fetchRim');
 Route::post('fetch-speed', 'Frontend\HomeController@fetchSpeed');
 Route::post('fetch-categories','Frontend\HomeController@fetchCategories');
 Route::post('fetch-category','Frontend\HomeController@getCategory');
-
+Route::post('fetch-tyreProfile','Frontend\HomeController@fetchTyreProfile');
+Route::post('fetch-tyrerim','Frontend\HomeController@fetchTyreRim');
+Route::post('fetch-tyrespeed','Frontend\HomeController@fetchTyreSpeed');
+Route::post('fetch-tyrelist','Frontend\HomeController@fetchTyreList');

@@ -23,6 +23,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--begin::Head-->
 <head>
 	@include('admin.partials._head')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">

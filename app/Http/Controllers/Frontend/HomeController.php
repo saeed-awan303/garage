@@ -12,9 +12,13 @@ use App\Models\MakeModel;
 use App\Models\Mechanic;
 use App\Models\Order;
 use App\Models\OrderServiceCategory;
+use App\Models\OrderTyre;
 use App\Models\Service;
+use App\Models\TyreDetail;
 use App\Models\TyreProfile;
 use App\Models\TyreRim;
+use App\Models\TyreSpeed;
+use App\Models\TyreWidth;
 use Illuminate\Http\Request;
 use Stripe;
 use Session;
@@ -68,10 +72,18 @@ class HomeController extends Controller
         $services=Service::all();
         $categories=Category::where('parent_id',null)->inRandomOrder()->limit(5)->get();
         $mechanics=Mechanic::inRandomOrder()->limit(3)->get();
-        return view('frontend.work-details',compact('services','categories','details','mechanics'));
+        $tyrewidths=TyreWidth::all();
+        return view('frontend.work-details',compact('services','categories','details','mechanics','tyrewidths'));
     }
     public function postworkDetails(PostWorkDetails $request)
     {
+
+        // $validator = $request->validate($request->all(), [
+        //     'categories' => 'required_without_all:tyres|array',
+        //     'categories.*' => 'integer',
+        //     'tyres' => 'required_without_all:categories|array',
+        //     'tyres.*' => 'integer',
+        // ]);
         $details = $request->session()->get('details');
         $details=array_merge($details,$request->all());
         $request->session()->put('details', $details);
@@ -81,7 +93,6 @@ class HomeController extends Controller
     public function bookingDetails(Request $request)
     {
         $details=$request->session()->get('details');
-        //dd($details);
         return view('frontend.booking_details',compact('details'));
     }
     public function postBookingDetails(Request $request)
@@ -122,6 +133,7 @@ class HomeController extends Controller
         ]);
         $details=$request->session()->get('details');
         $details=array_merge($details,$validateddata);
+
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
                 "amount" => round($details['total_price']),
@@ -146,14 +158,26 @@ class HomeController extends Controller
         $order->make_model_id=$details['model'];
         $order->fuel_type_id=$details['fuel'];
         $order->save();
-        foreach(json_decode($details['categories']) as $category)
+        if(isset($details['categories']))
         {
-            $order_service_category=new OrderServiceCategory();
-            $order_service_category->category_id=$category;
-            $order_service_category->order_id=$order->id;
-            $order_service_category->save();
+            foreach(json_decode($details['categories']) as $category)
+            {
+                $order_service_category=new OrderServiceCategory();
+                $order_service_category->category_id=$category;
+                $order_service_category->order_id=$order->id;
+                $order_service_category->save();
+            }
         }
-
+        if(isset($details['tyres']))
+        {
+            foreach(json_decode($details['tyres']) as $tyre)
+            {
+                $order_tyre=new OrderTyre();
+                $order_tyre->tyre_detail_id=$tyre;
+                $order_tyre->order_id=$order->id;
+                $order_tyre->save();
+            }
+        }
         $request->session()->forget('details');
         return view('frontend.thankyou');
 
@@ -193,6 +217,12 @@ class HomeController extends Controller
 
         return response()->json($data);
     }
+    public function fetchTyreList(Request $request)
+    {
+        $data=$request->all();
+        $tyres=TyreDetail::where('tyre_width_id',$data['width'])->where('tyre_profile_id',$data['profile'])->where('tyre_rim_id',$data['rim'])->where('tyre_speed_id',$data['speed'])->get();
+        return response()->json($tyres);
+    }
     public function fetchCategories(Request $request)
     {
         $categoryArray=[];
@@ -214,5 +244,27 @@ class HomeController extends Controller
         })->where('title','LIKE',"%{$search}%")->get();
         return response()->json($categories);
     }
+    public function fetchTyreProfile(Request $request)
+    {
+        $data=$request->all();
+        $profiles=TyreProfile::where('tyre_widths_id',$data['tyre_width_id'])->get();
+
+        return response()->json($profiles);
+    }
+    public function fetchTyreRim(Request $request)
+    {
+        $data=$request->all();
+        $rims=TyreRim::where('tyre_profiles_id',$data['tyre_profiles_id'])->get();
+
+        return response()->json($rims);
+    }
+    function fetchTyreSpeed(Request $request)
+    {
+        $data=$request->all();
+        $speeds=TyreSpeed::where('tyre_rims_id',$data['tyre_rims_id'])->get();
+
+        return response()->json($speeds);
+    }
+
 
 }

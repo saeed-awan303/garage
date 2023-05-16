@@ -626,9 +626,55 @@
                                                 <span class="form-check-btn-text">2</span>
                                             </label>
                                         </div>
+                                        <div class="offset-md-6 col-md-6">
+                                            <li  data-bs-toggle="pill"  style="float:right"class="btn btn-primary" id="tyre-continue-btn">Continue</li>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+
+                                                <div class="col-12">
+                                                    <div class="tyres-explanation">
+                                                        <h4 class="header">Select your tyre size:</h4>
+                                                        <p>We recommend that you check the tyre size on your vehicle before selecting an option.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <select name="" id="tyre_width" class="form-control">
+                                                        <option value="">width</option>
+                                                        @foreach($tyrewidths as $width)
+                                                            <option value="{{$width->id}}">{{$width->title}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select name="" id="tyre_profile" class="form-control">
+                                                        <option value="">Profile</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select name="" id="tyre_rim" class="form-control">
+                                                        <option value="">Rim</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select name="" id="tyre_speed" class="form-control">
+                                                        <option value="">Speed</option>
+                                                    </select>
+                                                </div>
+                                                <div class="offset-md-6 col-md-6 mt-3">
+                                                    <li    style="float:right"class="btn btn-primary" id="get_tyres_btn">Continue</li>
+                                                </div>
+
+                                    </div>
+                                    <div class="row" id="tyres_list">
+
+
+
                                     </div>
                                 </div>
                             </div>
+
                             {{-- <div class="tab-pane fade" id="tab_diagnostic">
                                 <div class="tab-pane-block">
                                     <h4 class="text-uppercase mb-2 text_primary">Free diagnostic service</h4>
@@ -2448,6 +2494,7 @@
                             <form action="{{route('workdetails')}}" method="post">
                                 @csrf
                                 <input type="hidden" name="categories" id="categories" value="">
+                                <input type="hidden" name="tyres" id="tyres" value="">
                                 <input type="hidden" name="total_price" id="total_price" value="@if(isset($details['total_price'])){{$details['total_price']}}@endif">
                                 {{-- <input type="hidden" name="car_details" value="{{$cardetails}}"> --}}
                                 <button type="submit" class="btn btn-secondary w-100">Next step</button>
@@ -2637,6 +2684,7 @@
 @endif
 
 const categories=[];
+const tyres=[];
 
 @if (isset($details['categories']))
     @foreach (json_decode($details['categories']) as $categ)
@@ -2644,7 +2692,12 @@ const categories=[];
     @endforeach
     $("#categories").val(JSON.stringify(categories));
 @endif
-
+@if (isset($details['tyres']))
+    @foreach (json_decode($details['tyres']) as $tyre)
+        tyres.push({{$tyre}});
+    @endforeach
+    $("#tyres").val(JSON.stringify(tyres));
+@endif
 
 $(document).ready(function(){
     @if (isset($details['categories']))
@@ -2669,7 +2722,14 @@ $(document).ready(function(){
             $(this).html('<span style="color:white">Remove</span>');
         }
         $(this).addClass('remove_category');
-            calculatePrice(id,price,'add');
+            if($(this).hasClass('is_tyre_btn'))
+            {
+                calculatePrice(id,price,'add',true); //id,price,method,is_tyre_btn
+            }
+            else{
+                calculatePrice(id,price,'add',false); //id,price,method,is_tyre_btn
+            }
+
             appendSelectedWork(id,price,slug,title);
 
     })
@@ -2721,12 +2781,72 @@ $(document).ready(function(){
         calculatePrice($(this).data('id'),Number($(this).data('price')),'add');
         appendSelectedWork($(this).data('id'),Number($(this).data('price')),$(this).data('slug'),$(this).data('title')); //id,price,slug,title
         $(".searched-item").remove();
-
-
-
-
-
     })
+    $("#tyre_width").change(function(){
+        var tyre_widths_id=$(this).val();
+        $.ajax({
+            url: "{{url('api/fetch-tyreProfile')}}",
+            type: "POST",
+            data: {
+                tyre_width_id:tyre_widths_id,
+                _token: '{{csrf_token()}}'
+            },
+            dataType: 'json',
+            success: function (result) {
+                $("#tyre_profile").html('<option>Select option</option>');
+                $.each(result, function (key, value) {
+
+                    $("#tyre_profile").append('<option value="'+value.id+'">'+value.title+'</option>');
+
+                });
+
+            }
+        });
+    });
+    $("#tyre_profile").change(function(){
+        var tyre_profiles_id=$(this).val();
+        $.ajax({
+            url: "{{url('api/fetch-tyrerim')}}",
+            type: "POST",
+            data: {
+                tyre_profiles_id:tyre_profiles_id,
+                _token: '{{csrf_token()}}'
+            },
+            dataType: 'json',
+            success: function (result) {
+
+                $("#tyre_rim").html('<option>Select option</option>');
+                $.each(result, function (key, value) {
+
+                    $("#tyre_rim").append('<option value="'+value.id+'">'+value.title+'</option>');
+
+                });
+
+            }
+        });
+    });
+    $("#tyre_rim").change(function(){
+        var tyre_rims_id=$(this).val();
+        $.ajax({
+            url: "{{url('api/fetch-tyrespeed')}}",
+            type: "POST",
+            data: {
+                tyre_rims_id:tyre_rims_id,
+                _token: '{{csrf_token()}}'
+            },
+            dataType: 'json',
+            success: function (result) {
+
+                $("#tyre_speed").html('<option>Select option</option>');
+                $.each(result, function (key, value) {
+
+                    $("#tyre_speed").append('<option value="'+value.id+'">'+value.title+'</option>');
+
+                });
+
+            }
+        });
+    });
 
     $("#repair_search").keyup(function(){
         var search=$(this).val();
@@ -2743,9 +2863,36 @@ $(document).ready(function(){
 
 
     });
+    $("#get_tyres_btn").click(function(){
+        var width=$("#tyre_width").val();
+        var profile=$("#tyre_profile").val();
+        var rim=$("#tyre_rim").val();
+        var speed=$("#tyre_speed").val();
+        $.ajax({
+            url: "{{url('api/fetch-tyrelist')}}",
+            type: "POST",
+            data: {
+                width:width,
+                profile:profile,
+                rim:rim,
+                speed:speed,
+                _token: '{{csrf_token()}}'
+            },
+            dataType: 'json',
+            success: function (result) {
+                $.each(result, function (key, value) {
+
+                    $("#tyres_list").append('<div class="col-md-6"><div class="card mt-4" style="width: 18rem;">{{-- <img class="card-img-top" src=" alt="Card image cap"> --}}<div class="card-body"><h5 class="card-title">'+value.title+'</h5><p class="card-text"> $'+value.price+'</p><button class="btn btn-primary ms-lg-3 append_category is_tyre_btn" data-id="'+value.id+'" data-slug="'+value.slug+'" data-price="'+value.price+'" data-title="'+value.title+'"><span>Add</span></button></div></div></div>');
+
+                });
+
+            }
+        });
+
+    });
 });
 
-function calculatePrice(id,price,method)
+function calculatePrice(id,price,method,is_tyre_btn=false)
 {
 
     if(method=='add')
@@ -2754,9 +2901,17 @@ function calculatePrice(id,price,method)
         if($('.work-item[data-id="'+id+'"]').length==0)
         {
             total_price=total_price+price;
-            categories.push(id);
-        }
+            if(!is_tyre_btn)
+            {
+                categories.push(id);
+            }
+            else{
+                tyres.push(id);
+            }
 
+        }
+        console.log(categories);
+        console.log(tyres);
     }
     else
     {
@@ -2769,7 +2924,9 @@ function calculatePrice(id,price,method)
     }
 
     var jsonCategories=JSON.stringify(categories);
+    var jsonTyres=JSON.stringify(tyres);
     $("#categories").val(jsonCategories);
+    $("#tyres").val(jsonTyres);
     $("#total_price").val(total_price);
     $("#price_box").html('<div class="our-price">£<span>'+total_price+'</span></div>');
 }

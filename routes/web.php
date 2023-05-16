@@ -193,9 +193,11 @@ Route::group([
 	//Tyre Speed Routes
 	Route::resource('tyre_speeds','TyreSpeedController');
 	Route::post('get-tyres-speeds', 'TyreSpeedController@gettyres_speed')->name('admin.gettyres_speed');
+    Route::post('get-tyres-detail', 'TyreDetailController@gettyres_detail')->name('admin.gettyres_detail');
 	Route::post('get-tyre-speed', 'TyreSpeedController@tyrespeedDetail')->name('admin.gettyre_speed');
 	Route::get('tyre-speed/delete/{id}', 'TyreSpeedController@destroy');
 	Route::post('delete-selected-tyres-speed', 'TyreSpeedController@deleteSelectedClients')->name('admin.delete-selected-tyres-speed');
-
+    Route::resource('tyre_details','TyreDetailController');
+    Route::post('get-tyre-detail', 'TyreDetailController@gettyres_detail')->name('admin.gettyre_detail');
 });
 

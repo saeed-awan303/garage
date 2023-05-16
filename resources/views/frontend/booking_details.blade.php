@@ -96,7 +96,7 @@
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-6">
                                         <label for="first_name" class="form-label">First name</label>
-                                        <input class="form-control" placeholder="First name" type="text" name="first_name" id="booking_user_attributes_first_name" value="@if(isset($details['first_name'])){{$details['first_name']}}@endif ">
+                                        <input class="form-control" placeholder="First name" type="text" name="first_name" id="booking_user_attributes_first_name" value="{{ old('first_name') ?? (isset($details['first_name']) ? $details['first_name'] : '') }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="last_name" class="form-label">Last name</label>
