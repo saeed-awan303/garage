@@ -50,9 +50,24 @@
 
         <ul class="head-user-links d-lg-inline-flex d-none">
             <li>
-                <a class="nav-link" href="login.html">
+                @if(Auth::check())
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a></li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </ul>
+                </div>
+                @else
+                <a class="nav-link" href="{{route('login')}}">
                     <span class="nav-link-title">Sign In</span>
                 </a>
+                @endif
             </li>
             <li>
                 <a class="nav-link nav-link-btn" href="{{route('bookingcar')}}">
