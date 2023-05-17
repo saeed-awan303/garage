@@ -19,7 +19,9 @@ use App\Models\TyreProfile;
 use App\Models\TyreRim;
 use App\Models\TyreSpeed;
 use App\Models\TyreWidth;
+use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Stripe;
 use Session;
 class HomeController extends Controller
@@ -39,7 +41,7 @@ class HomeController extends Controller
     }
     public function bookingCar(Request $request)
     {
-        // $request->session()->forget('details');
+
         $makes = Make::all();
         $details=$request->session()->get('details');
         //return $details;
@@ -280,8 +282,10 @@ class HomeController extends Controller
         $this->validate($request, [
 		    'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'email' => 'required|max:255',
+            'email' => 'required|email|unique:mechanics',
             'post_code' => 'required|max:255',
+            'password' => 'required|min:6',
+            'retype_password' => 'required|same:password',
 	    ]);
         $mechanic = Mechanic::create([
             'first_name' => $request->first_name,
@@ -289,10 +293,13 @@ class HomeController extends Controller
             'email' => $request->email,
             'postcode' => $request->post_code,
             'mobile_number' => $request->mobile,
+            'password'=>Hash::make($request->password),
+            'latitude'=>$request->latitude,
+            'longitude'=>$request->longitude,
         ]);
 
-
-	    return redirect()->back();
+        $request->session()->flash('success', 'Mechanics saved successfully');
+	    return redirect()-route('fronthome');
     }
 
 

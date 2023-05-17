@@ -37,6 +37,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        //$this->middleware('guest:mechanic')->except('logout');
     }
     public function login(Request $request)
     {
@@ -66,5 +67,24 @@ class LoginController extends Controller
                 ->with('error','Authentication Failed. Email or Password Is Invalid.');
         }
 
+    }
+    public function showMechanicLoginForm()
+    {
+       // return view('auth.login', ['url' => route('admin.login-view'), 'title'=>'Admin']);
+       return view('frontend.mechanic_login');
+    }
+    public function mechanicLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (\Auth::guard('mechanic')->attempt($request->only(['email','password']), $request->get('remember'))){
+            // return redirect()->intended('/admin/dashboard');
+            return redirect()->route('fronthome');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,10 @@ Route::get('/clear',function(){
 });
 // Frontend routes
 Route::get('/', 'Frontend\HomeController@index')->name('fronthome');
+Route::get('/mechanic',[LoginController::class,'showMechanicLoginForm'])->name('mechanic.login-view');
+Route::post('/mechanic',[LoginController::class,'mechanicLogin'])->name('mechanic.login');
+Route::get('/mechanic/add', 'Frontend\HomeController@addmechanic')->name('addmechanic');
+Route::post('store-mechanic', 'Frontend\HomeController@storeMechanic')->name('store.mechanic');
 Route::get('/old','Frontend\HomeControllerold@index')->name('fronthomeold');
 Route::get('/how-it-works', 'Frontend\HomeController@howItWork')->name('howitworks');
 Route::get('/about', 'Frontend\HomeController@about')->name('aboutus');
@@ -42,8 +47,7 @@ Route::post('old/api/fetch-speed', 'Frontend\HomeControllerold@fetchSpeed');
 //Route::get('/payment/success','Frontend\HomeController@paymentSuccess')->name('paymentsuccess');
 // Route::get('/addmechanicold', 'Frontend\HomeControllerold@addmechanic')->name('addmechanic');
 // Route::post('store-mechanicold', 'Frontend\HomeControllerold@storeMechanic')->name('store.mechanic');
-Route::get('/addmechanic', 'Frontend\HomeController@addmechanic')->name('addmechanic');
-Route::post('store-mechanic', 'Frontend\HomeController@storeMechanic')->name('store.mechanic');
+
 Auth::routes();
 
 Route::group([
