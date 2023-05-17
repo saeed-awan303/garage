@@ -80,16 +80,17 @@ class TyreDetailController extends Controller
 									<a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();viewInfo('.$r->id.');" title="View tyres" href="javascript:void(0)">
 									<i class="icon-1x text-dark-50 flaticon-eye"></i>
 									</a>
-                                    <a title="Edit tyres" class="btn btn-sm btn-clean btn-icon"
-                                       href="'.$edit_url.'">
-                                       <i class="icon-1x text-dark-50 flaticon-edit"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete tyres" href="javascript:void(0)">
-                                        <i class="icon-1x text-dark-50 flaticon-delete"></i>
-                                    </a>
+
                                 </td>
                                 </div>
                             ';
+                            // <a title="Edit tyres" class="btn btn-sm btn-clean btn-icon"
+                            //            href="'.$edit_url.'">
+                            //            <i class="icon-1x text-dark-50 flaticon-edit"></i>
+                            //         </a>
+                            //         <a class="btn btn-sm btn-clean btn-icon" onclick="event.preventDefault();del('.$r->id.');" title="Delete tyres" href="javascript:void(0)">
+                            //             <i class="icon-1x text-dark-50 flaticon-delete"></i>
+                            //         </a>
 				$data[] = $nestedData;
 			}
 		}
@@ -164,7 +165,7 @@ class TyreDetailController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**
