@@ -603,7 +603,7 @@
                                     <p>Please select the number of tyres you want fitted, you can change this later.</p>
                                 </div>
                                 <div class="tyres-select">
-                                    <div class="row">
+                                    <div class="row" id="tyres_quantity">
                                         <div class="col-md-6">
                                             <p class="text-center fw-bold mb-3">Front</p>
                                             <label class="form-check-btn" for="tyres_quantity_front_1">
@@ -627,10 +627,10 @@
                                             </label>
                                         </div>
                                         <div class="offset-md-6 col-md-6">
-                                            <li  data-bs-toggle="pill"  style="float:right"class="btn btn-primary" id="tyre-continue-btn">Continue</li>
+                                            <li  data-bs-toggle="pill"  style="float:right"class="btn btn-primary" id="tyres_quantity_btn">Continue</li>
                                         </div>
                                     </div>
-                                    <div class="row" style="">
+                                    <div class="row" style="display:none" id="tyres_size">
 
                                                 <div class="col-12">
                                                     <div class="tyres-explanation">
@@ -664,6 +664,7 @@
                                                 </div>
                                                 <div class="offset-md-6 col-md-6 mt-3">
                                                     <li    style="float:right"class="btn btn-primary" id="get_tyres_btn">Continue</li>
+                                                    <li    style="float:right"class="btn btn-primary mx-2" id="get_tyres_back_btn">Back</li>
                                                 </div>
 
                                     </div>
@@ -2703,6 +2704,9 @@ $(document).ready(function(){
     @if (isset($details['categories']))
         ajaxAppendSelectedWork({{$details['categories']}});
     @endif
+    @if (isset($details['tyres']))
+        ajaxAppendSelectedTyreWork({{$details['tyres']}});
+    @endif
     $(document).on('click','.append_category',function(){
         var slug=$(this).data('slug');
         var title=$(this).data('title');
@@ -2729,8 +2733,14 @@ $(document).ready(function(){
             else{
                 calculatePrice(id,price,'add',false); //id,price,method,is_tyre_btn
             }
+            if($(this).hasClass('is_tyre_btn'))
+            {
+                appendSelectedWork(id,price,slug,title,true);
+            }
+            else{
+                appendSelectedWork(id,price,slug,title,false);
+            }
 
-            appendSelectedWork(id,price,slug,title);
 
     })
     $(document).on('click', '.basket-remove-icon', function(){
@@ -2738,7 +2748,14 @@ $(document).ready(function(){
         var slug=$(this).closest('li').data('slug');
         var id=Number($(this).closest('li').data('id'));
         price=Number(price);
-        calculatePrice(id,price,'subtract');
+        if($(this).hasClass('tyre-btn'))
+        {
+            calculatePrice(id,price,'subtract',true);
+        }
+        else
+        {
+            calculatePrice(id,price,'subtract',false);
+        }
         $(this).closest('li').remove();
         var btn=$('button[data-slug="'+slug+'"]');
         // btn.innerHTML='<img alt="" src="{{asset('assets/frontend/images/icon_plus.svg')}}"/>';
@@ -2772,7 +2789,15 @@ $(document).ready(function(){
             $(this).addClass("btn-primary");
         }
         $('li[data-slug="'+slug+'"]').remove();
-        calculatePrice(Number($(this).data('id')),Number($(this).data('price')),'subtract');
+        if($(this).hasClass('is_tyre_btn'))
+        {
+            calculatePrice(Number($(this).data('id')),Number($(this).data('price')),'subtract',true);
+        }
+        else
+        {
+            calculatePrice(Number($(this).data('id')),Number($(this).data('price')),'subtract',false);
+        }
+
         $(this).removeClass("remove_category");
         $(this).addClass("append_category");
 
@@ -2782,6 +2807,16 @@ $(document).ready(function(){
         appendSelectedWork($(this).data('id'),Number($(this).data('price')),$(this).data('slug'),$(this).data('title')); //id,price,slug,title
         $(".searched-item").remove();
     })
+    $(document).on('click','#tyres_quantity_btn',function(){
+        $("#tyres_size").css("display","flex");
+        $("#tyres_quantity").css("display","none");
+    });
+
+    $(document).on('click',"#get_tyres_back_btn",function(){
+        $("#tyres_size").css("display","none");
+        $("#tyres_quantity").css("display","flex");
+    });
+
     $("#tyre_width").change(function(){
         var tyre_widths_id=$(this).val();
         $.ajax({
@@ -2864,6 +2899,8 @@ $(document).ready(function(){
 
     });
     $("#get_tyres_btn").click(function(){
+        $("#tyres_size").css("display","none");
+        $("#tyres_quantity").css("display","none");
         var width=$("#tyre_width").val();
         var profile=$("#tyre_profile").val();
         var rim=$("#tyre_rim").val();
@@ -2910,16 +2947,30 @@ function calculatePrice(id,price,method,is_tyre_btn=false)
             }
 
         }
-        console.log(categories);
-        console.log(tyres);
     }
     else
     {
         total_price=total_price-price;
 
-        const index = categories.indexOf(id);
-        if (index > -1) { // only splice array when item is found
-        categories.splice(index, 1); // 2nd parameter means remove one item only
+        if(!is_tyre_btn)
+        {
+            const index = categories.indexOf(id);// only splice array when item is found
+            if (index > -1)
+            {
+
+                categories.splice(index, 1); // 2nd parameter means remove one item only
+            }
+
+
+        }
+        else{
+            const index2 = tyres.indexOf(id);// only splice array when item is found
+            if (index2 > -1)
+            {
+
+                tyres.splice(index2, 1); // 2nd parameter means remove one item only
+            }
+            console.log(tyres);
         }
     }
 
@@ -2948,6 +2999,24 @@ function ajaxAppendSelectedWork(jsonCategories)
         }
     });
 }
+function ajaxAppendSelectedTyreWork(jsontyres)
+{
+    $.ajax({
+        url: "{{url('api/fetch-tyres')}}",
+        type: "POST",
+        data: {
+            jsontyres: jsontyres,
+            _token: '{{csrf_token()}}'
+        },
+        dataType: 'json',
+        success: function (result) {
+            $.each(result, function (key, value) {
+                appendSelectedWork(value.id,value.price,value.slug,value.title,true);
+            });
+
+        }
+    });
+}
 function searchRepairs(searchItem)
 {
         $.ajax({
@@ -2968,12 +3037,17 @@ function searchRepairs(searchItem)
             }
         });
 }
-function appendSelectedWork(id,price,slug,title)
+function appendSelectedWork(id,price,slug,title,is_tyre=false)
 {
-
+    var className='';
+    if(is_tyre)
+    {
+        className='tyre-btn';
+    }
+    console.log("class:"+className);
     if($('.work-item[data-id="'+id+'"]').length==0)
     {
-        $(".selected-work").append('<li class="work-item"  data-id="'+id+'" data-price="'+price+'" data-slug="'+slug+'"><div class="d-table w-100"><div class="d-table-cell align-top" style="width: 20px"><span  class="basket-remove-icon"><img alt="remove" src="{{asset("assets/frontend/images/icon_remove.svg")}}"></span></div><div class="d-table-cell -align-middle ps-2 fs-7 fw-500">'+title+'<!--<div class="label basket-pricing-message">MOT with Service discount: -£55</div>--><div class="basket-labour-times labour"><span>Up to 0.9 hours</span> labour time</div></div><div class="d-table-cell align-top text-end"><span class="price ps-4 fw-500">£<span>'+price+'</span></span></div></div><div class="parts"><div class="d-table width-100"><div class="d-table-cell" style="width: 20px"></div><div class="d-table-cell ps-2"><p class="text-muted fs-9 m-0">No parts included.</p></div></div></div></li>');
+        $(".selected-work").append('<li class="work-item"  data-id="'+id+'" data-price="'+price+'" data-slug="'+slug+'"><div class="d-table w-100"><div class="d-table-cell align-top" style="width: 20px"><span  class="basket-remove-icon '+className+'"><img alt="remove" src="{{asset("assets/frontend/images/icon_remove.svg")}}"></span></div><div class="d-table-cell -align-middle ps-2 fs-7 fw-500">'+title+'<!--<div class="label basket-pricing-message">MOT with Service discount: -£55</div>--><div class="basket-labour-times labour"><span>Up to 0.9 hours</span> labour time</div></div><div class="d-table-cell align-top text-end"><span class="price ps-4 fw-500">£<span>'+price+'</span></span></div></div><div class="parts"><div class="d-table width-100"><div class="d-table-cell" style="width: 20px"></div><div class="d-table-cell ps-2"><p class="text-muted fs-9 m-0">No parts included.</p></div></div></div></li>');
     }
 
 }

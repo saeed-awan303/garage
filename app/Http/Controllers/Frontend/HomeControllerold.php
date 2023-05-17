@@ -78,7 +78,7 @@ class HomeControllerold extends Controller
 
     public function addmechanic(){
 
-        return view('frontend.add_mechanic');
+        return view('frontend.add_mechanic_old');
 
     }
     public function storeMechanic(Request $request){

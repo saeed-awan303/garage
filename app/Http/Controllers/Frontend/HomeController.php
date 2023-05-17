@@ -77,13 +77,6 @@ class HomeController extends Controller
     }
     public function postworkDetails(PostWorkDetails $request)
     {
-
-        // $validator = $request->validate($request->all(), [
-        //     'categories' => 'required_without_all:tyres|array',
-        //     'categories.*' => 'integer',
-        //     'tyres' => 'required_without_all:categories|array',
-        //     'tyres.*' => 'integer',
-        // ]);
         $details = $request->session()->get('details');
         $details=array_merge($details,$request->all());
         $request->session()->put('details', $details);
@@ -235,6 +228,19 @@ class HomeController extends Controller
 
         return response()->json($categoryArray);
     }
+    public function fetchTyres(Request $request)
+    {
+        $tyresArray=[];
+
+            $tyres=$request->jsontyres;
+            foreach($tyres as $tyre)
+            {
+                $tyresArray[]=TyreDetail::findOrFail($tyre);
+            }
+
+        return response()->json($tyresArray);
+    }
+
     public function getCategory(Request $request)
     {
         $data=$request->all();
@@ -264,6 +270,29 @@ class HomeController extends Controller
         $speeds=TyreSpeed::where('tyre_rims_id',$data['tyre_rims_id'])->get();
 
         return response()->json($speeds);
+    }
+    public function addmechanic(){
+
+        return view('frontend.add_mechanic');
+
+    }
+    public function storeMechanic(Request $request){
+        $this->validate($request, [
+		    'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'post_code' => 'required|max:255',
+	    ]);
+        $mechanic = Mechanic::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'postcode' => $request->post_code,
+            'mobile_number' => $request->mobile,
+        ]);
+
+
+	    return redirect()->back();
     }
 
 

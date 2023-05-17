@@ -40,8 +40,10 @@ Route::post('old/api/fetch-profile', 'Frontend\HomeControllerold@fetchProfile');
 Route::post('old/api/fetch-rim', 'Frontend\HomeControllerold@fetchRim');
 Route::post('old/api/fetch-speed', 'Frontend\HomeControllerold@fetchSpeed');
 //Route::get('/payment/success','Frontend\HomeController@paymentSuccess')->name('paymentsuccess');
-Route::get('/addmechanic', 'Frontend\HomeControllerold@addmechanic')->name('addmechanic');
-Route::post('store-mechanic', 'Frontend\HomeControllerold@storeMechanic')->name('store.mechanic');
+// Route::get('/addmechanicold', 'Frontend\HomeControllerold@addmechanic')->name('addmechanic');
+// Route::post('store-mechanicold', 'Frontend\HomeControllerold@storeMechanic')->name('store.mechanic');
+Route::get('/addmechanic', 'Frontend\HomeController@addmechanic')->name('addmechanic');
+Route::post('store-mechanic', 'Frontend\HomeController@storeMechanic')->name('store.mechanic');
 Auth::routes();
 
 Route::group([
