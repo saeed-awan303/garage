@@ -303,4 +303,45 @@
         </div>
 
     </main>
+     <!-- Modal Help/FAQs start -->
+     <div class="modal fade" id="helpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Frequently asked questions</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @foreach ($faqCats as $cat)
+                    <h4>{{$cat->title}}</h4>
+                        @foreach ($cat->faqs as $faq)
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-button collapsed" data-bs-target="#FAQs_1_1" type="button" data-bs-toggle="collapse" aria-expanded="false">
+                                    <span class="blue-circle-number">1</span>
+                                    <span class="accordion_title">{{$faq->question}}</span>
+                                </button>
+                                <div id="FAQs_1_1" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <p>{{$faq->answer}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        @endforeach
+
+                    @endforeach
+
+
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <p>
+                        Didn't find what you need? Email us at <a href="mailto:support@clickmechanic.com">support@clickmechanic.com</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Help/FAQs end -->
 @endsection

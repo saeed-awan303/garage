@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostWorkDetails;
 use App\Models\Category;
 use App\Models\EngineCapacity;
+use App\Models\FaqCategory;
 use App\Models\FuelType;
 use App\Models\Make;
 use App\Models\MakeModel;
@@ -28,8 +29,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-
-        return view('frontend.home');
+        $faqCats=FaqCategory::with('faqs')->get();
+        return view('frontend.home',compact('faqCats'));
     }
     public function howItWork()
     {
