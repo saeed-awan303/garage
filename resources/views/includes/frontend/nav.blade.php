@@ -22,28 +22,22 @@
                         <span class="nav-link-title">Our services</span>
                     </a>
                     <ul class="dropdown-menu">
+                        @foreach (\App\Models\Service::all() as $service)
                         <li>
                             <a class="dropdown-item" href="#">
-                                <span class="nav-link-title">Service 1</span>
+                                <span class="nav-link-title">{{$service->title}}</span>
                             </a>
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <span class="nav-link-title">Service 2</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <span class="nav-link-title">Service 3</span>
-                            </a>
-                        </li>
+                        @endforeach
+
+
                     </ul>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span class="nav-link-title">Blog</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
 
         </div> <!-- navbar-collapse.// -->

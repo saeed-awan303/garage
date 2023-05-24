@@ -30,6 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         $faqCats=FaqCategory::with('faqs')->get();
+
         return view('frontend.home',compact('faqCats'));
     }
     public function howItWork()

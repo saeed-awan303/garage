@@ -11,7 +11,7 @@
                     <div class="col-xl-7 hero_section_content text-center text-xl-start">
                         <h1 class="hero_title">Car repair & servicing made easy</h1>
                         <p class="mt-3">A fair price in seconds, mechanics you can trust, next-day service <strong>at your door</strong></p>
-                        <form class="hero_form_booking mt-3" action="booking_car.html">
+                        <form class="hero_form_booking mt-3" action="">
                             <div class="hero_form_row d-flex flex-column flex-lg-row">
                                 <div class="col-lg-6 px-2 py-2 py-xl-0">
                                     <div class="hero_form_wrap has-icon car-icon">
@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-secondary text-uppercase mt-3" type="submit">Get my instant price →</button>
+                            <button class="btn btn-secondary text-uppercase mt-3" type="button">Get my instant price →</button>
                             <div class="">
                                 <a class="select-by-fields ms-lg-2 mt-2 d-inline-block" href="booking_car.html">I don't know my registration number →</a>
                             </div>

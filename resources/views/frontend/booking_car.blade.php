@@ -32,17 +32,17 @@
 
 
                 <ul class="nav tabs-navigation mb-4 ">
-                    <li class="nav-item active" data-bs-toggle="pill" data-bs-target="#tab_number">
+                    <li class="nav-item " data-bs-toggle="pill" data-bs-target="#tab_number">
                         Use number plate
                     </li>
-                    <li class="nav-item" data-bs-toggle="pill" data-bs-target="#tab_fields">
+                    <li class="nav-item active" data-bs-toggle="pill" data-bs-target="#tab_fields">
                         Use car details
                     </li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="tab_number">
-                        <form id="booking_car_form" action="booking_work.html">
+                    <div class="tab-pane fade " id="tab_number">
+                        <form id="booking_car_form" action="">
                             <div class="form_wrap has-icon car-icon mb-3">
                                 <input type="text" class="form-control" placeholder="Your car reg" name="booking[car_attributes][vrm]" required="required">
                             </div>
@@ -50,11 +50,11 @@
                                 <input type="text" class="form-control" placeholder="Your postcode" name="booking[customer_postcode]" required="required">
                             </div>
 
-                            <input type="submit" name="commit" value="Next step" class="btn btn-secondary w-100 btn_md">
+                            <input type="button" name="commit" value="Next step" class="btn btn-secondary w-100 btn_md">
                         </form>
                     </div>
 
-                    <div class="tab-pane fade" id="tab_fields">
+                    <div class="tab-pane fade show active" id="tab_fields">
                         <form id="booking_car_form" method="post" action="{{route('bookingcar')}}">
                             @csrf
                             <div class="form-wrap mb-3">
