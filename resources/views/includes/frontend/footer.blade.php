@@ -6,7 +6,7 @@
 
                 <div class="col-md-12 col-lg-4 footer_block">
                     <img class="mb-3" alt="" src="{{asset('assets/frontend/images/logo.png')}}" width="110">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent volutpat sodales varius. Ut congue lorem non odio mollis placerat. Suspendisse potenti. Mauris nec vulputate tellus. Morbi dui erat, lacinia sed sapien imperdiet</p>
+                    <p>{{\App\Models\Setting::where('name','site_description')->pluck('value')->first()}}</p>
                 </div>
 
                 <div class="col-md-12 col-lg-8">

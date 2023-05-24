@@ -32,6 +32,15 @@ class SettingController extends Controller
                 'style'=>'width:30px;max-width:100%;margin-top:12px'
             ),
             array(
+                'name'=>'site_description',
+                'id'=>'site_description',
+                'type'=>'textarea',
+                'label'=>'Site Description',
+                'place_holder'=>'Enter Site Description',
+                'class'=>'form-control form-control-solid',
+                'style'=>'width:30px;max-width:100%;margin-top:12px'
+            ),
+            array(
                 'name'=>'meta_keywords',
                 'id'=>'meta_keywords',
                 'type'=>'textarea',
