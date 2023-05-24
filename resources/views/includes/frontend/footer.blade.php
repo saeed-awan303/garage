@@ -14,9 +14,11 @@
                         <div class="col-md-4 col-lg-4 footer_block">
                             <h4 class="footer_block_title">Services</h4>
                             <ul class="links">
-                                <li><a href="#">Service 1</a></li>
-                                <li><a href="#">Service 2</a></li>
-                                <li><a href="#">Service 3</a></li>
+                                @foreach (\App\Models\Service::all() as $service)
+                                    <li><a href="#">{{$service->title}}</a></li>
+                                @endforeach
+
+
                             </ul>
                         </div>
 
@@ -48,20 +50,21 @@
 
                         <div class="col-md-4 col-lg-4 footer_block">
                             <h4 class="footer_block_title">Contact Us</h4>
+
                             <ul class="social_links">
                                 <li class="mb-2">
                                     <a href="#" class="d-inline-flex">
-                                        <i class="fas fa-phone-alt"></i> <span>0123 456789</span>
+                                        <i class="fas fa-phone-alt"></i> <span>{{\App\Models\Setting::where('name','contact_number')->pluck('value')->first()}}</span>
                                     </a>
                                 </li>
                                 <li class="mb-2">
                                     <a href="#" class="d-inline-flex">
-                                        <i class="fas fa-envelope"></i> <span>info@youdomain.com</span>
+                                        <i class="fas fa-envelope"></i> <span>{{\App\Models\Setting::where('name','contact_email')->pluck('value')->first()}}</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="d-inline-flex">
-                                        <i class="fas fa-map-marker-alt"></i> <span>123 Abc Street, North XYZZ NSW 1234</span>
+                                        <i class="fas fa-map-marker-alt"></i> <span>{{\App\Models\Setting::where('name','contact_email')->pluck('value')->first()}}</span>
                                     </a>
                                 </li>
                                 <li>

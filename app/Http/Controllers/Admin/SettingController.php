@@ -19,6 +19,7 @@ class SettingController extends Controller
      */
     public function index()
     {
+
         $settings = Setting::pluck('value','name')->all();
         $all_columns =array(
             array(
@@ -123,6 +124,54 @@ class SettingController extends Controller
                 'type'=>'text',
                 'label'=>'Copyright Text',
                 'place_holder'=>'Enter Copyright text',
+                'class'=>'form-control form-control-solid',
+            ),
+            array(
+                'name'=>'contact_number',
+                'id'=>'contact_number',
+                'type'=>'text',
+                'label'=>'Contact number',
+                'place_holder'=>'Enter Contact number',
+                'class'=>'form-control form-control-solid',
+            ),
+            array(
+                'name'=>'contact_email',
+                'id'=>'contact_email',
+                'type'=>'text',
+                'label'=>'Contact Email',
+                'place_holder'=>'Enter Contact Email',
+                'class'=>'form-control form-control-solid',
+            ),
+            array(
+                'name'=>'contact_address',
+                'id'=>'contact_address',
+                'type'=>'text',
+                'label'=>'Contact Address',
+                'place_holder'=>'Enter Contact Address',
+                'class'=>'form-control form-control-solid',
+            ),
+            array(
+                'name'=>'facebook_link',
+                'id'=>'facebook_link',
+                'type'=>'text',
+                'label'=>'Facebook link',
+                'place_holder'=>'Enter Facebook Link',
+                'class'=>'form-control form-control-solid',
+            ),
+            array(
+                'name'=>'twitter_link',
+                'id'=>'twitter_link',
+                'type'=>'text',
+                'label'=>'Twitter Link',
+                'place_holder'=>'Enter Twitter Link',
+                'class'=>'form-control form-control-solid',
+            ),
+            array(
+                'name'=>'instagram_link',
+                'id'=>'instagram_link',
+                'type'=>'text',
+                'label'=>'Instagram Link',
+                'place_holder'=>'Enter Insta Link',
                 'class'=>'form-control form-control-solid',
             ),
 
