@@ -64,7 +64,7 @@
                                 </li>
                                 <li>
                                     <a href="#" class="d-inline-flex">
-                                        <i class="fas fa-map-marker-alt"></i> <span>{{\App\Models\Setting::where('name','contact_email')->pluck('value')->first()}}</span>
+                                        <i class="fas fa-map-marker-alt"></i> <span>{{\App\Models\Setting::where('name','contact_address')->pluck('value')->first()}}</span>
                                     </a>
                                 </li>
                                 <li>
