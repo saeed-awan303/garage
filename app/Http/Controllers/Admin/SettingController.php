@@ -183,6 +183,14 @@ class SettingController extends Controller
                 'place_holder'=>'Enter Insta Link',
                 'class'=>'form-control form-control-solid',
             ),
+            array(
+                'name'=>'working_hours',
+                'id'=>'working_hours',
+                'type'=>'text',
+                'label'=>'Working Hours',
+                'place_holder'=>'Enter Working Hours ',
+                'class'=>'form-control form-control-solid',
+            ),
 
         );
         return view('admin.settings.index', ['title' => 'Site Setting','settings'=>$settings,

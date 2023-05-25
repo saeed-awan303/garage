@@ -69,7 +69,7 @@
 
                                                 </div>
                                                 <div style="background-color:white;">
-                                                    <ul class="search-repairs" style="width:100%;padding-left:0px">
+                                                    <ul class="search-repairs " style="width:100%;padding-left:0px">
 
                                                     </ul>
                                                 </div>

@@ -69,7 +69,7 @@
                                 </li>
                                 <li>
                                     <a href="#" class="d-inline-flex">
-                                        <i class="fas fa-business-time"></i> Monday – Friday 9am – 5pm
+                                        <i class="fas fa-business-time"></i> {{\App\Models\Setting::where('name','working_hours')->pluck('value')->first()}}
                                     </a>
                                 </li>
                             </ul>
