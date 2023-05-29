@@ -331,13 +331,13 @@
                                     </div>
                                 @endif
                                 @if ($service->slug=='diagnostics')
-                                    <div class="tab-pane-block">
+                                    {{-- <div class="tab-pane-block">
                                         <h4 class="text-uppercase mb-2 text_primary">Free diagnostic service</h4>
                                         <p>Our in-house mechanics will help diagnose the problem and find the right service for you. Simply <a target="_blank" href="#">fill in this form</a>.</p>
                                         <div class="text-center mt-5 pb-4">
                                             <a target="_blank" class="btn btn-primary" href="#">Get Free Support</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="tab-pane-block">
                                         <h4 class="text-uppercase mb-2 text_primary">IN-PERSON DIAGNOSTIC</h4>
                                         <p>Get a mechanic to diagnose the issue and give you a no-obligation quote for any required repairs.</p>
@@ -407,7 +407,7 @@
                                 @endif
                                 @if ($service->slug=='servicing-mot')
                                     <div class="table-responsive">
-                                        <table class="table align-middle mb-0">
+                                        {{-- <table class="table align-middle mb-0">
                                             <tbody>
                                                 <tr class="group table-light">
                                                     <th>Compare</th>
@@ -524,12 +524,12 @@
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                        </table>
+                                        </table> --}}
                                     </div>
                                 @endif
                                 @if ($service->slug=='pre-purchase-inspections')
                                     <div class="table-responsive">
-                                        <table class="table align-middle mb-0">
+                                        {{-- <table class="table align-middle mb-0">
                                             <tbody>
                                                 <tr class="group table-light">
                                                     <th>Compare</th>
@@ -592,7 +592,7 @@
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                        </table>
+                                        </table> --}}
                                     </div>
                                 @endif
                             </div>

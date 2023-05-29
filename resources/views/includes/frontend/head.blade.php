@@ -20,5 +20,8 @@
              background-color: grey;
              cursor:pointer;
         }
+        .error{
+            color:red;
+        }
     </style>
 </head>

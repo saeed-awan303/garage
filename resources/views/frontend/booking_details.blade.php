@@ -97,22 +97,32 @@
                                     <div class="col-md-6">
                                         <label for="first_name" class="form-label">First name</label>
                                         <input class="form-control" placeholder="First name" type="text" name="first_name" id="booking_user_attributes_first_name" value="{{ old('first_name') ?? (isset($details['first_name']) ? $details['first_name'] : '') }}">
+                                        @error('first_name')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label for="last_name" class="form-label">Last name</label>
-                                        <input class="form-control" placeholder="Last name" type="text" name="last_name" id="booking_user_attributes_last_name" value="@if(isset($details['last_name'])){{$details['last_name']}}@endif">
+                                        <input class="form-control" placeholder="Last name" type="text" name="last_name" id="booking_user_attributes_last_name" value="{{ old('last_name') ?? (isset($details['last_name']) ? $details['last_name'] : '') }}">
+                                        @error('last_name')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input class="form-control"  placeholder="Email" type="email" name="email" id="booking_user_attributes_email" value="@if(isset($details['email'])){{$details['email']}}@endif">
+                                    <input class="form-control"  placeholder="Email" type="email" name="email" id="booking_user_attributes_email" value="{{ old('email') ?? (isset($details['email']) ? $details['email'] : '') }}">
+                                    @error('email')
+                                        <div class="error">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="marketing_opt_in" id="marketing_opt_in" value="true" checked="checked">
+
                                             <label for="marketing_opt_in">
                                                 Opt in to receive MOT reminders and monthly promotions from ClickMechanic
                                             </label>
@@ -134,7 +144,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="booking_notes_1">Details</label>
-                                    <textarea class="form-control" rows="4" id="booking_notes_1" placeholder="write as much details as possible" name="work_details">@if(isset($details['work_details'])){{$details['work_details']}}@endif</textarea>
+                                    <textarea class="form-control" rows="4" id="booking_notes_1" placeholder="write as much details as possible" name="work_details">{{ old('work_details') ?? (isset($details['work_details']) ? $details['work_details'] : '') }}</textarea>
+                                    @error('work_details')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                 </div>
                                 <div class="info-panel">
                                     <p id="inspection-service-info-title" class="show-repair-info d-flex justify-content-between mb-0">
@@ -162,27 +175,40 @@
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-6">
                                         <label for="booking_customer_street_address" class="form-label">Street address 1</label>
-                                        <input class="form-control" placeholder="Street address" type="text" name="street_address_1" id="booking_customer_street_address" value="@if(isset($details['street_address_1'])){{$details['street_address_1']}}@endif">
+                                        <input class="form-control" placeholder="Street address" type="text" name="street_address_1" id="booking_customer_street_address" value="{{ old('street_address_1') ?? (isset($details['street_address_1']) ? $details['street_address_1'] : '') }}">
+                                        @error('street_address_1')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label for="booking_customer_street_address_2" class="form-label">Street address 2 (optional)</label>
-                                        <input class="form-control" placeholder="Street address" type="text" name="street_address_2" id="booking_customer_street_address_2" value="@if(isset($details['street_address_2'])){{$details['street_address_2']}}@endif">
+                                        <input class="form-control" placeholder="Street address" type="text" name="street_address_2" id="booking_customer_street_address_2" value="{{ old('street_address_2') ?? (isset($details['street_address_2']) ? $details['street_address_2'] : '') }}">
+                                        @error('street_address_2')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-6">
                                         <label for="booking_customer_city" class="form-label">City</label>
-                                        <input class="form-control" placeholder="City" type="text" name="city" id="booking_customer_city" value="@if(isset($details['city'])){{$details['city']}}@endif">
+                                        <input class="form-control" placeholder="City" type="text" name="city" id="booking_customer_city" value="{{ old('city') ?? (isset($details['city']) ? $details['city'] : '') }}">
+                                        @error('city')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Postcode</label>
                                         <input type="text" value="W12 7SB" disabled="" class="form-control" >
+
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3">
                                     <div class="col-md-6">
                                         <label for="booking_customer_phone" class="form-label">Phone number</label>
-                                        <input class="form-control" placeholder="Phone number" type="tel" name="phone_number" id="booking_customer_phone" value="@if(isset($details['phone_number'])){{$details['phone_number']}}@endif">
+                                        <input class="form-control" placeholder="Phone number" type="text" name="phone_number" id="booking_customer_phone" value="{{ old('phone_number') ?? (isset($details['phone_number']) ? $details['phone_number'] : '') }}">
+                                        @error('phone_number')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                 </div>
 
@@ -192,11 +218,17 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label for="booking_seller_name" class="form-label">Seller's name, or point of contact name</label>
-                                        <input class="form-control" placeholder="Name" type="text" name="seller_name" id="booking_seller_name" value="@if(isset($details['seller_name'])){{$details['seller_name']}}@endif">
+                                        <input class="form-control" placeholder="Name" type="text" name="seller_name" id="booking_seller_name" value="{{ old('seller_name') ?? (isset($details['seller_name']) ? $details['seller_name'] : '') }}">
+                                        @error('seller_name')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <label for="booking_seller_phone" class="form-label">Seller's phone number</label>
-                                        <input class="form-control" placeholder="Phone number" type="tel" name="seller_phone_number" id="booking_seller_phone" value="@if(isset($details['seller_phone_number'])){{$details['seller_phone_number']}}@endif">
+                                        <input class="form-control" placeholder="Phone number" type="tel" name="seller_phone_number" id="booking_seller_phone" value="{{ old('seller_phone_number') ?? (isset($details['seller_phone_number']) ? $details['seller_phone_number'] : '') }}">
+                                        @error('seller_phone_number')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +251,10 @@
                                 </div>
                                 <div class="">
                                     <label for="booking_vehicle_vrm" class="form-label">Please provide your vehicle's registration number.</label>
-                                    <input class="form-control string required" placeholder="Registration number" type="text" name="car_registration_number" id="booking_vehicle_vrm" value="@if(isset($details['car_registration_number'])){{$details['car_registration_number']}}@endif">
+                                    <input class="form-control string required" placeholder="Registration number" type="text" name="car_registration_number" id="booking_vehicle_vrm" value="{{ old('car_registration_number') ?? (isset($details['car_registration_number']) ? $details['car_registration_number'] : '') }}">
+                                    @error('car_registration_number')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                 </div>
                             </div>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostBookingDetails;
 use App\Http\Requests\PostWorkDetails;
 use App\Models\Category;
 use App\Models\EngineCapacity;
@@ -92,22 +93,8 @@ class HomeController extends Controller
         $details=$request->session()->get('details');
         return view('frontend.booking_details',compact('details'));
     }
-    public function postBookingDetails(Request $request)
+    public function postBookingDetails(PostBookingDetails $request)
     {
-        $validatedData = $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required',
-            'work_details' => 'required',
-            'street_address_1'=>'required',
-            'street_address_2'=>'required',
-            'city'=>'required',
-            'phone_number'=>'required',
-            'seller_name'=>'required',
-            'seller_phone_number'=>'required',
-            'car_registration_number'=>'required',
-
-        ]);
 
         $details=$request->session()->get('details');
         $details=array_merge($details,$request->all());

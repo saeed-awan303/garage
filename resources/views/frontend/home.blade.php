@@ -24,9 +24,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-secondary text-uppercase mt-3" type="button">Get my instant price →</button>
+                            <a href="{{route('bookingcar')}}"><button class="btn btn-secondary text-uppercase mt-3" type="button">Get my instant price →</button></a>
                             <div class="">
-                                <a class="select-by-fields ms-lg-2 mt-2 d-inline-block" href="booking_car.html">I don't know my registration number →</a>
+                                <a class="select-by-fields ms-lg-2 mt-2 d-inline-block" href="#">I don't know my registration number →</a>
                             </div>
                         </form>
                     </div>
