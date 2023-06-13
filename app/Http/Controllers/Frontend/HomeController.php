@@ -24,6 +24,7 @@ use App\Models\TyreWidth;
 use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Stripe;
 use Session;
 class HomeController extends Controller
@@ -50,8 +51,56 @@ class HomeController extends Controller
         //return $details;
         return view('frontend.booking_car',compact('makes','details'));
     }
+    public function getCarDetails(Request $request)
+    {
+        //return $request->all();
+        $response = Http::withHeaders([
+            'x-api-key' => 'Qz9ebddeAh9EIecznaMvF6xFFRpQZJVF7DznIg7f',
+            'Content-Type' => 'application/json',
+        ])->post('https://uat.driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles', [
+            'registrationNumber' => 'AA19AAA',
+
+        ]);
+
+        if ($response->successful()) {
+            //return $response;
+            $data=json_decode($response);
+            if(!Make::where('title',$data->make)->exists() && !FuelType::where('title',$data->fuelType)->exists()){
+                $make=new Make();
+                $make->title=$data->make;
+                $make->save();
+                $make_id=$make->id;
+                $fuel_type=new fuelType();
+                $fuel_type->title=$data->fuelType;
+                $fuel_type->model_id=1;
+                $fuel_type->save();
+                $fuel_type_id=$fuel_type->id;
+            }
+            else
+            {
+                $make_id=Make::where('title',$data->make)->pluck('id')->firstOrFail();
+                $fuel_type_id=fuelType::where('title',$data->fuelType)->pluck('id')->firstOrFail();
+            }
+            $data=array(
+                'make'=>$make_id,
+                'model'=>1,
+                'fuel'=>$fuel_type_id,
+                'year'=>$data->yearOfManufacture,
+                'postcode'=>$request->postcode
+            );
+           
+           return redirect()->route('bookingcar', $data, 307);
+            // Process the response data
+            
+        } else {
+            // Handle the error response
+            $statusCode = $response->status();
+            $errorMessage = $response->body();
+        }
+    }
     public function postBookingCar(Request $request)
     {
+       // return $request->all();
         $validatedData = $request->validate([
             'make' => 'required|numeric',
             'model' => 'required|numeric',
@@ -162,6 +211,7 @@ class HomeController extends Controller
                 $order_tyre->save();
             }
         }
+
         $request->session()->forget('details');
         return view('frontend.thankyou');
 

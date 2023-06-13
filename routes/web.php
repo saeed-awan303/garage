@@ -31,6 +31,7 @@ Route::get('/old','Frontend\HomeControllerold@index')->name('fronthomeold');
 Route::get('/how-it-works', 'Frontend\HomeController@howItWork')->name('howitworks');
 Route::get('/about', 'Frontend\HomeController@about')->name('aboutus');
 Route::get('/bookingcar', 'Frontend\HomeController@bookingCar')->name('bookingcar');
+Route::post('/carreg','Frontend\HomeController@getCarDetails')->name('getcardetails');
 Route::post('/bookingcar','Frontend\HomeController@postBookingCar')->name('bookingcar');
 Route::get('/work-details', 'Frontend\HomeController@workDetails')->name('workdetails');
 Route::post('/work-details', 'Frontend\HomeController@postworkDetails')->name('workdetails');

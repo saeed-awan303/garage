@@ -42,15 +42,16 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade " id="tab_number">
-                        <form id="booking_car_form" action="">
+                        <form id="booking_car_form" method="post" action="{{ route('getcardetails') }}">
+                            @csrf
                             <div class="form_wrap has-icon car-icon mb-3">
-                                <input type="text" class="form-control" placeholder="Your car reg" name="booking[car_attributes][vrm]" required="required">
+                                <input type="text" class="form-control" placeholder="Your car reg" name="reg" required="required">
                             </div>
                             <div class="form_wrap has-icon location-pin mb-3">
-                                <input type="text" class="form-control" placeholder="Your postcode" name="booking[customer_postcode]" required="required">
+                                <input type="text" class="form-control" placeholder="Your postcode" name="postcode" required="required">
                             </div>
 
-                            <input type="button" name="commit" value="Next step" class="btn btn-secondary w-100 btn_md">
+                            <input type="submit" name="commit" value="Next step" class="btn btn-secondary w-100 btn_md">
                         </form>
                     </div>
 
