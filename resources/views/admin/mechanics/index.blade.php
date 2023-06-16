@@ -9,21 +9,19 @@
                     <i class="flaticon-users text-primary"></i>
                 </span>
                 <h3 class="card-label">Mechanic List</h3>
-                <div class="d-flex align-items-center ">
-                    <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
-                            class="la la-trash-o"></i>Delete All</a>
-                </div>
+
             </div>
             <div class="card-toolbar">
 
                 <!--begin::Button-->
-                
+                <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
+                    class="la la-trash-o"></i>Delete All</a>
                 <!--end::Button-->
             </div>
         </div>
         <div class="card-body">
             @include('admin.partials._messages')
-            <div class="table-responsive">
+            <div class="">
                 <form action="{{ route('admin.delete-selected-mechanics') }}" method="post" id="client_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->

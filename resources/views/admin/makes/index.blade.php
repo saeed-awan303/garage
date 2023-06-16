@@ -10,7 +10,7 @@
                 </span>
                 <h3 class="card-label">Makes List</h3>
                 <div class="d-flex align-items-center ">
-                  
+
                 </div>
             </div>
             <div class="card-toolbar">
@@ -37,7 +37,7 @@
         </div>
         <div class="card-body">
             @include('admin.partials._messages')
-            <div class="table-responsive">
+            <div class="">
                 <form action="{{ route('admin.delete-selected-makes') }}" method="post" id="make_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
@@ -52,7 +52,6 @@
                                 </th>
 
                                 <th>Title</th>
-                                <th>Slug</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -125,10 +124,7 @@
                 {
                     "data": "title"
                 },
-               
-                {
-                    "data": "slug"
-                },
+
                 {
                     "data": "created_at"
                 },

@@ -50,7 +50,7 @@
 							<a href="{{ route('client-profile') }}" class="btn btn-sm btn-light-success font-weight-bolder py-2 px-5">Edit Profile</a>
 							<a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById
 							('logout-form').submit();" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Logout</a>
-							
+
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 								@csrf
 							</form>

@@ -44,7 +44,7 @@
 
         <ul class="head-user-links d-lg-inline-flex d-none">
             <li>
-                @if(Auth::check())
+                @if(Auth::check() && Auth::user()->is_admin!=1)
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ Auth::user()->name }}

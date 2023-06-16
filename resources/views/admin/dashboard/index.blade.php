@@ -1,19 +1,19 @@
 @extends('admin.layouts.master')
 @section('title',$title)
 @section('content')
-	{{-- <!--begin::Entry-->
+	<!--begin::Entry-->
 	<div class="d-flex flex-column-fluid">
 		<!--begin::Container-->
 		<div class="container">
 			<!--begin::Dashboard-->
 			<!--begin::Row-->
 			<div class="row">
-				<div class="col-lg-6 col-xxl-4">
+				<div class="col-lg-12 col-xxl-4">
 					<!--begin::Mixed Widget 1-->
 					<div class="card card-custom bg-gray-100 card-stretch gutter-b">
 						<!--begin::Header-->
 						<div class="card-header border-0 bg-danger py-5">
-							<h3 class="card-title font-weight-bolder text-white">Sales Stat</h3>
+							<h3 class="card-title font-weight-bolder text-white">Stats</h3>
 							<div class="card-toolbar">
 								<div class="dropdown dropdown-inline">
 									<a href="#" class="btn btn-transparent-white btn-sm font-weight-bolder dropdown-toggle px-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</a>
@@ -107,7 +107,7 @@
 																</svg>
 																<!--end::Svg Icon-->
 															</span>
-										<a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">New Users</a>
+										<a href="{{ route('users.create') }}" class="text-primary font-weight-bold font-size-h6 mt-2">New Client</a>
 									</div>
 								</div>
 								<!--end::Row-->
@@ -203,8 +203,8 @@
 														</span>
 													</span>
 								<div class="d-flex flex-column text-right">
-									<span class="text-dark-75 font-weight-bolder font-size-h3">+6,5K</span>
-									<span class="text-muted font-weight-bold mt-2">New Users</span>
+									<span class="text-dark-75 font-weight-bolder font-size-h3">{{ $usersCount }}</span>
+									<span class="text-muted font-weight-bold mt-2">Clients</span>
 								</div>
 							</div>
 							<div id="kt_stats_widget_12_chart" class="card-rounded-bottom" data-color="primary" style="height: 150px"></div>
@@ -226,5 +226,5 @@
 		</div>
 		<!--end::Container-->
 	</div>
-	<!--end::Entry--> --}}
+	<!--end::Entry-->
 @endsection

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class MakesController extends Controller
 {
-   
+
     public function index()
     {
         $title = "Makes";
@@ -24,13 +24,13 @@ class MakesController extends Controller
 			4 => 'created_at',
 			5 => 'action'
 		);
-		
+
 		$totalData = Make::count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
-		
+
 		if(empty($request->input('search.value'))){
 			$makes = Make::offset($start)
 				->limit($limit)
@@ -40,32 +40,31 @@ class MakesController extends Controller
 		}else{
 			$search = $request->input('search.value');
 			$makes = Make::where([
-				
+
 				['title', 'like', "%{$search}%"],
 			])
-				
+
 				->orWhere('created_at','like',"%{$search}%")
 				->offset($start)
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
 			$totalFiltered = Make::where([
-				
+
 				['title', 'like', "%{$search}%"],
 			])
 				->orWhere('created_at','like',"%{$search}%")
 				->count();
 		}
-		
-		
+
+
 		$data = array();
-		
+
 		if($makes){
 			foreach($makes as $r){
 				$edit_url = route('makes.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="makes[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['title'] = $r->title;
-                $nestedData['slug'] = $r->slug;
 				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
 				$nestedData['action'] = '
                                 <div>
@@ -86,14 +85,14 @@ class MakesController extends Controller
 				$data[] = $nestedData;
 			}
 		}
-		
+
 		$json_data = array(
 			"draw"			=> intval($request->input('draw')),
 			"recordsTotal"	=> intval($totalData),
 			"recordsFiltered" => intval($totalFiltered),
 			"data"			=> $data
 		);
-		
+
 		echo json_encode($json_data);
     }
     public function makeDetail(Request $request){
@@ -105,7 +104,7 @@ class MakesController extends Controller
     public function create()
     {
         $title = "Create Make";
-        
+
         return view('admin.makes.create',compact('title'));
     }
 
@@ -119,7 +118,7 @@ class MakesController extends Controller
             'title' => $request->title
         ]);
         Session::flash('success_message', 'Great! Make has been saved successfully!');
-	  
+
 	    return redirect()->route('makes.index');
     }
 
@@ -134,14 +133,14 @@ class MakesController extends Controller
     {
         $title = "Edit Make";
         $make = Make::find($id);
-        
+
         return view('admin.makes.edit',compact('make','title'));
     }
 
 
     public function update(Request $request, $id)
     {
-        
+
         $this->validate($request, [
 		    'title' => 'required|max:255',
 	    ]);
@@ -149,7 +148,7 @@ class MakesController extends Controller
             'title' => $request->title
         ]);
         Session::flash('success_message', 'Great! Make has been saved successfully!');
-	  
+
 	    return redirect()->route('makes.index');
     }
 
@@ -161,25 +160,25 @@ class MakesController extends Controller
 		    Session::flash('success_message', ' make successfully deleted!');
 	    }
 	    return redirect()->route('makes.index');
-	   
+
     }
 	public function deleteSelectedClients(Request $request)
 	{
 		$input = $request->all();
 		$this->validate($request, [
 			'makes' => 'required',
-		
+
 		]);
 		foreach ($input['makes'] as $index => $id) {
-			
+
 			$make = Make::find($id);
 			if($make){
 				$make->delete();
 			}
-			
+
 		}
 		Session::flash('success_message', 'Make Categories successfully deleted!');
 		return redirect()->back();
-		
+
 	}
 }

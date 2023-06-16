@@ -8,14 +8,15 @@
                 <span class="card-icon">
                     <i class="flaticon-users text-primary"></i>
                 </span>
-                <h3 class="card-label">Client List</h3>
-                <div class="d-flex align-items-center ">
+                <h3 class="card-label">Clients List</h3>
+                {{-- <div class="d-flex align-items-center ">
                     <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
                             class="la la-trash-o"></i>Delete All</a>
-                </div>
+                </div> --}}
             </div>
             <div class="card-toolbar">
-
+                <a class="btn btn-danger font-weight-bolder mx-2" onclick="del_selected()" href="javascript:void(0)"> <i
+                    class="la la-trash-o"></i>Delete All</a>
                 <!--begin::Button-->
                 <a href="{{ route('clients.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">
@@ -37,7 +38,7 @@
         </div>
         <div class="card-body">
             @include('admin.partials._messages')
-            <div class="table-responsive">
+            <div class="">
                 <form action="{{ route('admin.delete-selected-clients') }}" method="post" id="client_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->

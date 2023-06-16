@@ -21,6 +21,7 @@ use App\Models\TyreProfile;
 use App\Models\TyreRim;
 use App\Models\TyreSpeed;
 use App\Models\TyreWidth;
+use App\Models\User;
 use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -88,10 +89,10 @@ class HomeController extends Controller
                 'year'=>$data->yearOfManufacture,
                 'postcode'=>$request->postcode
             );
-           
+
            return redirect()->route('bookingcar', $data, 307);
             // Process the response data
-            
+
         } else {
             // Handle the error response
             $statusCode = $response->status();

@@ -1,34 +1,11 @@
 @extends('admin.layouts.master')
 @section('title',$title)
+@section('stylesheets')
+@include('admin.partials.validations_style')
+@endsection
 @section('content')
   <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader" kt-hidden-height="54" style="">
-      <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-        <!--begin::Info-->
-        <div class="d-flex align-items-center flex-wrap mr-1">
-          <!--begin::Page Heading-->
-          <div class="d-flex align-items-baseline flex-wrap mr-5">
-            <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold my-1 mr-5">Dashboard</h5>
-            <!--end::Page Title-->
-            <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-              <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Manage FAQs's</a>
-              </li>
-              <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Add FAQs's</a>
-              </li>
-            </ul>
-            <!--end::Breadcrumb-->
-          </div>
-          <!--end::Page Heading-->
-        </div>
-        <!--end::Info-->
-      </div>
-    </div>
-    <!--end::Subheader-->
+
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
       <!--begin::Container-->
@@ -49,7 +26,7 @@
                 <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
 
               <div class="btn-group">
-                <a href="{{ route('faqs.store') }}"  onclick="event.preventDefault(); document.getElementById('faqs_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                <a href="javascript::void(0)"  onclick="return validated()" id="kt_btn" class="btn btn-primary font-weight-bolder">
                   <i class="ki ki-check icon-sm"></i>Save</a>
 
 
@@ -67,8 +44,8 @@
                 <div class="col-xl-8">
                   <div class="my-5">
                     <h3 class="text-dark font-weight-bold mb-10">FAQ's Info: </h3>
-                   
-                   
+
+
                     <div class="form-group row {{ $errors->has('faq_id') ? 'has-error' : '' }}">
                         <label class="col-3">FAQS's</label>
                          <div class="col-9">
@@ -85,7 +62,9 @@
                     <div class="form-group row {{ $errors->has('question') ? 'has-error' : '' }}">
                       <label class="col-3">Question</label>
                       <div class="col-9">
-                        {{ Form::textarea('question', null, ['class' => 'form-control form-control-solid','id'=>'question','placeholder'=>'Enter question','required'=>'true']) }}
+                        {{ Form::textarea('question', null, ['class' => 'form-control form-control-solid', 'id' => 'question', 'placeholder' => 'Enter question', 'required' => true, 'rows' => 3]) }}
+
+
                         <span class="text-danger">{{ $errors->first('question') }}</span>
                       </div>
                     </div>
@@ -93,7 +72,7 @@
                     <div class="form-group row {{ $errors->has('answer') ? 'has-error' : '' }}">
                       <label class="col-3">Answer</label>
                       <div class="col-9">
-                        {{ Form::textarea('answer', null, ['class' => 'form-control form-control-solid','id'=>'answer','placeholder'=>'Enter answer','required'=>'true']) }}
+                        {{ Form::textarea('answer', null, ['class' => 'form-control form-control-solid','id'=>'answer','placeholder'=>'Enter answer','required'=>'true','rows' => 3]) }}
                         <span class="text-danger">{{ $errors->first('answer') }}</span>
                       </div>
                     </div>
@@ -113,4 +92,51 @@
     </div>
     <!--end::Entry-->
   </div>
+  <script>
+
+    function validated() {
+
+         $("#faqs_add_form").validate({
+         errorClass: "error fail-alert",
+         validClass: "valid success-alert",
+         rules: {
+            faq_id: {
+                required: true,
+            },
+            question: {
+                required:true
+            },
+            answer:{
+                required:true
+            },
+
+
+        },
+        messages: {
+            faq_id: {
+                required: "Please select at least one category.",
+            },
+            question: {
+                required: "Please enter question.",
+            },
+            answer: {
+                required: "Please enter answer.",
+            },
+
+            // image: {
+            //     required: "Please upload an image.",
+            //     accept: "Please upload a valid image file.",
+            // },
+        }
+    });
+         if ($('#faqs_add_form').valid()) // check if form is valid
+         {
+
+         $("#faqs_add_form").submit();
+         } else {
+
+         return false;
+         }
+ }
+   </script>
 @endsection

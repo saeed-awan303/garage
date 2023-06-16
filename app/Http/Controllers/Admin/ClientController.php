@@ -24,7 +24,7 @@ class ClientController extends Controller
 	    return view('admin.clients.index',compact('title'));
     }
 
-   
+
 	public function getClients(Request $request){
 		$columns = array(
 			0 => 'id',
@@ -34,13 +34,13 @@ class ClientController extends Controller
 			4 => 'created_at',
 			5 => 'action'
 		);
-		
+
 		$totalData = User::where('is_admin', 0)->count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
-		
+
 		if(empty($request->input('search.value'))){
 			$users = User::where('is_admin', 0)->offset($start)
 				->limit($limit)
@@ -60,7 +60,7 @@ class ClientController extends Controller
 				->orderBy($order, $dir)
 				->get();
 			$totalFiltered = User::where([
-				
+
 				['name', 'like', "%{$search}%"],
 			])
 				->orWhere('name', 'like', "%{$search}%")
@@ -68,10 +68,10 @@ class ClientController extends Controller
 				->orWhere('created_at','like',"%{$search}%")
 				->count();
 		}
-		
-		
+
+
 		$data = array();
-		
+
 		if($users){
 			foreach($users as $r){
 				$edit_url = route('clients.edit',$r->id);
@@ -83,7 +83,7 @@ class ClientController extends Controller
 				}else{
 					$nestedData['active'] = '<span class="label label-danger label-inline mr-2">Inactive</span>';
 				}
-				
+
 				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
 				$nestedData['action'] = '
                                 <div>
@@ -104,22 +104,22 @@ class ClientController extends Controller
 				$data[] = $nestedData;
 			}
 		}
-		
+
 		$json_data = array(
 			"draw"			=> intval($request->input('draw')),
 			"recordsTotal"	=> intval($totalData),
 			"recordsFiltered" => intval($totalFiltered),
 			"data"			=> $data
 		);
-		
+
 		echo json_encode($json_data);
-		
+
 	}
 	public function clientDetail(Request $request)
 	{
-		
+
 		$user = User::findOrFail($request->id);
-		
+
 		return view('admin.clients.detail', ['title' => 'Client Detail', 'user' => $user]);
 	}
     public function create()
@@ -129,7 +129,7 @@ class ClientController extends Controller
 	    return view('admin.clients.create',compact('title','roles'));
     }
 
-   
+
     public function store(Request $request)
     {
 	    $this->validate($request, [
@@ -138,7 +138,7 @@ class ClientController extends Controller
 		    'password' => 'required|min:6',
 			'roles' => 'required',
 	    ]);
-	
+
 	    $input = $request->all();
 	    $user = new User();
 	    $user->name = $input['name'];
@@ -159,31 +159,32 @@ class ClientController extends Controller
 		//     $user->active = 0;
 	    // } else {
 		//     $user->active = 1;
-		
+
 	    // }
 	    $user->password = bcrypt($input['password']);
 		$user->assignRole($request->input('roles'));
 		$user->save();
 	    Session::flash('success_message', 'Great! Client has been saved successfully!');
-	  
+
 	    return redirect()->back();
     }
 
- 
+
     public function show($id)
     {
 	    $user = User::find($id);
 	    return view('admin.clients.single', ['title' => 'Client detail', 'user' => $user]);
     }
-    
 
 
-  
+
+
     public function edit($id)
     {
 		$roles = Role::pluck('name','name')->all();
 	    $user = User::find($id);
-	    return view('admin.clients.edit', ['title' => 'Edit client details','roles' => $roles])->withUser($user);
+        $userRoles = $user->roles->pluck('name')->toArray(); // Extract role names
+	    return view('admin.clients.edit', ['title' => 'Edit client details','roles' => $roles,],compact('userRoles'))->withUser($user);
     }
 
     public function update(Request $request, $id)
@@ -195,7 +196,7 @@ class ClientController extends Controller
 			'roles' => 'required',
 	    ]);
 	    $input = $request->all();
-	
+
 	    $user->name = $input['name'];
 	    $user->email = $input['email'];
 		if ($request->user_type == 'company') {
@@ -215,22 +216,22 @@ class ClientController extends Controller
 		    $user->active = 0;
 	    } else {
 		    $user->active = 1;
-		
+
 	    }
 	    if(!empty($input['password'])) {
 		    $user->password = bcrypt($input['password']);
 	    }
-	
+
 	    $user->save();
 		DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
+
         $user->assignRole($request->input('roles'));
-	
+
 	    Session::flash('success_message', 'Great! Client successfully updated!');
 	    return redirect()->back();
     }
 
-  
+
     public function destroy($id)
     {
 	    $user = User::find($id);
@@ -239,25 +240,25 @@ class ClientController extends Controller
 		    Session::flash('success_message', 'User successfully deleted!');
 	    }
 	    return redirect()->route('clients.index');
-	   
+
     }
 	public function deleteSelectedClients(Request $request)
 	{
 		$input = $request->all();
 		$this->validate($request, [
 			'clients' => 'required',
-		
+
 		]);
 		foreach ($input['clients'] as $index => $id) {
-			
+
 			$user = User::find($id);
 			if($user->is_admin == 0){
 				$user->delete();
 			}
-			
+
 		}
 		Session::flash('success_message', 'clietns successfully deleted!');
 		return redirect()->back();
-		
+
 	}
 }

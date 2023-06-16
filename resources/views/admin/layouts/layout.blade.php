@@ -10,13 +10,13 @@
         <!--[html-partial:include:{"file":"partials/_aside.html"}]/-->
 
         <!--begin::Wrapper-->
-        <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+        <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper" style="padding-top:40px">
             @include('admin.partials._header')
             <!--[html-partial:include:{"file":"partials/_header.html"}]/-->
 
             <!--begin::Content-->
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-                @include('admin.partials._subheader.subheader-v1')
+                {{-- @include('admin.partials._subheader.subheader-v1') --}}
                 <!--[html-partial:include:{"file":"partials/_subheader/subheader-v1.html"}]/-->
                 @yield('content')
                 <!--Content area here-->

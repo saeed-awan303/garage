@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Session;
 
 class ModelController extends Controller
 {
-  
+
     public function index()
     {
         $title = "Models";
-         
+
         return view('admin.models.index',compact('title'));
 
     }
@@ -28,15 +28,15 @@ class ModelController extends Controller
 			4 => 'created_at',
 			5 => 'action'
 		);
-		
+
 		$totalData = MakeModel::count();
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
-		
+
 		if(empty($request->input('search.value'))){
-			$models = MakeModel::offset($start)
+			$models = MakeModel::with('makes')->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
@@ -44,33 +44,33 @@ class ModelController extends Controller
 		}else{
 			$search = $request->input('search.value');
 			$models = MakeModel::where([
-				
+
 				['title', 'like', "%{$search}%"],
 			])
-				
+
 				->orWhere('created_at','like',"%{$search}%")
+                ->with('makes')
 				->offset($start)
 				->limit($limit)
 				->orderBy($order, $dir)
 				->get();
 			$totalFiltered = MakeModel::where([
-				
+
 				['title', 'like', "%{$search}%"],
 			])
 				->orWhere('created_at','like',"%{$search}%")
 				->count();
 		}
-		
-		
+
+
 		$data = array();
-		
+
 		if($models){
 			foreach($models as $r){
 				$edit_url = route('models.edit',$r->id);
 				$nestedData['id'] = '<td><label class="checkbox checkbox-outline checkbox-success"><input type="checkbox" name="models[]" value="'.$r->id.'"><span></span></label></td>';
 				$nestedData['title'] = $r->title;
-                $nestedData['slug'] = $r->slug;
-                $nestedData['make'] = $r->make_id;
+                $nestedData['make'] = $r->makes->title;
 				$nestedData['created_at'] = date('d-m-Y',strtotime($r->created_at));
 				$nestedData['action'] = '
                                 <div>
@@ -91,17 +91,17 @@ class ModelController extends Controller
 				$data[] = $nestedData;
 			}
 		}
-		
+
 		$json_data = array(
 			"draw"			=> intval($request->input('draw')),
 			"recordsTotal"	=> intval($totalData),
 			"recordsFiltered" => intval($totalFiltered),
 			"data"			=> $data
 		);
-		
+
 		echo json_encode($json_data);
     }
-    
+
     public function modelDetail(Request $request){
 
 		$model = MakeModel::with('makes')->findOrFail($request->id);
@@ -112,7 +112,7 @@ class ModelController extends Controller
     {
         $title = "Create Model";
         $makes = Make::all();
-        
+
         return view('admin.models.create',compact('title','makes'));
     }
 
@@ -128,14 +128,14 @@ class ModelController extends Controller
             'make_id' => $request->make
         ]);
         Session::flash('success_message', 'Great! Model has been saved successfully!');
-	  
+
 	    return redirect()->route('models.index');
     }
 
 
     public function show($id)
     {
-       
+
     }
 
 
@@ -144,7 +144,7 @@ class ModelController extends Controller
         $title = "Create Model";
         $makes = Make::all();
         $model = MakeModel::find($id);
-        
+
         return view('admin.models.edit',compact('title','makes','model'));
     }
 
@@ -160,7 +160,7 @@ class ModelController extends Controller
             'make_id' => $request->make
         ]);
         Session::flash('success_message', 'Great! Model has been saved successfully!');
-	  
+
 	    return redirect()->route('models.index');
     }
 
@@ -173,25 +173,25 @@ class ModelController extends Controller
 		    Session::flash('success_message', 'Model successfully deleted!');
 	    }
 	    return redirect()->route('makes.index');
-	   
+
     }
 	public function deleteSelectedClients(Request $request)
 	{
 		$input = $request->all();
 		$this->validate($request, [
 			'models' => 'required',
-		
+
 		]);
 		foreach ($input['models'] as $index => $id) {
-			
+
 			$model = MakeModel::find($id);
 			if($model){
 				$model->delete();
 			}
-			
+
 		}
 		Session::flash('success_message', 'Model Categories successfully deleted!');
 		return redirect()->back();
-		
+
 	}
 }

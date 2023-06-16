@@ -9,7 +9,7 @@
                     <i class="flaticon-users text-primary"></i>
                 </span>
                 <h3 class="card-label">Services List</h3>
-               
+
             </div>
             <div class="card-toolbar">
                  <a class="btn btn-danger font-weight-bolder mx-2" onclick="del_selected()" href="javascript:void(0)"> <i
@@ -35,7 +35,7 @@
         </div>
         <div class="card-body">
             @include('admin.partials._messages')
-            <div class="table-responsive">
+            <div class="">
                 <form action="{{ route('admin.delete-selected-services') }}" method="post" id="service_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
@@ -49,7 +49,6 @@
 
                                 </th>
                                 <th>Title</th>
-                                <th>Slug</th>
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
@@ -123,9 +122,7 @@
                 {
                     "data": "title"
                 },
-                {
-                    "data": "slug"
-                },
+
                  {
                     "data":"status"
                 },

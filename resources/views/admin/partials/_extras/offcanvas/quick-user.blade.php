@@ -20,12 +20,12 @@
 				<!--begin::Header-->
 				<div class="d-flex align-items-center mt-5">
 					<div class="symbol symbol-100 mr-5">
-						<div class="symbol-label" style="background-image:url('{{ asset('assets/media/users/300_21.jpg') }}')"></div>
+						<div class="symbol-label" style="background-image:url('{{ asset('uploads/Profile-images/'.Auth::user()->image) }}')"></div>
 						<i class="symbol-badge bg-success"></i>
 					</div>
 					<div class="d-flex flex-column">
 						<a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"> {{ Auth::user()->name }}</a>
-						<div class="text-muted mt-1">Application Developer</div>
+						{{-- <div class="text-muted mt-1">Application Developer</div> --}}
 						<div class="navi mt-2">
 							<a href="#" class="navi-item">
 								<span class="navi-link p-0 pb-2">
@@ -50,7 +50,7 @@
 							<a href="{{ route('admin-profile') }}" class="btn btn-sm btn-light-success font-weight-bolder py-2 px-5">Edit Profile</a>
 							<a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById
 							('logout-form').submit();" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Logout</a>
-							
+
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 								@csrf
 							</form>

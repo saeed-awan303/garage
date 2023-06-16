@@ -10,7 +10,7 @@
                 </span>
                 <h3 class="card-label">Models List</h3>
                 <div class="d-flex align-items-center ">
-                    
+
                 </div>
             </div>
             <div class="card-toolbar">
@@ -37,7 +37,7 @@
         </div>
         <div class="card-body">
             @include('admin.partials._messages')
-            <div class="table-responsive">
+            <div class="">
                 <form action="{{ route('admin.delete-selected-models') }}" method="post" id="model_form">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin: Datatable-->
@@ -53,7 +53,6 @@
 
                                 <th>Title</th>
                                 <th>Make</th>
-                                <th>Slug</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -126,10 +125,8 @@
                 {
                     "data": "title"
                 },
-               
-                {
-                    "data": "slug"
-                },
+
+
                 {
                     "data": "make"
                 },

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -10,14 +11,15 @@ use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
- 
+
     public function index()
     {
         $title = 'Garage';
-        return view('admin.dashboard.index',compact('title'));
+        $usersCount=User::count();
+        return view('admin.dashboard.index',compact('title','usersCount'));
     }
 
-    
+
     public function create()
     {
         //
@@ -52,6 +54,7 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(){
+
         $user = Auth::user();
         return view('admin.settings.edit', ['title' => 'Edit Admin Profile','user'=>$user]);
     }
@@ -69,12 +72,22 @@ class AdminController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'email' => 'required|unique:users,email,'.$admin->id,
+            'image' =>'nullable|image'
         ]);
         $input = $request->all();
         if (empty($input['password'])) {
             $input['password'] = $admin->password;
         } else {
             $input['password'] = bcrypt($input['password']);
+        }
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/Profile-images'), $imageName);
+
+            // Save the image file name in the database
+
+            $input['image']=$imageName;
         }
         $admin->fill($input)->save();
         Session::flash('success_message', 'Great! admin successfully updated!');

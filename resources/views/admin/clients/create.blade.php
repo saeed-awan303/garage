@@ -1,34 +1,11 @@
 @extends('admin.layouts.master')
 @section('title',$title)
+@section('stylesheets')
+@include('admin.partials.validations_style')
+@endsection
 @section('content')
   <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader" kt-hidden-height="54" style="">
-      <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-        <!--begin::Info-->
-        <div class="d-flex align-items-center flex-wrap mr-1">
-          <!--begin::Page Heading-->
-          <div class="d-flex align-items-baseline flex-wrap mr-5">
-            <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold my-1 mr-5">Dashboard</h5>
-            <!--end::Page Title-->
-            <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-              <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Manage Clients</a>
-              </li>
-              <li class="breadcrumb-item text-muted">
-                <a href="" class="text-muted">Add Client</a>
-              </li>
-            </ul>
-            <!--end::Breadcrumb-->
-          </div>
-          <!--end::Page Heading-->
-        </div>
-        <!--end::Info-->
-      </div>
-    </div>
-    <!--end::Subheader-->
+
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
       <!--begin::Container-->
@@ -49,7 +26,7 @@
                 <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
 
               <div class="btn-group">
-                <a href="{{ route('clients.store') }}"  onclick="event.preventDefault(); document.getElementById('client_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                <a href="javascript::void(0)"  onclick="return validated()" id="kt_btn" class="btn btn-primary font-weight-bolder">
                   <i class="ki ki-check icon-sm"></i>Save</a>
 
 
@@ -71,20 +48,20 @@
                       <label class="col-3">Name</label>
                       <div class="col-9">
                         {{ Form::text('name', null, ['class' => 'form-control form-control-solid','id'=>'name','placeholder'=>'Enter Name','required'=>'true']) }}
-                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                        {{-- <span class="text-danger">{{ $errors->first('name') }}</span> --}}
                       </div>
                     </div>
                     <div class="form-group row {{ $errors->has('email') ? 'has-error' : '' }}">
                       <label class="col-3">Email</label>
                       <div class="col-9">
                         {{ Form::email('email', null, ['class' => 'form-control form-control-solid','id'=>'email','placeholder'=>'Email Address','required'=>'true']) }}
-                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                        {{-- <span class="text-danger">{{ $errors->first('email') }}</span> --}}
                       </div>
                     </div>
                     <div class="form-group row {{ $errors->has('roles') ? 'has-error' : '' }}">
                         <label class="col-3">Roles</label>
-                         <div class="col-9">
-                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control form-control-solid','multiple')) !!}
+                        <div class="col-9">
+                            {!! Form::select('roles[]', $roles, [], array('class' => 'form-control form-control-solid','multiple', 'data-rule-required' => 'true')) !!}
                         </div>
                     </div>
                     <div class="form-group row {{ $errors->has('user_type') ? 'has-error' : '' }}">
@@ -130,4 +107,63 @@
     </div>
     <!--end::Entry-->
   </div>
+  <script>
+
+   function validated() {
+
+        $("#client_add_form").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+        name: {
+            required: true, // Make the name field optional
+        },
+        email: {
+            required: true, // Make the email field optional
+        },
+
+        user_type: {
+            required: true, // Make the monthly_fee field optional
+        },
+        password: {
+            required: true, // Make the code field optional
+        },
+        roles: {
+            required: true, // Make the code field optional
+        },
+
+        },
+        messages: {
+            name: {
+            required: "Please enter  name.",
+            },
+            email: {
+            required: "Please enter  email.",
+            },
+            user_type: {
+            required: "Please select at least one user type.",
+            },
+            password: {
+                required: "Please enter  password.",
+            },
+            roles: {
+                required: "Please select at least one role.",
+            },
+
+
+
+
+
+            }
+        });
+        if ($('#client_add_form').valid()) // check if form is valid
+        {
+
+        $("#client_add_form").submit();
+        } else {
+
+        return false;
+        }
+}
+  </script>
 @endsection

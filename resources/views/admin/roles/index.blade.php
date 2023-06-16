@@ -10,12 +10,13 @@
                 </span>
                 <h3 class="card-label">Roles List</h3>
                 <div class="d-flex align-items-center ">
-                    <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
-                            class="la la-trash-o"></i>Delete All</a>
+                    {{-- <a class="btn btn-danger font-weight-bolder" onclick="del_selected()" href="javascript:void(0)"> <i
+                            class="la la-trash-o"></i>Delete All</a> --}}
                 </div>
             </div>
             <div class="card-toolbar">
-
+                <a class="btn btn-danger font-weight-bolder mx-2" onclick="del_selected()" href="javascript:void(0)"> <i
+                    class="la la-trash-o"></i>Delete All</a>
                 <!--begin::Button-->
                 <a href="{{ route('roles.create') }}" class="btn btn-primary font-weight-bolder">
                     <span class="svg-icon svg-icon-md">

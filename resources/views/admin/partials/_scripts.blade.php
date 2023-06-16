@@ -9,7 +9,7 @@
 
 <!--begin::Page Vendors(used by this page)-->
 <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <!--end::Page Vendors-->
 
 <!--begin::Page Scripts(used by this page)-->
