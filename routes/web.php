@@ -87,6 +87,13 @@ Route::group([
 	Route::get('client/delete/{id}', 'ClientController@destroy');
 	Route::post('delete-selected-clients', 'ClientController@deleteSelectedClients')->name('admin.delete-selected-clients');
 
+    Route::resource('orders','OrderController');
+	Route::post('get-orders', 'OrderController@getOrders')->name('admin.getOrders');
+	Route::post('get-order', 'OrderController@orderDetail')->name('admin.getOrder');
+	Route::get('order/delete/{id}', 'OrderController@destroy');
+	Route::post('delete-selected-orders', 'OrderController@deleteSelectedOrders')->name('admin.delete-selected-orders');
+
+
 	//MEchanic Routes
 	Route::resource('mechanics','MechanicController');
 	Route::post('get-mechanics', 'MechanicController@getMechanics')->name('admin.getmechanics');
