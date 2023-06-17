@@ -18,7 +18,17 @@ class AdminController extends Controller
         $title = 'Garage';
         $usersCount=User::count();
         $orderCount=Order::count();
-        return view('admin.dashboard.index',compact('title','usersCount','orderCount'));
+        $currentWeekOrders = Order::whereBetween('created_at', [
+            now()->startOfWeek(),
+            now()->endOfWeek(),
+        ])->get();
+        $orderData = $currentWeekOrders->groupBy(function ($order) {
+            return $order->created_at->format('Y-m-d');
+        })->map(function ($groupedOrders) {
+            return $groupedOrders->count();
+        });
+
+        return view('admin.dashboard.index',compact('title','usersCount','orderCount','orderData'));
     }
 
 
