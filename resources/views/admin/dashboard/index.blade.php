@@ -1,4 +1,5 @@
 @extends('admin.layouts.master')
+
 @section('title',$title)
 @section('content')
 	<!--begin::Entry-->
@@ -161,21 +162,22 @@
 															</span>
 														</span>
 													</span>
-								<div class="d-flex flex-column text-right">
+								{{-- <div class="d-flex flex-column text-right">
 									<span class="text-dark-75 font-weight-bolder font-size-h3">{{ $orderCount }}</span>
 									<span class="text-muted font-weight-bold mt-2">Orders</span>
-								</div>
+								</div> --}}
+                                <canvas id="orderChart"></canvas>
 							</div>
-							<div id="kt_stats_widget_11_chart" class="card-rounded-bottom" data-color="success" style="height: 150px"></div>
+							{{-- <div id="kt_stats_widget_11_chart" class="card-rounded-bottom" data-color="success" style="height: 150px"></div> --}}
 						</div>
 						<!--end::Body-->
 					</div>
 					<!--end::Stats Widget 11-->
 					<!--begin::Stats Widget 12-->
-					<div class="card card-custom card-stretch card-stretch-half gutter-b">
+					{{-- <div class="card card-custom card-stretch card-stretch-half gutter-b">
 						<!--begin::Body-->
 						<div class="card-body p-0">
-							<div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
+							{{-- <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
 													<span class="symbol symbol-50 symbol-light-primary mr-2">
 														<span class="symbol-label">
 															<span class="svg-icon svg-icon-xl svg-icon-primary">
@@ -191,15 +193,17 @@
 															</span>
 														</span>
 													</span>
-								<div class="d-flex flex-column text-right">
+								{{-- <div class="d-flex flex-column text-right">
 									<span class="text-dark-75 font-weight-bolder font-size-h3">{{ $usersCount }}</span>
 									<span class="text-muted font-weight-bold mt-2">Clients</span>
 								</div>
-							</div>
-							<div id="kt_stats_widget_12_chart" class="card-rounded-bottom" data-color="primary" style="height: 150px"></div>
+							</div> --}}
+							{{-- <div id="kt_stats_widget_12_chart" class="card-rounded-bottom" data-color="primary" style="height: 150px"></div>
+                            <h1>bar</h1>
+
 						</div>
 						<!--end::Body-->
-					</div>
+					</div> --}}
 					<!--end::Stats Widget 12-->
 				</div>
 
@@ -216,4 +220,32 @@
 		<!--end::Container-->
 	</div>
 	<!--end::Entry-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        var orderData = <?php echo json_encode($orderData); ?>;
+
+    var ctx = document.getElementById('orderChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(orderData),
+            datasets: [{
+                label: 'Number of Orders',
+                data: Object.values(orderData),
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    precision: 0
+                }
+            }
+        }
+    });
+    </script>
 @endsection
