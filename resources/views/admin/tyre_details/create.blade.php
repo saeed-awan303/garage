@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 @section('title',$title)
+@section('stylesheets')
+@include('admin.partials.validations_style')
+@endsection
 @section('content')
   <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -23,8 +26,8 @@
                 <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
 
               <div class="btn-group">
-                <a href="{{ route('tyre_details.store') }}"  onclick="event.preventDefault(); document.getElementById('tyre_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
-                  <i class="ki ki-check icon-sm"></i>Save</a>
+                <a href="javascript::void(0)"  onclick="return validated()" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                    <i class="ki ki-check icon-sm"></i>Save</a>
 
 
 
@@ -181,5 +184,64 @@
             }
         });
     });
+    function validated() {
+
+$("#tyre_add_form").validate({
+errorClass: "error fail-alert",
+validClass: "valid success-alert",
+rules: {
+   title: {
+       required: true,
+   },
+   tyre_width: {
+       required:true
+   },
+   tyre_profile:{
+    required:true
+   },
+   tyre_rim:{
+    required:true
+   },
+   tyre_speed:{
+    required:true
+   }
+
+
+
+   },
+   messages: {
+       title: {
+           required: "Please enter title.",
+       },
+       tyre_width: {
+           required: "Please select at least one type.",
+       },
+       tyre_profile: {
+           required: "Please select at least one type.",
+       },
+       tyre_rim: {
+           required: "Please select at least one type.",
+       },
+       tyre_speed: {
+           required: "Please select at least one type.",
+       },
+
+
+
+       // image: {
+       //     required: "Please upload an image.",
+       //     accept: "Please upload a valid image file.",
+       // },
+   }
+});
+if ($('#tyre_add_form').valid()) // check if form is valid
+{
+
+$("#tyre_add_form").submit();
+} else {
+
+return false;
+}
+}
   </script>
 @endsection

@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 @section('title',$title)
+@section('stylesheets')
+@include('admin.partials.validations_style')
+@endsection
 @section('content')
   <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -22,7 +25,7 @@
                 <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
 
               <div class="btn-group">
-                <a href=""  onclick="event.preventDefault(); document.getElementById('admin_update_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                <a href="javascript::void(0)"  onclick="return validated()"  id="kt_btn" class="btn btn-primary font-weight-bolder">
                   <i class="ki ki-check icon-sm"></i>update</a>
 
 
@@ -95,4 +98,46 @@
     </div>
     <!--end::Entry-->
   </div>
+  <script>
+
+    function validated() {
+
+         $("#admin_update_form").validate({
+         errorClass: "error fail-alert",
+         validClass: "valid success-alert",
+         rules: {
+         name: {
+             required: true, // Make the name field optional
+         },
+         email: {
+             required: true, // Make the email field optional
+         },
+
+
+         },
+         messages: {
+             name: {
+             required: "Please enter  name.",
+             },
+             email: {
+             required: "Please enter  email.",
+             },
+
+
+
+
+
+
+             }
+         });
+         if ($('#admin_update_form').valid()) // check if form is valid
+         {
+
+         $("#admin_update_form").submit();
+         } else {
+
+         return false;
+         }
+ }
+   </script>
 @endsection

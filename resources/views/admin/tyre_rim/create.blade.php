@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 @section('title',$title)
+@section('stylesheets')
+@include('admin.partials.validations_style')
+@endsection
 @section('content')
   <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -23,8 +26,8 @@
                 <i class="ki ki-long-arrow-back icon-sm"></i>Back</a>
 
               <div class="btn-group">
-                <a href="{{ route('rims.store') }}"  onclick="event.preventDefault(); document.getElementById('tyre_add_form').submit();" id="kt_btn" class="btn btn-primary font-weight-bolder">
-                  <i class="ki ki-check icon-sm"></i>Save</a>
+                <a href="javascript::void(0)"  onclick="return validated()" id="kt_btn" class="btn btn-primary font-weight-bolder">
+                    <i class="ki ki-check icon-sm"></i>Save</a>
 
 
 
@@ -82,4 +85,47 @@
     </div>
     <!--end::Entry-->
   </div>
+  <script>
+
+    function validated() {
+
+         $("#tyre_add_form").validate({
+         errorClass: "error fail-alert",
+         validClass: "valid success-alert",
+         rules: {
+            title: {
+                required: true,
+            },
+            tyre_profiles_id: {
+                required:true
+            },
+
+
+
+        },
+        messages: {
+            title: {
+                required: "Please enter title.",
+            },
+            tyre_profiles_id: {
+                required: "Please select at least one type.",
+            },
+
+
+            // image: {
+            //     required: "Please upload an image.",
+            //     accept: "Please upload a valid image file.",
+            // },
+        }
+    });
+         if ($('#tyre_add_form').valid()) // check if form is valid
+         {
+
+         $("#tyre_add_form").submit();
+         } else {
+
+         return false;
+         }
+ }
+   </script>
 @endsection
