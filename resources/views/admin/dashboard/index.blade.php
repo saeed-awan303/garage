@@ -143,7 +143,7 @@
 
 				<div class="col-lg-12 col-xxl-4">
 					<!--begin::Stats Widget 11-->
-					<div class="card card-custom card-stretch card-stretch-half gutter-b">
+					<div class="card card-custom card-stretch card-stretch-half gutter-b" style="height:100%">
 						<!--begin::Body-->
 						<div class="card-body p-0">
 							<div class="row">
