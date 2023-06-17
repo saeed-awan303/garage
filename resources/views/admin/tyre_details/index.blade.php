@@ -49,7 +49,7 @@
 
                                 </th>
                                 <th>Title</th>
-                                <th>Slug</th>
+
                                 <th>Price</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
@@ -123,9 +123,7 @@
                 {
                     "data": "title"
                 },
-                {
-                    "data": "slug"
-                },
+
                 {
                     "data": "price"
                 },
