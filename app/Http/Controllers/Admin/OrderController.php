@@ -181,4 +181,24 @@ class OrderController extends Controller
 	    }
 	    return redirect()->route('orders.index');
     }
+    public function deleteSelectedOrders(Request $request)
+	{
+        return $request->all();
+		$input = $request->all();
+		$this->validate($request, [
+			'orders' => 'required',
+
+		]);
+		foreach ($input['categories'] as $index => $id) {
+
+			$order = Order::find($id);
+			if($order){
+				$order->delete();
+			}
+
+		}
+		Session::flash('success_message', 'Orders successfully deleted!');
+		return redirect()->back();
+
+	}
 }
