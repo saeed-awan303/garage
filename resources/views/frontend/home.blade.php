@@ -27,7 +27,7 @@
                             </div>
                             <button class="btn btn-secondary text-uppercase mt-3" type="submit">Get my instant price →</button></a>
                             <div class="">
-                                <a class="select-by-fields ms-lg-2 mt-2 d-inline-block" href="#">I don't know my registration number →</a>
+                                <a class="select-by-fields ms-lg-2 mt-2 d-inline-block" href="{{ route('bookingcar',['tab_number'=>true]) }}">I don't know my registration number →</a>
                             </div>
                         </form>
                     </div>
@@ -293,7 +293,7 @@
                                 </div>
                             </div>
                             <div class="text-center mt-3">
-                                <a class="select-by-fields ms-lg-2 mt-2 d-inline-block  h5 text-link" href="booking_car.html">I don't know my registration number</a>
+                                <a class="select-by-fields ms-lg-2 mt-2 d-inline-block  h5 text-link" href="{{ route('bookingcar',['tab_number'=>true]) }}">I don't know my registration number</a>
                             </div>
                             <div class="text-center">
                                 <button class="btn btn-secondary text-uppercase mt-3 rounded-1" type="submit">Get my instant price</button>

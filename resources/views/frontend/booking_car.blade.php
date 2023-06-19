@@ -32,16 +32,16 @@
 
 
                 <ul class="nav tabs-navigation mb-4 ">
-                    <li class="nav-item " data-bs-toggle="pill" data-bs-target="#tab_number">
+                    <li class="nav-item @if($tab_number){{ "active" }}@endif" data-bs-toggle="pill" data-bs-target="#tab_number">
                         Use number plate
                     </li>
-                    <li class="nav-item active" data-bs-toggle="pill" data-bs-target="#tab_fields">
+                    <li class="nav-item @if(!$tab_number){{ "active" }}@endif" data-bs-toggle="pill" data-bs-target="#tab_fields">
                         Use car details
                     </li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade " id="tab_number">
+                    <div class="tab-pane fade @if($tab_number){{ "show active" }}@endif" id="tab_number">
                         <form id="booking_car_form" method="post" action="{{ route('getcardetails') }}">
                             @csrf
                             <div class="form_wrap has-icon car-icon mb-3">
@@ -55,7 +55,7 @@
                         </form>
                     </div>
 
-                    <div class="tab-pane fade show active" id="tab_fields">
+                    <div class="tab-pane fade @if(!$tab_number){{ "show active" }}@endif" id="tab_fields">
                         <form id="booking_car_form" method="post" action="{{route('bookingcar')}}">
                             @csrf
                             <div class="form-wrap mb-3">

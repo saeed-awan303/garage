@@ -46,15 +46,15 @@ class HomeController extends Controller
     }
     public function bookingCar(Request $request)
     {
-
+        $tab_number=$request->tab_number;
         $makes = Make::all();
         $details=$request->session()->get('details');
         //return $details;
-        return view('frontend.booking_car',compact('makes','details'));
+        return view('frontend.booking_car',compact('makes','details','tab_number'));
     }
     public function getCarDetails(Request $request)
     {
-        //return $request->all();
+       // return $request->all();
         $response = Http::withHeaders([
             'x-api-key' => 'Qz9ebddeAh9EIecznaMvF6xFFRpQZJVF7DznIg7f',
             'Content-Type' => 'application/json',
@@ -64,24 +64,12 @@ class HomeController extends Controller
         ]);
 
         if ($response->successful()) {
-            //return $response;
+
             $data=json_decode($response);
-            if(!Make::where('title',$data->make)->exists() && !FuelType::where('title',$data->fuelType)->exists()){
-                $make=new Make();
-                $make->title=$data->make;
-                $make->save();
-                $make_id=$make->id;
-                $fuel_type=new fuelType();
-                $fuel_type->title=$data->fuelType;
-                $fuel_type->model_id=1;
-                $fuel_type->save();
-                $fuel_type_id=$fuel_type->id;
-            }
-            else
-            {
-                $make_id=Make::where('title',$data->make)->pluck('id')->firstOrFail();
-                $fuel_type_id=fuelType::where('title',$data->fuelType)->pluck('id')->firstOrFail();
-            }
+            $make = Make::firstOrCreate(['title' => $data->make]);
+            $make_id = $make->id;
+            $fuelType = fuelType::firstOrCreate(['title' => $data->fuelType,'model_id'=>1]);
+            $fuel_type_id = $fuelType->id;
             $data=array(
                 'make'=>$make_id,
                 'model'=>1,
