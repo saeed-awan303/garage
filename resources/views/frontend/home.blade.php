@@ -11,20 +11,21 @@
                     <div class="col-xl-7 hero_section_content text-center text-xl-start">
                         <h1 class="hero_title">Car repair & servicing made easy</h1>
                         <p class="mt-3">A fair price in seconds, mechanics you can trust, next-day service <strong>at your door</strong></p>
-                        <form class="hero_form_booking mt-3" action="">
+                        <form class="hero_form_booking mt-3" method="post" action="{{ route('getcardetails') }}">
+                            @csrf
                             <div class="hero_form_row d-flex flex-column flex-lg-row">
                                 <div class="col-lg-6 px-2 py-2 py-xl-0">
                                     <div class="hero_form_wrap has-icon car-icon">
-                                        <input type="text" class="form-control" placeholder="Your car reg" name="car_attributes" required="required">
+                                        <input type="text" class="form-control" placeholder="Your car reg" name="reg" required="required">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 px-2 py-2 py-xl-0">
                                     <div class="hero_form_wrap has-icon location-pin">
-                                        <input type="text" class="form-control" placeholder="Your postcode" name="customer_postcode" required="required">
+                                        <input type="text" class="form-control" placeholder="Your postcode" name="postcode" required="required">
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{route('bookingcar')}}"><button class="btn btn-secondary text-uppercase mt-3" type="button">Get my instant price →</button></a>
+                            <button class="btn btn-secondary text-uppercase mt-3" type="submit">Get my instant price →</button></a>
                             <div class="">
                                 <a class="select-by-fields ms-lg-2 mt-2 d-inline-block" href="#">I don't know my registration number →</a>
                             </div>
@@ -277,16 +278,17 @@
                         <p class="call_to_action_subtitle">Get an instant quote, then book a vetted mechanic to fix your car at your home or office.</p>
                     </div>
                     <div class="col-md-9">
-                        <form class="cto_form_booking" action="booking_car.html">
+                        <form class="cto_form_booking" method="post" action="{{ route('getcardetails') }}">
+                            @csrf
                             <div class="d-flex flex-column flex-lg-row">
                                 <div class="col-lg-6 px-2 py-2 py-xl-0">
                                     <div class="form_wrap has-icon car-icon">
-                                        <input type="text" class="form-control" placeholder="Your car reg" name="car_attributes" required="required">
+                                        <input type="text" class="form-control" placeholder="Your car reg" name="reg" required="required">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 px-2 py-2 py-xl-0">
                                     <div class="form_wrap has-icon location-pin">
-                                        <input type="text" class="form-control" placeholder="Your postcode" name="customer_postcode" required="required">
+                                        <input type="text" class="form-control" placeholder="Your postcode" name="postcode" required="required">
                                     </div>
                                 </div>
                             </div>
