@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h2 class="mb-5">Book a trusted mechanic today</h2>
-                    <a class="btn btn-primary fw-bold btn_md" href="booking_car.html">Get started</a>
+                    <a class="btn btn-primary fw-bold btn_md" href="{{ route('bookingcar') }}">Get started</a>
                 </div>
             </div>
         </div>
