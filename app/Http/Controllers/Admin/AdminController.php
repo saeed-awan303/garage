@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 
@@ -27,8 +29,26 @@ class AdminController extends Controller
         })->map(function ($groupedOrders) {
             return $groupedOrders->count();
         });
+        $currentYear = Carbon::now()->year;
 
-        return view('admin.dashboard.index',compact('title','usersCount','orderCount','orderData'));
+        $months = range(1, 12); // Array of month numbers from 1 to 12
+
+        $userRegistrations = User::whereYear('created_at', $currentYear)
+        ->selectRaw("COUNT(*) as count, MONTH(created_at) as month")
+        ->groupBy('month')
+        ->pluck('count', 'month')
+        ->toArray();
+
+    $clientCounts = [];
+    $maxUsersCount = 0;
+    for ($month = 1; $month <= 12; $month++) {
+        $clientCounts[] = $userRegistrations[$month] ?? 0;
+        $count = $userRegistrations[$month] ?? 0;
+        $maxUsersCount = max($maxUsersCount, $count);
+    }
+
+        $clientCounts=json_encode($clientCounts);
+        return view('admin.dashboard.index',compact('title','usersCount','orderCount','orderData','clientCounts','maxUsersCount'));
     }
 
 

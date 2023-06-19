@@ -2048,8 +2048,9 @@ var KTWidgets = function () {
 
         var options = {
             series: [{
-                name: 'Net Profit',
-                data: [30, 45, 32, 70, 40, 40, 40]
+                name: 'Clients',
+                // data: [30, 45, 32, 70, 40, 40, 40]
+                data: clientCounts
             }],
             chart: {
                 type: 'area',
@@ -2118,7 +2119,9 @@ var KTWidgets = function () {
             },
             yaxis: {
                 min: 0,
-                max: 80,
+                // max: 80,
+                max: maxUsersCount,
+
                 labels: {
                     show: false,
                     style: {
@@ -2156,7 +2159,7 @@ var KTWidgets = function () {
                 },
                 y: {
                     formatter: function (val) {
-                        return "$" + val + " thousands"
+                        return  val + " New clients"
                     }
                 },
                 marker: {
@@ -2230,7 +2233,7 @@ var KTWidgets = function () {
                 colors: [strokeColor]
             },
             xaxis: {
-                categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                categories: ['Jan','Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
                 axisBorder: {
                     show: false,
                 },
